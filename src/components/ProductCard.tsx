@@ -4,7 +4,7 @@ import AdjustButton from "./AdjustButton";
 
 const ProductCard = () => {
   return (
-    <View className="flex h-[100] flex-row justify-center items-center mx-[25] mb-[25]">
+    <View className="flex h-[100] flex-row justify-center items-center mx-2 mb-[25]">
       <Image
         source={{ uri: "https://picsum.photos/70" }}
         className=" w-[80px] h-[80px] rounded-lg resize-stretch mr-[33]"
@@ -33,12 +33,12 @@ const ProductCard = () => {
         </View>
       </View>
 
-      <View className=" w-[70px] ml-7 mr-3  items-end">
+      <View className=" w-[90px] ml-7 mr-3  items-end">
         <Text className=" mb-[57] mx-2 ">X</Text>
         <Text
           className=" text-[#181725] text-center items-center 
-        text-base flex font-bold truncate "        >
-          100.000đ
+        text-base flex font-bold flex-grow "        >
+          10000000
         </Text>
       </View>
     </View>
