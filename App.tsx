@@ -1,14 +1,25 @@
 
 import React from 'react';
 import { View } from 'react-native';
-import Button from './src/components/Button';
-import { Icon } from '@rneui/base';
-import AdjustButton from './src/components/AdjustButton';
+import ProductCard from './src/components/ProductCard';
+import { useFonts } from 'expo-font';
+import { Inter_400Regular, Inter_500Medium, Inter_600SemiBold, Inter_700Bold } from '@expo-google-fonts/inter';
+
 export default function App() {
+  let [fontLoaded] = useFonts({
+    Inter_400Regular,
+    Inter_500Medium,
+    Inter_600SemiBold,
+    Inter_700Bold,
+  });
+
+  if(!fontLoaded) {
+    return null;
+  }
+
   return (
     <View className="flex-1 items-center justify-center bg-white">
-      <Button title='Press me' onPress={() => console.log('Button pressed')} width={1000} height={50} />
-        <AdjustButton type='minus' onPress={()=>console.log('pressed')} />
+      <ProductCard />
     </View>
   );
 }

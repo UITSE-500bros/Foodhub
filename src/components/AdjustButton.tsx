@@ -6,15 +6,16 @@ import { styled } from "nativewind";
 type AdjustButtonProps = {
     onPress: () => void;
     type: "plus" | "minus";
+    size: number;
     };
 
 
-const AdjustButton = ({onPress,type}:AdjustButtonProps) => {
+const AdjustButton = ({onPress,type,size}:AdjustButtonProps) => {
   return (
     <TouchableOpacity className="border-2 border-[#E2E2E2] rounded-full p-1 justify-center items-center"
-        onPress={() => console.log("Button pressed")}    
+        onPress={onPress}    
     >
-      <Icon name={type} type="antdesign" size={30} color="#53B175" />
+      <Icon name={type} type="antdesign" size={size} color="#53B175" />
     </TouchableOpacity>
   );
 };
