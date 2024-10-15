@@ -4,6 +4,7 @@ import { View } from 'react-native';
 import ProductCard from './src/components/ProductCard';
 import { useFonts } from 'expo-font';
 import { Inter_400Regular, Inter_500Medium, Inter_600SemiBold, Inter_700Bold } from '@expo-google-fonts/inter';
+import ProductCardSquare from './src/components/ProductCardSquare';
 
 export default function App() {
   let [fontLoaded] = useFonts({
@@ -19,7 +20,7 @@ export default function App() {
 
   return (
     <View className="flex-1 items-center justify-center bg-white">
-      <ProductCard />
+      <ProductCardSquare />
     </View>
   );
 }
