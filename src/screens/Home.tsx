@@ -5,7 +5,7 @@ import { View } from 'react-native'
 const Home = () => {
   return (
     <View>
-      <Productdetail />
+      <Category />
     </View>
   )
 }
