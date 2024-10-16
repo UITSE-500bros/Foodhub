@@ -8,21 +8,19 @@ import Icon from "react-native-vector-icons/MaterialIcons";
 const Home = () => {
   return (
     <ScrollView className="flex flex-col w-full mt-8">
-      
       <View className="items-center mt-7 ">
-      <Image
-          source={{ uri: "https://picsum.photos/30" }}
-          className="w-[30px] h-[30px]"
+        <Image
+          source={require("../../assets/logo.png")}
+          className="w-[30px] h-[30px] "
         />
-        <View className="flex flex-row items-center justify-center">
+        <View className="flex flex-row items-center justify-center m-3 ">
           <Icon name="location-on" size={15} color="#181725" />
           <Text className="text-[#4C4F4D] text-center text-lg font-semibold">
             Linh Trung, Thủ Đức
           </Text>
         </View>
-
-        
       </View>
+      
       {/* search bar */}
       <View className="w-full h-[52px] px-4 bg-white">
         <Searchbar
@@ -35,6 +33,13 @@ const Home = () => {
             width: "100%",
           }}
         />
+      </View>
+      <View className="flex m-4 flex-grow h-[115]">
+        <Image
+          source={require("../../assets/banner.png")}
+          className="w-full h-full"
+        />
+
       </View>
 
       {/* product cards */}
