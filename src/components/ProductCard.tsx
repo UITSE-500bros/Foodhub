@@ -2,7 +2,11 @@ import { View, Text, Image } from "react-native";
 import React from "react";
 import AdjustButton from "./AdjustButton";
 
-const ProductCard = () => {
+interface ProductCardProps {
+  adjust: boolean;
+}
+
+const ProductCard: React.FC<ProductCardProps> = ({ adjust }) => {
   return (
     <View className="flex h-[100] flex-row justify-center items-center mx-2 mb-[25]">
       <Image
@@ -16,21 +20,25 @@ const ProductCard = () => {
         <Text className=" text-[#7C7C7C] text-sm mb-3">
           Unit of measurement
         </Text>
-        <View className="flex flex-row items-center justify-center">
-          <AdjustButton
-            type="minus"
-            onPress={() => console.log("minus")}
-            size={20}
-          />
-          <Text className=" font-bold text-center px-5 justify-center items-center ">
-            1
-          </Text>
-          <AdjustButton
-            type="plus"
-            onPress={() => console.log("plus")}
-            size={20}
-          />
-        </View>
+        {
+          adjust && (
+            <View className="flex flex-row items-center justify-center">
+              <AdjustButton
+                type="minus"
+                onPress={() => console.log("minus")}
+                size={20}
+              />
+              <Text className=" font-bold text-center px-5 justify-center items-center ">
+                1
+              </Text>
+              <AdjustButton
+                type="plus"
+                onPress={() => console.log("plus")}
+                size={20}
+              />
+            </View>
+          )
+        }
       </View>
 
       <View className=" w-[90px] ml-7 mr-3  items-end">
