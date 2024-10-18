@@ -1,7 +1,7 @@
 import { View, Text, Image, StyleSheet, ScrollView } from "react-native";
 import React from "react";
 import { Button, Searchbar } from "react-native-paper";
-import ProductCarousel from "../components/ProductCarousel";
+import ProductCarousel from "../components/Carousels/ProductCarousel";
 
 import Icon from "react-native-vector-icons/MaterialIcons";
 
@@ -20,7 +20,7 @@ const Home = () => {
           </Text>
         </View>
       </View>
-      
+
       {/* search bar */}
       <View className="w-full h-[52px] px-4 bg-white">
         <Searchbar
@@ -39,7 +39,6 @@ const Home = () => {
           source={require("../../assets/banner.png")}
           className="w-full h-full"
         />
-
       </View>
 
       {/* product cards */}

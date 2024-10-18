@@ -1,6 +1,6 @@
 import { View, Text, Image } from "react-native";
 import React from "react";
-import AdjustButton from "./AdjustButton";
+import AdjustButton from "../Button/AdjustButton"
 
 interface ProductCardProps {
   adjust: boolean;
