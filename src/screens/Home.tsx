@@ -4,6 +4,7 @@ import { Button, Searchbar } from "react-native-paper";
 import ProductCarousel from "../components/Carousels/ProductCarousel";
 
 import Icon from "react-native-vector-icons/MaterialIcons";
+import ImageCarousel from "../components/Carousels/ImageCarousel";
 
 const Home = () => {
   return (
@@ -34,11 +35,9 @@ const Home = () => {
           }}
         />
       </View>
+      {/* image carousel */}
       <View className="flex m-4 flex-grow h-[115]">
-        <Image
-          source={require("../../assets/banner.png")}
-          className="w-full h-full"
-        />
+        <ImageCarousel />
       </View>
 
       {/* product cards */}
