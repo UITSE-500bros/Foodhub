@@ -1,9 +1,17 @@
-import Quantity from "./Quantity";
-import Productdetail from "./Productdetail";
 import Category from "./Category";
-import { ProductCarousel,ImageCarousel } from "./Carousels";
-import { Button,AdjustButton } from "./Button";
-import { ProductCard,ProductCardSquare } from "./Cards";
+import ProductCard from "./Cards/ProductCard";
+import ProductCarousel from "./Carousels/ProductCarousel"
+import ImageCarousel from "./Carousels/ImageCarousel";
+import Button from "./Button/Button";
+import AdjustButton from "./Button/AdjustButton";
+import ProductCardSquare from "./Cards/ProductCardSquare";
 
-export { Quantity,Productdetail,Category,ProductCarousel,
-    ImageCarousel,Button,AdjustButton,ProductCard,ProductCardSquare };
+export { 
+    Category,
+    ProductCarousel,
+    ImageCarousel,
+    Button,
+    AdjustButton,
+    ProductCard,
+    ProductCardSquare 
+};

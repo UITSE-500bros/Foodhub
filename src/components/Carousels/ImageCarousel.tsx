@@ -1,43 +1,54 @@
-import { View, Text, FlatList, Image, Dimensions } from "react-native";
-import React, { useState } from "react";
+import { View, FlatList, Image, StyleSheet } from 'react-native';
+import React, { useState, useEffect } from 'react';
 
 const ImageCarousel = () => {
-  const Images = [
-    { id: 1, uri: "https://picsum.photos/400/115?random=1" },
-    { id: 2, uri: "https://picsum.photos/400/115?random=2" },
-    { id: 3, uri: "https://picsum.photos/400/115?random=3" },
-    { id: 4, uri: "https://picsum.photos/400/115?random=4" },
-    { id: 5, uri: "https://picsum.photos/400/115?random=5" },
-    { id: 6, uri: "https://picsum.photos/400/115?random=6" },
-  ];
-  const width = Dimensions.get("window").width;
+  const [images, setImages] = useState<string[]>([]);
+
+  useEffect(() => {
+    const fetchImages = async () => {
+      const imageUrls = Array.from({ length: 4 }, () => `https://picsum.photos/300/115?random=${Math.random()}`);
+      await Promise.all(imageUrls.map(url => Image.prefetch(url)));
+      setImages(imageUrls);
+    };
+
+    fetchImages();
+  }, []);
 
   return (
-    <View className="w-full mx-3">
+    <View style={styles.container}>
       <FlatList
-        data={Images}
-        renderItem={({ item }) => {
-          return (
-            <View
-              style={{
-                width: width,
-                gap: 10,
-                justifyContent: "center",
-                alignItems: "center",
-              }}
-            >
-              <Image source={{ uri: item.uri } }
-              className=" w-[400px] h-[115px]" />
-            </View>
-          );
-        }}
-        keyExtractor={(item) => item.id.toString()}
+        data={images}
+        renderItem={({ item }) => (
+          <View style={styles.imageContainer}>
+            <Image
+              source={{ uri: item }}
+              style={styles.image}
+              resizeMode="cover"
+            />
+          </View>
+        )}
+        keyExtractor={(item, index) => index.toString()}
         horizontal
+        initialNumToRender={2}
         showsHorizontalScrollIndicator={false}
-       
       />
     </View>
   );
 };
+
+const styles = StyleSheet.create({
+  container: {
+    width: '100%',
+    marginHorizontal: 12,
+  },
+  imageContainer: {
+    marginRight: 10,
+  },
+  image: {
+    width: 400,
+    height: 115,
+    borderRadius: 10,
+  },
+});
 
 export default ImageCarousel;
