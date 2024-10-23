@@ -4,6 +4,7 @@ import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { Image, ScrollView, TouchableOpacity, View, Text } from 'react-native'
 import { TextInput } from 'react-native-paper'
 import { Checkbox } from 'react-native-paper';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
 
 const Search = () => {
     const [searchQuery, setSearchQuery] = useState('');
@@ -34,7 +35,7 @@ const Search = () => {
         filterBottomSheetModal.current?.dismiss();
     };
     return (
-        
+        <GestureHandlerRootView>
             <BottomSheetModalProvider>
                 <View className='flex flex-row mt-11 pl-6 items-center'>
                     <TextInput
@@ -58,7 +59,7 @@ const Search = () => {
                         right={
                             <TextInput.Icon
                             icon={() => (
-                            <Icon name='x-circle' type='feather' onPress={onChangeClear} className='w-6 h-6'/>
+                            <Icon name='x-circle' type='feather' onPress={onChangeClear} style={{width:24,height:24}}/>
                             )}
                         />
                         }
@@ -96,6 +97,7 @@ const Search = () => {
                     </BottomSheetView>
                 </BottomSheetModal>
             </BottomSheetModalProvider>
+        </GestureHandlerRootView>
   )
 }
 
