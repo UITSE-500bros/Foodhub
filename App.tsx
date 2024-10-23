@@ -7,6 +7,7 @@ import * as Font from "expo-font";
 import Home from "./src/screens/Home";
 import Explore from "./src/screens/Explore";
 import CatagoryDetail from "./src/screens/CatagoryDetail";
+import Cart from "./src/screens/Cart";
 
 const loadFonts = async () => {
   await Font.loadAsync({
@@ -29,7 +30,7 @@ export default function App() {
 
   return (
     <View className="flex-1 items-center justify-center bg-white">
-     <CatagoryDetail />
+     <Cart />
     </View>
   );
 }
