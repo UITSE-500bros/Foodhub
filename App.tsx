@@ -6,12 +6,13 @@ import * as Font from "expo-font";
 
 import Home from "./src/screens/Home";
 import Explore from "./src/screens/Explore";
-import CatagoryDetail from "./src/screens/CategoryDetail";
+
 import Cart from "./src/screens/Cart";
 import Favorite from "./src/screens/Favorite";
 import Productdetail from "./src/screens/Productdetail";
 import Search from "./src/screens/Search";
 import { SafeAreaProvider } from "react-native-safe-area-context";
+import CategoryDetail from "./src/screens/CategoryDetail";
 
 const loadFonts = async () => {
   await Font.loadAsync({
@@ -33,13 +34,11 @@ export default function App() {
   return (
     <SafeAreaProvider>
       <View className="flex-1 items-center justify-center bg-white">
-        <Home />
-        {/* <Explore /> */}
-        {/* <CatagoryDetail /> */}
-        {/* <Cart /> */}
-        {/* <Favorite /> */}
+        {/* <Home /> */}
         {/* <Productdetail /> */}
-        {/* <Search/> */}
+        {/* <Explore /> */}
+        {/* <CategoryDetail /> */}
+         {/* <Cart /> */}
       </View>
     </SafeAreaProvider>
   );

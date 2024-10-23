@@ -2,7 +2,7 @@ import { View, Text, FlatList, Dimensions } from "react-native";
 import React from "react";
 import { Button, ProductCard } from "../components";
 
-const data = [1, 2, 3, 4, 5, 6];
+const data = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 const width = Dimensions.get("window").width;
 
 const Cart = () => {
@@ -23,7 +23,7 @@ const Cart = () => {
           </View>
         )}
       />
-      <View className=" justify-center items-center">
+      <View className=" justify-center items-center my-5">
        <Button
         title="Go to Checkout"
         onPress={() => console.log("Checkout")}
