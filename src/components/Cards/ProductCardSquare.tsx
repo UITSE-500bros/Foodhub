@@ -15,7 +15,7 @@ const ProductCardSquare = () => {
         Organic Banana
       </Text>
       <Text className=" text-[#7C7C7C] text-sm font-[900]  ">
-        7 pieces, Price
+        7 pieces
       </Text>
       <View className=" items-center flex justify-around flex-row mt-7">
         <Text className=" mr-14 text-black text-lg font-semibold tracking-tighter">
