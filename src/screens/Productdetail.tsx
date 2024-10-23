@@ -1,7 +1,6 @@
 import { View, Text, Image, TouchableOpacity } from 'react-native'
 import React, { useEffect } from 'react'
-import Quantity from '../components/Quantity'
-
+import AdjustButton from "../components/Button/AdjustButton";
 
 const Productdetail = () => {
   useEffect(() => {
@@ -31,7 +30,21 @@ const Productdetail = () => {
           <Image source={require('../../assets/bookmark.png')} className='' />
         </View>
         <View className='flex flex-row justify-between'>
-          <Quantity />
+          <View className="flex flex-row items-center justify-center">
+            <AdjustButton
+                type="minus"
+                onPress={() => console.log("minus")}
+                size={20}
+            />
+            <Text className=" font-bold text-center px-5 justify-center items-center ">
+              1
+            </Text>
+            <AdjustButton
+                type="plus"
+                onPress={() => console.log("plus")}
+                size={20}
+            />
+          </View>
           <Text className='font-black text-2xl tracking-wide	'>$4.99</Text>
         </View>
         <View className=' h-0.5 bg-black' />

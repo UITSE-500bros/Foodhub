@@ -1,30 +1,27 @@
 import {BottomSheetModal , BottomSheetModalProvider, BottomSheetView} from '@gorhom/bottom-sheet'
 import { Icon } from '@rneui/themed'
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react'
-import { Image, ScrollView, TouchableOpacity, View, Text } from 'react-native'
+import { Image, ScrollView, TouchableOpacity, View, Text, FlatList } from 'react-native'
 import { TextInput } from 'react-native-paper'
 import { Checkbox } from 'react-native-paper';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
+import ExploreCard from '../components/Cards/ExploreCard'
+import {ProductCardSquare} from "../components";
 
 const Search = () => {
     const [searchQuery, setSearchQuery] = useState('');
     const onChangeSearch = (query: string) => setSearchQuery(query);
     const onChangeClear = () => setSearchQuery('');
 
-    const [data, setData] = useState([]);
+    const data = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15];
     useEffect(() => {
-        fetch('https://jsonplaceholder.typicode.com/posts')
-            .then((response) => response.json())
-            .then((json) => setData(json))
-            .catch((error) => console.error(error))
+
     }, []);
-    
-    
+
     const filterBottomSheetModal = useRef<BottomSheetModal>(null);
     const [filterVisible, setFilterVisible] = useState(false);
 
     const snapPoints = useMemo(() => ['25%', '50%'], []);
-
     // callbacks
     const handleFilterPress = useCallback(() => {
         filterBottomSheetModal.current?.present();
@@ -68,19 +65,20 @@ const Search = () => {
                         <Image source={require('../../assets/filter.png')} className='w-6 h-6'/>
                     </TouchableOpacity>
                 </View>
-                <ScrollView>
-                    {
-                        data && data.map((item: any, index: number) => (
-                            <View key={index} className='flex flex-row items-center justify-between p-5 border-b border-gray-100'>
-                                <View className='flex flex-col'>
-                                    <Text className='text-lg font-bold'>{item.title}</Text>
-                                    <Text className='text-sm'>{item.body}</Text>
+                {
+                    data && (
+                        <FlatList
+                            data={data}
+                            keyExtractor={(item) => item.toString()}
+                            numColumns={2}
+                            renderItem={({ item }) => (
+                                <View className=" m-3">
+                                    <ProductCardSquare />
                                 </View>
-                                
-                            </View>
-                        ))
-                    }
-                </ScrollView>
+                            )}
+                        />
+                    )
+                }
                 <BottomSheetModal
                     ref={filterBottomSheetModal}
                     index={1}
