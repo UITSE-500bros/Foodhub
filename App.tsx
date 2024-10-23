@@ -1,18 +1,7 @@
-import React, { useEffect, useState } from "react";
-import { View } from "react-native";
-import { useFonts } from "expo-font";
-import AppLoading from "expo-app-loading";
+import React, {useEffect, useState} from "react";
 import * as Font from "expo-font";
-
-import Home from "./src/screens/Home";
-import Explore from "./src/screens/Explore";
-
-import Cart from "./src/screens/Cart";
-import Favorite from "./src/screens/Favorite";
-import Productdetail from "./src/screens/Productdetail";
-import Search from "./src/screens/Search";
-import { SafeAreaProvider } from "react-native-safe-area-context";
-import CategoryDetail from "./src/screens/CategoryDetail";
+import {SafeAreaProvider} from "react-native-safe-area-context";
+import {ProductDetail,Home,Explore,CategoryDetail,Favorite,Cart,Search } from "./src/screens"
 
 const loadFonts = async () => {
   await Font.loadAsync({
@@ -28,18 +17,18 @@ export default function App() {
   }, []);
 
   if (!fontsLoaded) {
-    return <AppLoading />;
+    return null;
   }
 
   return (
     <SafeAreaProvider>
-      <View className="flex-1 items-center justify-center bg-white">
-        {/* <Home /> */}
-        {/* <Productdetail /> */}
-        {/* <Explore /> */}
-        {/* <CategoryDetail /> */}
-         {/* <Cart /> */}
-      </View>
+      {/*<Productdetail />*/}
+      {/* <Home /> */}
+      {/* <Explore /> */}
+      {/* <CategoryDetail/>*/}
+      {/* <Cart /> */}
+      {/*<Favorite />*/}
+      {/* <Search />*/}
     </SafeAreaProvider>
   );
 }
