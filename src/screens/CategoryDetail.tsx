@@ -4,7 +4,7 @@ import { ProductCardSquare } from "../components";
 import { Icon, IconButton } from "react-native-paper";
 
 const data = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15];
-const CatagoryDetail = () => {
+const CategoryDetail = () => {
   return (
     <View>
       <View className=" flex-row flex justify-between items-center mt-10">
@@ -37,4 +37,4 @@ const CatagoryDetail = () => {
   );
 };
 
-export default CatagoryDetail;
+export default CategoryDetail;
