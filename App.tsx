@@ -33,7 +33,13 @@ export default function App() {
   return (
     <SafeAreaProvider>
       <View className="flex-1 items-center justify-center bg-white">
-        <Explore />
+        <Home />
+        {/* <Explore /> */}
+        {/* <CatagoryDetail /> */}
+        {/* <Cart /> */}
+        {/* <Favorite /> */}
+        {/* <Productdetail /> */}
+        {/* <Search/> */}
       </View>
     </SafeAreaProvider>
   );
