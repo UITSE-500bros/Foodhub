@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from "react";
 import * as Font from "expo-font";
 import {SafeAreaProvider} from "react-native-safe-area-context";
-import {ProductDetail,Home,Explore,CategoryDetail,Favorite,Cart,Search } from "./src/screens"
+import {ProductDetail,Home,Explore,CategoryDetail,Favorite,Cart,Search,Checkout } from "./src/screens"
 import { Category } from "./src/components";
 
 const loadFonts = async () => {
@@ -30,6 +30,7 @@ export default function App() {
       {/* <Cart /> */}
       {/*<Favorite />*/}
       {/* <Search />*/}
+      <Checkout />
     </SafeAreaProvider>
   );
 }

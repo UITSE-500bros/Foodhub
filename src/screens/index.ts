@@ -5,6 +5,7 @@ import Favorite from "./Favorite";
 import ProductDetail from "./Productdetail";
 import Search from "./Search";
 import Explore from "./Explore";
+import Checkout from "./Checkout";
 export {
     Home,
     CategoryDetail,
@@ -12,5 +13,6 @@ export {
     Favorite,
     ProductDetail,
     Search,
-    Explore
+    Explore,
+    Checkout
 };
