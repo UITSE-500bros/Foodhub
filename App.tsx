@@ -30,7 +30,6 @@ export default function App() {
       {/* <Cart /> */}
       {/*<Favorite />*/}
       {/* <Search />*/}
-      <Checkout />
       <Cart />
     </SafeAreaProvider>
   );
