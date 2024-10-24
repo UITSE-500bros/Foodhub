@@ -23,13 +23,7 @@ export default function App() {
 
   return (
     <SafeAreaProvider>
-      {/*<Productdetail />*/}
-      {/* <Home /> */}
-      {/* <Explore /> */}
-      {/* <CategoryDetail/>*/}
-      {/* <Cart /> */}
-      {/*<Favorite />*/}
-      {/* <Search />*/}
+      <Cart />
     </SafeAreaProvider>
   );
 }
