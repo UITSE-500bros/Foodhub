@@ -5,7 +5,7 @@ import Favorite from "./Favorite";
 import ProductDetail from "./Productdetail";
 import Search from "./Search";
 import Explore from "./Explore";
-import Checkout from "./Checkout";
+import Accepted from "./Accepted";
 export {
     Home,
     CategoryDetail,
@@ -14,5 +14,5 @@ export {
     ProductDetail,
     Search,
     Explore,
-    Checkout
+    Accepted
 };
