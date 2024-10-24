@@ -31,6 +31,7 @@ export default function App() {
       {/*<Favorite />*/}
       {/* <Search />*/}
       <Checkout />
+      <Cart />
     </SafeAreaProvider>
   );
 }
