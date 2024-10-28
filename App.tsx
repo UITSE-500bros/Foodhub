@@ -3,6 +3,7 @@ import * as Font from "expo-font";
 import {SafeAreaProvider} from "react-native-safe-area-context";
 import {ProductDetail,Home,Explore,CategoryDetail,Favorite,Cart,Search } from "./src/screens"
 import { Category } from "./src/components";
+import NumberVerification from "./src/screens/NumberVerification";
 
 const loadFonts = async () => {
   await Font.loadAsync({
@@ -23,7 +24,7 @@ export default function App() {
 
   return (
     <SafeAreaProvider>
-      <Cart />
+    <NumberVerification/>
     </SafeAreaProvider>
   );
 }
