@@ -1,2 +1,2 @@
-import NumberVerification from "./NumberVerification";
-export default NumberVerification;
+import PhoneNumber from "./PhoneNumber";
+export default PhoneNumber;
