@@ -1,26 +1,28 @@
+import { TouchableOpacity } from "@gorhom/bottom-sheet";
 import React, { useState } from "react";
 import {
   View,
   Text,
-  TextInput,
-  Button,
   KeyboardAvoidingView,
   Platform,
   StyleSheet,
   TouchableWithoutFeedback,
   Keyboard,
 } from "react-native";
-import { IconButton, TextInput as PaperTextInput } from "react-native-paper";
+import {
+  Button,
+  IconButton,
+  TextInput as PaperTextInput,
+} from "react-native-paper";
 
-const PhoneNumber = () => {
+const ValidateCode = () => {
   const [number, setNumber] = useState("");
 
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-      <KeyboardAvoidingView 
+      <KeyboardAvoidingView
         style={styles.container}
         behavior={Platform.OS === "ios" ? "padding" : "height"}
-
       >
         <View style={styles.innerContainer}>
           <Text style={styles.title}>Enter your mobile number</Text>
@@ -33,7 +35,14 @@ const PhoneNumber = () => {
             style={styles.textInput}
             placeholder="Enter your mobile number"
           />
-          <View className=" flex  ">
+          <View className=" flex flex-row justify-between w-full  ">
+            <Button children="Resend code"
+                textColor="#53B175"
+                labelStyle={{fontSize:18,
+                    fontWeight:"900",
+                    lineHeight:29,
+                }}
+            ></Button>
             <IconButton
               icon="arrow-right"
               iconColor="#fff"
@@ -70,4 +79,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default PhoneNumber;
+export default ValidateCode;

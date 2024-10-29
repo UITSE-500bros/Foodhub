@@ -3,8 +3,9 @@ import * as Font from "expo-font";
 import {SafeAreaProvider} from "react-native-safe-area-context";
 import {ProductDetail,Home,Explore,CategoryDetail,Favorite,Cart,Search } from "./src/screens"
 import { Category } from "./src/components";
-import NumberVerification from "./src/screens/NumberVerification";
-import PhoneNumber from "./src/screens/NumberVerification";
+import NumberVerification from "./src/screens/PhoneNumber";
+import PhoneNumber from "./src/screens/PhoneNumber";
+import ValidateCode from "./src/screens/ValidateCode";
 
 const loadFonts = async () => {
   await Font.loadAsync({
@@ -25,7 +26,7 @@ export default function App() {
 
   return (
     <SafeAreaProvider>
-      <PhoneNumber />
+      <ValidateCode />
 
     </SafeAreaProvider>
   );
