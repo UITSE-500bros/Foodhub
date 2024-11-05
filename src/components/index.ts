@@ -1,4 +1,4 @@
-import Category from "./Category";
+import Category from "./Category/Category";
 import ProductCard from "./Cards/ProductCard";
 import ProductCarousel from "./Carousels/ProductCarousel"
 import ImageCarousel from "./Carousels/ImageCarousel";

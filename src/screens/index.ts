@@ -1,18 +1,18 @@
 import Home from "./Home";
-import CategoryDetail from "./CategoryDetail";
+import CategoryDetail from "./CategoryDetail/CategoryDetail";
 import Cart from "./Cart";
 import Favorite from "./Favorite";
 import ProductDetail from "./Productdetail";
 import Search from "./Search";
 import Explore from "./Explore";
-import Accepted from "./Accepted";
+import Accepted from "./Accepted/Accepted";
 export {
-    Home,
-    CategoryDetail,
-    Cart,
-    Favorite,
-    ProductDetail,
-    Search,
-    Explore,
-    Accepted
+  Home,
+  CategoryDetail,
+  Cart,
+  Favorite,
+  ProductDetail,
+  Search,
+  Explore,
+  Accepted,
 };
