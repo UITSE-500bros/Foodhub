@@ -1,8 +1,7 @@
 import React, {useEffect, useState} from "react";
 import * as Font from "expo-font";
 import {SafeAreaProvider} from "react-native-safe-area-context";
-import {ProductDetail,Home,Explore,CategoryDetail,Favorite,Cart,Search,Accepted } from "./src/screens"
-import { Category } from "./src/components";
+
 const loadFonts = async () => {
   await Font.loadAsync({
     Inter: require("./assets/fonts/Inter-VariableFont_opsz,wght.ttf"),
@@ -22,14 +21,9 @@ export default function App() {
 
   return (
     <SafeAreaProvider>
-      {/*<Productdetail />*/}
-      {/* <Home /> */}
-      {/* <Explore /> */}
-      {/* <CategoryDetail/>*/}
-      {/* <Cart /> */}
-      {/*<Favorite />*/}
-      {/* <Search />*/}
-      <Cart />
+
+      <LocationRegister/>
+
     </SafeAreaProvider>
   );
 }
