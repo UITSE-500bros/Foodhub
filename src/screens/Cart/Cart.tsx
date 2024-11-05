@@ -1,6 +1,6 @@
 import { View, Text, FlatList, Dimensions, TouchableOpacity } from "react-native";
 import React, { useCallback, useMemo, useRef } from "react";
-import { Button, ProductCard } from "../components";
+import { Button, ProductCard } from "../../components";
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { BottomSheetModal, BottomSheetModalProvider, BottomSheetView } from "@gorhom/bottom-sheet";
 import { Icon } from "@rneui/themed";

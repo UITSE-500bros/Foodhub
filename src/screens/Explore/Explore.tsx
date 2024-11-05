@@ -8,7 +8,7 @@ import {
   View,
 } from "react-native";
 import React from "react";
-import ExploreCard from "../components/Cards/ExploreCard";
+import ExploreCard from "../../components/Cards/ExploreCard";
 import { Searchbar } from "react-native-paper";
 
 const width = Dimensions.get("window").width;

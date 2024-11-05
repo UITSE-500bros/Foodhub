@@ -1,6 +1,6 @@
 import { View, Text, ScrollView, TouchableOpacity, FlatList} from 'react-native'
 import React, { useEffect } from 'react'
-import ProductCard from '../components/Cards/ProductCard'
+import ProductCard from '../../components/Cards/ProductCard'
 const data = [1, 2, 3, 4, 5, 6,7,8];
 const Favorite = () => {
   // const [data, setData] = React.useState([])
