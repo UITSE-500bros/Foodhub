@@ -19,7 +19,7 @@ const Favorite = () => {
           </View>
 
           {/* Divider */}
-          <View className="h-[1px] w-full bg-red-600" />
+          <View className="h-[1px] w-full bg-[#E2E2E2]" />
 
           {/* FlatList */}
           <FlatList
