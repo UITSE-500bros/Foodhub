@@ -1,17 +1,17 @@
 import { View, Text, Image, StyleSheet, ScrollView } from "react-native";
 import React from "react";
 import { Button, Searchbar } from "react-native-paper";
-import ProductCarousel from "../components/Carousels/ProductCarousel";
+import ProductCarousel from "../../components/Carousels/ProductCarousel";
 
 import Icon from "react-native-vector-icons/MaterialIcons";
-import ImageCarousel from "../components/Carousels/ImageCarousel";
+import ImageCarousel from "../../components/Carousels/ImageCarousel";
 
 const Home = () => {
   return (
     <ScrollView className="flex flex-col w-full mt-8">
       <View className="items-center mt-7 ">
         <Image
-          source={require("../../assets/logo.png")}
+          source={require("../../../assets/logo.png")}
           className="w-[30px] h-[30px] "
         />
         <View className="flex flex-row items-center justify-center m-3 ">

@@ -8,6 +8,7 @@ interface ButtonProps {
   onPress: () => void;
   width?: number;
   height?: number;
+  style?: any;
 }
 
 const Button: React.FC<ButtonProps> = ({ title, onPress, width, height }) => {
