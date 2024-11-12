@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Modal, Portal, Text, Button, PaperProvider } from 'react-native-paper';
 import { Image, TouchableOpacity, View, ViewStyle } from 'react-native';

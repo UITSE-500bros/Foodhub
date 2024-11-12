@@ -3,7 +3,7 @@ import React from 'react'
 import { Icon } from '@rneui/themed'
 import { Button } from '@rneui/themed'
 
-const Acount = () => {
+const Profile = () => {
   return (
     <View className='pt-[80px] w-full h-[90%] flex justify-between'>
         <View className=''>
@@ -114,4 +114,4 @@ const Acount = () => {
   )
 }
 
-export default Acount
+export default Profile

@@ -4,6 +4,7 @@ import { Button, ProductCard } from "../../components";
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { BottomSheetModal, BottomSheetModalProvider, BottomSheetView } from "@gorhom/bottom-sheet";
 import { Icon } from "@rneui/themed";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 const data = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20];
 const width = Dimensions.get("window").width;
@@ -20,7 +21,7 @@ const Cart = () => {
     return (
         <GestureHandlerRootView>
             <BottomSheetModalProvider>
-                <View className=" relative">
+                <SafeAreaView className=" relative">
                     <View className=" flex justify-center items-center mt-10">
                         <Text className="text-center text-[#181725] text-xl font-black font-['Inter'] ">
                             My Cart
@@ -45,7 +46,7 @@ const Cart = () => {
                             height={60}
                         />
                     </View>
-                </View>
+                </SafeAreaView>
                 <BottomSheetModal
                     ref={CheckoutModal}
                     index={1}

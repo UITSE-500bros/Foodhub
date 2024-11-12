@@ -1,14 +1,14 @@
-import React, { useEffect, useState } from "react";
-import * as Font from "expo-font";
-import { SafeAreaProvider } from "react-native-safe-area-context";
-import LocationRegister from "./src/screens/LocationRegister/LocationRegister";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
-import { NavigationContainer } from "@react-navigation/native";
 import { createMaterialBottomTabNavigator } from "@react-navigation/material-bottom-tabs";
-import Home from "./src/screens/Home";
+import { NavigationContainer } from "@react-navigation/native";
+import * as Font from "expo-font";
+import React, { useEffect, useState } from "react";
+import { SafeAreaProvider } from "react-native-safe-area-context";
 import Cart from "./src/screens/Cart";
-import Favorite from "./src/screens/Favorite";
 import Explore from "./src/screens/Explore";
+import Favorite from "./src/screens/Favorite";
+import Home from "./src/screens/Home";
+import { Profile } from "./src/screens/Profile";
 
 const loadFonts = async () => {
   await Font.loadAsync({
@@ -67,7 +67,7 @@ export default function App() {
             tabBarIcon: ({ color }) => (
               <MaterialCommunityIcons name="heart" color={color} size={26} />),
           }} />
-          <Tab.Screen name="Profile" component={LocationRegister} options={{
+          <Tab.Screen name="Profile" component={Profile} options={{
             tabBarLabel: "Profile",
             tabBarIcon: ({ color }) => (
               <MaterialCommunityIcons name="account" color={color} size={26} />),
