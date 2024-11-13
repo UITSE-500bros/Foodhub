@@ -19,6 +19,8 @@
     "expo-app-loading": "^2.1.1",
     "expo-dev-client": "~4.0.29",
     "expo-font": "~12.0.10",
+    "expo-modules-core": "^2.0.1",
+    "expo-splash-screen": "^0.29.7",
     "expo-status-bar": "~1.12.1",
     "nativewind": "^2.0.11",
     "react": "18.2.0",
