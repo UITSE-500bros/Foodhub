@@ -20,6 +20,7 @@ const Cart = () => {
 
     return (
         <GestureHandlerRootView>
+            
             <BottomSheetModalProvider>
                 <SafeAreaView className=" relative">
                     <View className=" flex justify-center items-center mt-10">
@@ -38,7 +39,7 @@ const Cart = () => {
                             </View>
                         )}
                     />
-                    <View className="justify-center items-center my-5">
+                    <View className="justify-center items-center fixed bottom-0 my-5">
                         <Button
                             title="Go to Checkout"
                             onPress={handleFilterPress}

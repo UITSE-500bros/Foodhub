@@ -29,7 +29,7 @@ const Explore = () => {
 
   return (
     <View className="flex-1 mt-14 flex flex-col justify-start items-center">
-      <Text className="text-black mt-5 text-2xl font-black font-inter">
+      <Text className="text-black mt-5 text-2xl font-black ">
         Find Products
       </Text>
       <Searchbar

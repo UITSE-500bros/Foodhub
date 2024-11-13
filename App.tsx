@@ -10,22 +10,9 @@ import Favorite from "./src/screens/Favorite";
 import Home from "./src/screens/Home";
 import { Profile } from "./src/screens/Profile";
 
-const loadFonts = async () => {
-  await Font.loadAsync({
-    Inter: require("./assets/fonts/Inter-VariableFont_opsz,wght.ttf"),
-  });
-};
+
 
 export default function App() {
-  const [fontsLoaded, setFontsLoaded] = useState(false);
-
-  useEffect(() => {
-    loadFonts().then(() => setFontsLoaded(true));
-  }, []);
-
-  if (!fontsLoaded) {
-    return null;
-  }
   const Tab = createMaterialBottomTabNavigator();
 
   return (

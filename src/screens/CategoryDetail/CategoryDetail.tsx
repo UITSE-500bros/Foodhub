@@ -13,7 +13,7 @@ const CategoryDetail = () => {
           size={30}
           onPress={() => console.log("Pressed")}
         />
-        <Text className="text-black  text-2xl font-black font-inter ">
+        <Text className="text-black  text-2xl font-black  ">
           Fruits
         </Text>
         <IconButton
