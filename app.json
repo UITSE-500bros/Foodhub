@@ -12,7 +12,8 @@
       "backgroundColor": "#ffffff"
     },
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.se121.foodhub"
     },
     "android": {
       "adaptiveIcon": {
@@ -24,11 +25,11 @@
     "web": {
       "favicon": "./assets/favicon.png"
     },
-
     "extra": {
       "eas": {
         "projectId": "77cb0a0b-ccf7-49a2-9fec-422b9482b2ea"
       }
-    }
+    },
+    "owner": "uit-se121"
   }
 }
