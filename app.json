@@ -12,28 +12,24 @@
       "backgroundColor": "#ffffff"
     },
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.se121.foodhub"
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "com.se121.foodhub"
     },
     "web": {
       "favicon": "./assets/favicon.png"
     },
-    "plugins": [
-      [
-        "expo-font",
-        {
-          "fonts": [
-            {
-              "Inter": "./assets/fonts/Inter-VariableFont_opsz,wght.ttf"
-            }
-          ]
-        }
-      ]
-    ]
+    "extra": {
+      "eas": {
+        "projectId": "77cb0a0b-ccf7-49a2-9fec-422b9482b2ea"
+      }
+    },
+    "owner": "uit-se121"
   }
 }

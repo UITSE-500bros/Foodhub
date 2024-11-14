@@ -16,7 +16,7 @@ const ExploreCard: React.FC<ExploreCardProps> = ({ color, title }) => {
         source={require("../../../assets/Vector.png")}
         className="w-[100px] h-[74px] "
       />
-      <Text className="text-black mt-6 flex-wrap text-center text-lg font-inter leading-snug tracking-tight font-black">
+      <Text className="text-black mt-6 flex-wrap text-center text-lg  leading-snug tracking-tight font-black">
         {title}
       </Text>
     </View>

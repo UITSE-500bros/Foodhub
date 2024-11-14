@@ -35,3 +35,4 @@ yarn-error.*
 *.tsbuildinfo
 .idea/caches/deviceStreaming.xml
 .idea/caches/deviceStreaming.xml
+firebaseConfig.js
