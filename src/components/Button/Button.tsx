@@ -14,7 +14,7 @@ interface ButtonProps {
 const Button: React.FC<ButtonProps> = ({ title, onPress, width, height }) => {
   return (
     <TouchableOpacity style={[{ width, height},styles.button]} onPress={onPress}>
-      <Text className=" text-white font-normal font-inter">{title}</Text>
+      <Text className=" text-white font-normal ">{title}</Text>
     </TouchableOpacity>
   );
 };
