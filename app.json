@@ -13,8 +13,7 @@
     },
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.se121.foodhub",
-      "googleServicesFile": "./GoogleService-Info.plist"
+      "bundleIdentifier": "com.se121.foodhub"
     },
 
     "android": {
