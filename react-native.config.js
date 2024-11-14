@@ -1,3 +1,9 @@
 module.exports = {
-    assets: ['./assets/fonts'],
-  };
+  assets: ['./assets/fonts'],
+  project: {
+    ios: {},
+    android: {
+      packageName: 'com.se121.foodhub',
+    },
+  },
+};
