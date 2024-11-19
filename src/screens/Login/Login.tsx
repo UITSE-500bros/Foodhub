@@ -1,12 +1,11 @@
 import { Button } from '@rneui/themed';
 import React from 'react';
 import { Image, Text, View } from 'react-native';
-import { signInWithGoogle } from '../../service/Auth/auth_google_signin';
-import { GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
-import { auth, provider } from '../../../firebaseConfig';
-const Login = () => {
+interface LoginProps {
+    promptAsync: () => void;
+}
 
-
+const Login: React.FC<LoginProps> = ({ promptAsync }) => {
     return (
         <View className='h-full w-full'>
             <Image source={require('../../../assets/maskgroup.png')} className='w-full h-[35%]' />
@@ -60,26 +59,7 @@ const Login = () => {
                         marginVertical: 10,
                     }}
                     onPress={() => {
-                        signInWithPopup(auth, provider)
-                            .then((result) => {
-                                // This gives you a Google Access Token. You can use it to access the Google API.
-                                const credential = GoogleAuthProvider.credentialFromResult(result);
-                                const token = credential ? credential.accessToken : null;
-                                // The signed-in user info.
-                                const user = result.user;
-                                // IdP data available using getAdditionalUserInfo(result)
-                                // ...
-                            }).catch((error) => {
-                                // Handle Errors here.
-                                const errorCode = error.code;
-                                const errorMessage = error.message;
-                                // The email of the user's account used.
-                                const email = error.customData.email;
-                                // The AuthCredential type that was used.
-                                const credential = GoogleAuthProvider.credentialFromError(error);
-                                // ...
-                            });
-
+                        promptAsync();
                     }}
                 />
 

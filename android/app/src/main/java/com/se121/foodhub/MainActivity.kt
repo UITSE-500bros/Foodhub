@@ -1,4 +1,4 @@
-package com.se121.foodhub
+package com.se121.Foodhub
 
 import android.os.Build
 import android.os.Bundle

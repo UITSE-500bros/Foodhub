@@ -24,7 +24,8 @@
         <action android:name="android.intent.action.VIEW"/>
         <category android:name="android.intent.category.DEFAULT"/>
         <category android:name="android.intent.category.BROWSABLE"/>
-        <data android:scheme="com.se121.foodhub"/>
+        <data android:scheme="foodhubse"/>
+        <data android:scheme="com.se121.Foodhub"/>
         <data android:scheme="exp+foodhub"/>
       </intent-filter>
     </activity>
