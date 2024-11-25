@@ -3,7 +3,11 @@ import React from 'react';
 import { Image, Text, View } from 'react-native';
 
 
-const Login = () => {
+interface LoginProps {
+    promptAsync: () => void;
+}
+
+const Login: React.FC<LoginProps> = ({ promptAsync }) => {
     return (
         <View className='h-full w-full'>
             <Image source={require('../../../assets/maskgroup.png')} className='w-full h-[35%]' />
@@ -57,7 +61,7 @@ const Login = () => {
                         marginVertical: 10,
                     }}
                     onPress={() => {
-                        console.log('google')
+                        promptAsync();
                     }}
                 />
 
