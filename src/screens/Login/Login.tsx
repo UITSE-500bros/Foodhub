@@ -1,11 +1,9 @@
 import { Button } from '@rneui/themed';
 import React from 'react';
 import { Image, Text, View } from 'react-native';
-interface LoginProps {
-    promptAsync: () => void;
-}
 
-const Login: React.FC<LoginProps> = ({ promptAsync }) => {
+
+const Login = () => {
     return (
         <View className='h-full w-full'>
             <Image source={require('../../../assets/maskgroup.png')} className='w-full h-[35%]' />
@@ -59,7 +57,7 @@ const Login: React.FC<LoginProps> = ({ promptAsync }) => {
                         marginVertical: 10,
                     }}
                     onPress={() => {
-                        promptAsync();
+                        console.log('google')
                     }}
                 />
 
