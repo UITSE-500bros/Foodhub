@@ -9,7 +9,7 @@ import Explore from "./src/screens/Explore";
 import Cart from "./src/screens/Cart";
 import Favorite from "./src/screens/Favorite";
 import Profile from "./src/screens/Profile";
-import {GOOGLE_ANDROID_CLIENT_ID} from "@env";
+import {GOOGLE_ANDROID_CLIENT_ID , API_URL} from "@env";
 import * as WebBrowser from "expo-web-browser";
 import * as Google from "expo-auth-session/providers/google";
 import AsyncStorage from "@react-native-async-storage/async-storage";
@@ -35,7 +35,6 @@ export default function App() {
 
   async function handleEffect() {
     const user = await getLocalUser();
-    console.log("user", user);
     if (!user) {
       if (response?.type === "success") {
         if (response.authentication) {
@@ -64,10 +63,33 @@ export default function App() {
       );
 
       const user = await response.json();
+      sendUserInfoToServer(user);
       await AsyncStorage.setItem("@user", JSON.stringify(user));
       setUserInfo(user);
     } catch (error) {
 
+    }
+  };
+
+  const sendUserInfoToServer = async (user: any) => {
+    try {
+      let url = API_URL + '/user/auth/google';
+      const response = await fetch(url, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(user),
+      });
+  
+      if (!response.ok) {
+        throw new Error("Failed to send user info to server");
+
+      }
+  
+      console.log("User info sent to server successfully");
+    } catch (error) {
+      console.error("Error sending user info to server:", error);
     }
   };
 
