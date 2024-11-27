@@ -1,0 +1,71 @@
+import { View, Text, TouchableOpacity } from "react-native";
+import React, { useState } from "react";
+import { SafeAreaView } from "react-native-safe-area-context";
+import Radio from "./components/Radio";
+import { TextInput } from "react-native-paper";
+import Item from "./components/Item";
+import { FlatList } from "react-native-gesture-handler";
+
+const Survey = () => {
+  const foodCategories = [
+    "Vegetables",
+    "Fruits",
+    "Meat",
+    "Dairy",
+    "Grains",
+    "Seafood",
+    "Beverages",
+    "Snacks",
+    "Frozen",
+    "Canned",
+    "Bakery",
+  ];
+  const [familyMembers, setFamilyMembers] = useState("");
+  const renderItem = ({ item }: any) => <Item title={item} />;
+  return (
+    <SafeAreaView className="flex gap-5 items-start justify-center flex-col p-6 ">
+      <Text className="text-center text-black text-2xl font-bold leading-loose">
+        Grocery Preferences
+      </Text>
+      <View className="flex flex-row items-center justify-center">
+        <Text className="text-lg mr-6">Are you a vegetarian?</Text>
+        <Radio />
+      </View>
+
+      <View className="flex flex-row items-center ">
+        <Text className=" mr-5 text-black text-lg  ">
+          How many people are in your family?
+        </Text>
+        <TextInput
+          mode="outlined"
+          className="w-[50px] h-[30px] "
+          value={familyMembers.toString()}
+          onChangeText={(text) => setFamilyMembers(text)}
+          keyboardType="numeric"
+        />
+      </View>
+      <View className="h-[300px] w-full">
+        <Text className="text-lg text-black">
+          What type of food do you prefer?
+        </Text>
+
+        <FlatList
+          data={foodCategories}
+          renderItem={renderItem}
+          keyExtractor={(item, index) => index.toString()}
+          numColumns={3}
+          style={{ width: "100%", height: 100 }}
+          columnWrapperStyle={{
+            justifyContent: "space-evenly",
+            alignItems: "center",
+            marginBottom: 10,
+          }}
+          contentContainerStyle={{ paddingHorizontal: 10 }}
+        />
+      </View>
+   
+    </SafeAreaView>
+  );
+};
+
+export default Survey;
