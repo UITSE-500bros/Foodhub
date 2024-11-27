@@ -16,7 +16,6 @@
       "supportsTablet": true,
       "bundleIdentifier": "com.se121.foodhub"
     },
-
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
@@ -24,16 +23,16 @@
       },
       "package": "com.se121.foodhub"
     },
-    
-    "plugins": [
-      
-    ],
+    "plugins": [],
     "web": {
       "favicon": "./assets/favicon.png"
     },
     "extra": {
       "eas": {
         "projectId": "77cb0a0b-ccf7-49a2-9fec-422b9482b2ea"
+      },
+      "google": {
+        "androidClientId": "252512409853-l00cu1u8ragkk8nmevo7sqjf1ebd04j7.apps.googleusercontent.com"
       }
     },
     "owner": "uit-se121"

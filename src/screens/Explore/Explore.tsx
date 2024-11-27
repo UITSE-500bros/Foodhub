@@ -7,25 +7,24 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import ExploreCard from "../../components/Cards/ExploreCard";
 import { Searchbar } from "react-native-paper";
+import { categoriesService } from "../../service";
+import { Category } from "../../models";
 
 const width = Dimensions.get("window").width;
 
 const Explore = () => {
-  const data = [
-    { id: 1, title: "Fruits", color: "red" },
-    { id: 2, title: "Vegetables", color: "green" },
-    { id: 3, title: "Meat", color: "blue" },
-    { id: 4, title: "Fish", color: "yellow" },
-    { id: 5, title: "Dairy", color: "purple" },
-    { id: 6, title: "Beverages", color: "pink" },
-    { id: 7, title: "Snacks", color: "orange" },
-    { id: 8, title: "Bakery", color: "brown" },
-  ];
+  const [data, setData] = useState<Category[]>([]);
+
 
   const [searchQuery, setSearchQuery] = React.useState("");
+  useEffect(() => {
+    categoriesService.getCategories().then(res => {
+      setData(res);
+    });
+  }, []);
 
   return (
     <View className="flex-1 mt-14 flex flex-col justify-start items-center">
@@ -40,16 +39,27 @@ const Explore = () => {
       />
       <FlatList
         data={data}
-        renderItem={({ item }) => (
-          <View className="flex m-[5px]">
-            <TouchableOpacity onPress={() => console.log("Pressed")}>
-              <ExploreCard title={item.title} color={item.color} />
-            </TouchableOpacity>
-          </View>
-        )}
-        keyExtractor={(item) => item.id.toString()}
+        renderItem={({ item }) => {
+          if (item.categoryImage !== null) {
+            return (
+              <View style={{ flex: 1 }}>
+                <ExploreCard
+                  onPress={() => {
+                    console.log("Press");
+                  }}
+                  title={item.categoryName}
+                  color={""}
+                  image={item.categoryImage}
+                />
+              </View>
+            );
+          } else {
+            return null;
+          }
+        }}
+        keyExtractor={(item) => item._id}
         numColumns={2}
-        contentContainerStyle={{ paddingHorizontal: 10, paddingVertical: 20 }}
+        contentContainerStyle={{ paddingHorizontal: 10, paddingVertical: 20, backgroundColor: "red", width: width }}
       />
     </View>
   );

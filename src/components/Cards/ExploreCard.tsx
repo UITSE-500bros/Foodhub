@@ -1,25 +1,23 @@
-import { StyleSheet, Text, View, Image } from "react-native";
+import { StyleSheet, Text, View, Image,TouchableOpacity } from "react-native";
 import React from "react";
 
 interface ExploreCardProps {
   color: string;
   title: string;
+  image: string;
+  onPress?: () => void;
 }
 
-const ExploreCard: React.FC<ExploreCardProps> = ({ color, title }) => {
+const ExploreCard: React.FC<ExploreCardProps> = ({ color, title, image, onPress }) => {
   return (
-    <View
-      style={{ backgroundColor: color }}
-      className="flex justify-center items-center w-[175px] h-[190px] rounded-[18px] shadow border "
+    <TouchableOpacity onPress={onPress}
+      className="relative w-[175px] h-[190px] rounded-[18px] shadow border bg-white pt-1 flex items-center"
     >
-      <Image
-        source={require("../../../assets/Vector.png")}
-        className="w-[100px] h-[74px] "
-      />
-      <Text className="text-black mt-6 flex-wrap text-center text-lg  leading-snug tracking-tight font-black">
+      <Image source={{ uri: image }} style={{width: '90%', height: '80%', borderRadius: 18 }} />
+      <Text className="text-black mt-6 flex-wrap text-center text-lg  leading-snug tracking-tight font-black absolute bottom-2 right-0 left-0">
         {title}
       </Text>
-    </View>
+    </TouchableOpacity>
   );
 };
 

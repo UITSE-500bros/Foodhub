@@ -1,11 +1,12 @@
 class Category {
-    id: string;
-    name: string;
-    icon: string;
+    _id: string;
+    categoryName: string;
+    categoryImage: string;
 
-    constructor(id: string, name: string, icon: string) {
-        this.id = id;
-        this.name = name;
-        this.icon = icon;
+    constructor(_id: string, categoryName: string, categoryImage: string) {
+        this._id = _id;
+        this.categoryName = categoryName;
+        this.categoryImage = categoryImage;
     }
 }
+export default Category;
