@@ -5,6 +5,7 @@ import Radio from "./components/Radio";
 import { TextInput } from "react-native-paper";
 import Item from "./components/Item";
 import { FlatList } from "react-native-gesture-handler";
+import { Button } from "../../components";
 
 const Survey = () => {
   const foodCategories = [
@@ -20,6 +21,7 @@ const Survey = () => {
     "Canned",
     "Bakery",
   ];
+  const meals = ["Breakfast", "Lunch", "Dinner"];
   const [familyMembers, setFamilyMembers] = useState("");
   const renderItem = ({ item }: any) => <Item title={item} />;
   return (
@@ -63,7 +65,19 @@ const Survey = () => {
           contentContainerStyle={{ paddingHorizontal: 10 }}
         />
       </View>
-   
+
+      <View className="h-auto ">
+        <Text className="text-lg text-black">What kind of meal ?</Text>
+        <View className="flex-row flex ">
+          {meals.map((meal, index) => {
+            return <Item title={meal} key={index} />;
+          })}
+        </View>
+      </View>
+
+      <TouchableOpacity className=" self-center bg-primary p-3 w-full justify-center items-center rounded-full mt-auto ">
+        <Text className="text-white text-2xl"> Submit</Text>
+      </TouchableOpacity>
     </SafeAreaView>
   );
 };
