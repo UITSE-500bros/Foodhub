@@ -23,7 +23,7 @@ const Home = () => {
       </View>
 
       {/* search bar */}
-      <View className="w-full h-[52px] px-4 bg-white">
+      <View className="w-full h-[52px] px-4 bg-transparent ">
         <Searchbar
           placeholder="Search Store"
           value=""
