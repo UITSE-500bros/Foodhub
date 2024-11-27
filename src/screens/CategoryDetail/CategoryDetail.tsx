@@ -7,7 +7,7 @@ const data = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15];
 const CategoryDetail = () => {
   return (
     <View>
-      <View className=" flex-row flex justify-between items-center mt-10">
+      {/* <View className=" flex-row flex justify-between items-center mt-10">
         <IconButton
           icon="arrow-left"
           size={30}
@@ -21,7 +21,7 @@ const CategoryDetail = () => {
           size={25}
           onPress={() => console.log("Pressed")}
         />
-      </View>
+      </View> */}
       <FlatList
         data={data}
         keyExtractor={(item) => item.toString()}

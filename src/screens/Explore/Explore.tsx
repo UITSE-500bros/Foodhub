@@ -4,6 +4,7 @@ import { Searchbar } from "react-native-paper";
 import ExploreCard from "../../components/Cards/ExploreCard";
 import { Category } from "../../models";
 import { categoriesService } from "../../service";
+import { useNavigation } from "@react-navigation/native";
 
 const width = Dimensions.get("window").width;
 
@@ -16,6 +17,7 @@ const Explore = () => {
       setData(res);
     });
   }, []);
+  const nav = useNavigation();
 
   return (
     <View className="flex mt-14  flex-col justify-start items-center">
@@ -34,7 +36,7 @@ const Explore = () => {
           return (
             <ExploreCard
               onPress={() => {
-                console.log("Press");
+                nav.navigate('CategoryDetail')
               }}
               title={item.categoryName}
               color={""}
