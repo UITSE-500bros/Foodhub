@@ -1,33 +1,22 @@
-import { MaterialCommunityIcons } from "@expo/vector-icons";
-import { createMaterialBottomTabNavigator } from "@react-navigation/material-bottom-tabs";
-import { NavigationContainer } from "@react-navigation/native";
-import React, { useEffect, useState } from "react";
-import { SafeAreaProvider } from "react-native-safe-area-context";
-import { GestureHandlerRootView } from "react-native-gesture-handler";
-import Home from "./src/screens/Home";
-import Explore from "./src/screens/Explore";
-import Cart from "./src/screens/Cart";
-import Favorite from "./src/screens/Favorite";
-import Profile from "./src/screens/Profile";
-import {GOOGLE_ANDROID_CLIENT_ID , API_URL} from "@env";
-import * as WebBrowser from "expo-web-browser";
-import * as Google from "expo-auth-session/providers/google";
+import { API_URL, GOOGLE_ANDROID_CLIENT_ID } from "@env";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import Login from "./src/screens/Login";
+import { NavigationContainer } from "@react-navigation/native";
+import * as Google from "expo-auth-session/providers/google";
+import * as WebBrowser from "expo-web-browser";
+import React, { useEffect, useState } from "react";
+import { GestureHandlerRootView } from "react-native-gesture-handler";
+import { SafeAreaProvider } from "react-native-safe-area-context";
+import RootStack from "./src/navigation/RootStack";
 
 WebBrowser.maybeCompleteAuthSession();
 
 export default function App() {
-
   const [userInfo, setUserInfo] = useState(null);
   const [token, setToken] = useState("");
   const [request, response, promptAsync] = Google.useAuthRequest({
     androidClientId: GOOGLE_ANDROID_CLIENT_ID,
     scopes: ["profile", "email"],
   });
-
-  const Tab = createMaterialBottomTabNavigator();
-
 
   useEffect(() => {
     handleEffect();
@@ -66,14 +55,12 @@ export default function App() {
       await sendUserInfoToServer(user);
       // await AsyncStorage.setItem("@user", JSON.stringify(user));
       setUserInfo(user);
-    } catch (error) {
-
-    }
+    } catch (error) {}
   };
 
   const sendUserInfoToServer = async (user: any) => {
     try {
-      let url = API_URL + '/user/auth/google';
+      let url = API_URL + "/user/auth/google";
       console.log(url);
       const response = await fetch(url, {
         method: "POST",
@@ -82,12 +69,11 @@ export default function App() {
         },
         body: JSON.stringify(user),
       });
-  
+
       if (!response.ok) {
         throw new Error("Failed to send user info to server");
-
       }
-  
+
       console.log("User info sent to server successfully");
     } catch (error) {
       console.error("Error sending user info to server:", error);
@@ -95,74 +81,15 @@ export default function App() {
   };
 
   return (
-    // !userInfo ? 
-    // <Login promptAsync={promptAsync}/> 
-    // : 
-    (<GestureHandlerRootView>
-        <NavigationContainer>
-          <SafeAreaProvider>
-            <Tab.Navigator>
-              <Tab.Screen
-                name="Home"
-                component={Home}
-                options={{
-                  tabBarLabel: "Home",
-                  tabBarIcon: ({ color }) => (
-                    <MaterialCommunityIcons name="home" color={color} size={26} />
-                  ),
-                }}
-              />
-              <Tab.Screen
-                name="Explore"
-                component={Explore}
-                options={{
-                  tabBarLabel: "Explore",
-                  tabBarIcon: ({ color }) => (
-                    <MaterialCommunityIcons
-                      name="compass"
-                      color={color}
-                      size={26}
-                    />
-                  ),
-                }}
-              />
-              <Tab.Screen
-                name="Cart"
-                component={Cart}
-                options={{
-                  tabBarLabel: "Cart",
-                  tabBarIcon: ({ color }) => (
-                    <MaterialCommunityIcons name="cart" color={color} size={26} />
-                  ),
-                }}
-              />
-              <Tab.Screen
-                name="Favorite"
-                component={Favorite}
-                options={{
-                  tabBarLabel: "Favorite",
-                  tabBarIcon: ({ color }) => (
-                    <MaterialCommunityIcons name="heart" color={color} size={26} />
-                  ),
-                }}
-              />
-              <Tab.Screen
-                name="Profile"
-                component={Profile}
-                options={{
-                  tabBarLabel: "Profile",
-                  tabBarIcon: ({ color }) => (
-                    <MaterialCommunityIcons
-                      name="account"
-                      color={color}
-                      size={26}
-                    />
-                  ),
-                }}
-              />
-            </Tab.Navigator>
-          </SafeAreaProvider>
-        </NavigationContainer>
-      </GestureHandlerRootView>)
+    // !userInfo ?
+    // <Login promptAsync={promptAsync}/>
+    // :
+    <GestureHandlerRootView>
+      <NavigationContainer>
+        <SafeAreaProvider>
+          <RootStack />
+        </SafeAreaProvider>
+      </NavigationContainer>
+    </GestureHandlerRootView>
   );
 }

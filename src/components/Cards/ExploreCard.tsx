@@ -11,7 +11,7 @@ interface ExploreCardProps {
 const ExploreCard: React.FC<ExploreCardProps> = ({ color, title, image, onPress }) => {
   return (
     <TouchableOpacity onPress={onPress}
-      className="relative w-[175px] h-[190px] rounded-[18px] shadow border bg-white pt-1 flex items-center"
+      className="mx-4 w-[150px] h-[190px] rounded-[18px] shadow border bg-white pt-1 flex items-center"
     >
       <Image source={{ uri: image }} style={{width: '90%', height: '80%', borderRadius: 18 }} />
       <Text className="text-black mt-6 flex-wrap text-center text-lg  leading-snug tracking-tight font-black absolute bottom-2 right-0 left-0">
