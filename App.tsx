@@ -63,8 +63,8 @@ export default function App() {
       );
 
       const user = await response.json();
-      sendUserInfoToServer(user);
-      await AsyncStorage.setItem("@user", JSON.stringify(user));
+      await sendUserInfoToServer(user);
+      // await AsyncStorage.setItem("@user", JSON.stringify(user));
       setUserInfo(user);
     } catch (error) {
 
@@ -74,6 +74,7 @@ export default function App() {
   const sendUserInfoToServer = async (user: any) => {
     try {
       let url = API_URL + '/user/auth/google';
+      console.log(url);
       const response = await fetch(url, {
         method: "POST",
         headers: {
@@ -94,9 +95,10 @@ export default function App() {
   };
 
   return (
-    !userInfo ? 
-    <Login promptAsync={promptAsync}/> 
-    : (<GestureHandlerRootView>
+    // !userInfo ? 
+    // <Login promptAsync={promptAsync}/> 
+    // : 
+    (<GestureHandlerRootView>
         <NavigationContainer>
           <SafeAreaProvider>
             <Tab.Navigator>
