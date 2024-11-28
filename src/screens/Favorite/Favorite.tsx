@@ -43,7 +43,7 @@ const Favorite = () => {
               className="absolute h-[67px] bottom-5 flex items-center justify-center left-6 right-6 bg-[#53B175] rounded-2xl"
               onPress={() => console.log("Add to Cart")}
           >
-              <Text className="text-white">Add to Cart</Text>
+              <Text className="text-white text-center text-xl font-bold">Add to Cart</Text>
           </TouchableOpacity>
       </View>
 

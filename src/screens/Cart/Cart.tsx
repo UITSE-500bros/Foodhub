@@ -25,10 +25,18 @@ const height = Dimensions.get("window").height;
 const Cart = () => {
   const CheckoutModal = useRef<BottomSheetModal>(null);
   const snapPoints = useMemo(() => ["55%"], []);
+  const [isModalVisible, setIsModalVisible] = React.useState(false);
 
   const handleFilterPress = useCallback(() => {
     CheckoutModal.current?.present();
+    setIsModalVisible(true);
   }, []);
+  const handleClosePress = useCallback(() => {
+    CheckoutModal.current?.dismiss();
+    setIsModalVisible(false);
+  }, []);
+
+  
 
   return (
     <GestureHandlerRootView>
@@ -50,13 +58,13 @@ const Cart = () => {
               </View>
             )}
           />
-       
-          <TouchableOpacity
+
+          {/* <TouchableOpacity
             className="absolute h-[67px] bottom-0 flex items-center justify-center left-6 right-6 bg-[#53B175] rounded-2xl"
             onPress={handleFilterPress}
           >
             <Text className="text-white">Checkout</Text>
-          </TouchableOpacity>
+          </TouchableOpacity> */}
         </SafeAreaView>
 
         <BottomSheetModal ref={CheckoutModal} index={1} snapPoints={snapPoints}>
@@ -64,7 +72,7 @@ const Cart = () => {
             <View className="flex px-1 pt-3 mt-5 gap-y-3 ">
               <View className="flex flex-row justify-between items-center">
                 <Text className="text-2xl font-bold">Checkout</Text>
-                <Icon name="close" onPress={() => {}} />
+                <Icon name="close" onPress={handleClosePress} />
               </View>
               <View className="w-full h-[2px] bg-[#E2E2E2]" />
               {/* Body */}
@@ -131,6 +139,13 @@ const Cart = () => {
           </BottomSheetView>
         </BottomSheetModal>
       </BottomSheetModalProvider>
+      {!isModalVisible && (<TouchableOpacity
+            className="absolute h-[67px] bottom-0 flex items-center justify-center left-6 right-6 bg-[#53B175] rounded-2xl"
+            onPress={handleFilterPress}
+          >
+            <Text className="text-white text-center text-xl font-bold">Checkout</Text>
+          </TouchableOpacity>)}
+      
     </GestureHandlerRootView>
   );
 };
