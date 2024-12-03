@@ -1,36 +1,40 @@
-import { View, FlatList, Image, StyleSheet } from 'react-native';
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from "react";
+import { Dimensions, Image, StyleSheet, View } from "react-native";
+import Carousel from "react-native-reanimated-carousel";
+
+const width = Dimensions.get("window").width;
 
 const ImageCarousel = () => {
   const [images, setImages] = useState<string[]>([]);
 
   useEffect(() => {
     const fetchImages = async () => {
-      const imageUrls = Array.from({ length: 4 }, () => `https://picsum.photos/300/115?random=${Math.random()}`);
-      await Promise.all(imageUrls.map(url => Image.prefetch(url)));
+      const imageUrls = Array.from(
+        { length: 4 },
+        () => `https://picsum.photos/400/115?random=${Math.random()}`
+      );
+      await Promise.all(imageUrls.map((url) => Image.prefetch(url)));
       setImages(imageUrls);
     };
 
     fetchImages();
+
   }, []);
 
   return (
-    <View style={styles.container}>
-      <FlatList
+    <View className="w-full m-5  ">
+      <Carousel
+        width={width}
+        height={width / 3}
         data={images}
+        loop
+        autoPlay
+       
         renderItem={({ item }) => (
           <View style={styles.imageContainer}>
-            <Image
-              source={{ uri: item }}
-              style={styles.image}
-              resizeMode="cover"
-            />
+            <Image source={{ uri: item }} style={styles.image} />
           </View>
         )}
-        keyExtractor={(item, index) => index.toString()}
-        horizontal
-        initialNumToRender={2}
-        showsHorizontalScrollIndicator={false}
       />
     </View>
   );
@@ -38,14 +42,16 @@ const ImageCarousel = () => {
 
 const styles = StyleSheet.create({
   container: {
-    width: '100%',
-    marginHorizontal: 12,
+    width: "100%",
   },
   imageContainer: {
-    marginRight: 10,
+    marginRight: 30,
+    justifyContent: "center",
+    alignItems: "center",
+    width: width - 24,
   },
   image: {
-    width: 400,
+    width: width - 24,
     height: 115,
     borderRadius: 10,
   },

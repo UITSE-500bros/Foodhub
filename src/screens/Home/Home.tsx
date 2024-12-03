@@ -16,7 +16,7 @@ const Home = () => {
         />
         <View className="flex flex-row items-center justify-center m-3 ">
           <Icon name="location-on" size={15} color="#181725" />
-          <Text  className="  text-[#4C4F4D] text-center text-lg font-semibold ">
+          <Text className="  text-[#4C4F4D] text-center text-lg font-semibold ">
             Linh Trung, Thủ Đức
           </Text>
         </View>
@@ -36,9 +36,8 @@ const Home = () => {
         />
       </View>
       {/* image carousel */}
-      <View className="flex m-4 flex-grow h-[115]">
-        <ImageCarousel />
-      </View>
+
+      <ImageCarousel />
 
       {/* product cards */}
       <View className="w-full  mt-4">
