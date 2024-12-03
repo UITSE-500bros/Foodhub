@@ -1,15 +1,8 @@
-import { API_URL } from "@env";
+import apis from "./Request";
 class CategoryService {
     async getCategories() {
-        const categories = await fetch(`${API_URL}category`,
-        {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        });
-        const data = await categories.json();
-        return data;
+        const categories = await apis.get("category");
+        return categories;
     }
 }
 const categoriesService = new CategoryService();
