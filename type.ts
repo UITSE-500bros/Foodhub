@@ -1,4 +1,5 @@
 import { StackNavigationProp } from "@react-navigation/stack";
+import { LoginProps } from "./src/screens/Login/Login";
 
 export type RootStackParamList = {
     Home: undefined;
@@ -8,6 +9,7 @@ export type RootStackParamList = {
     Cart: undefined;
     Profile: undefined;
     BottomTabNavigator: undefined;
+    Login: LoginProps;
 
     };
 
