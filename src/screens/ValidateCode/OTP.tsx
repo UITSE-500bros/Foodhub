@@ -15,7 +15,7 @@ import {
   TextInput as PaperTextInput,
 } from "react-native-paper";
 
-const ValidateCode = () => {
+const OTP = () => {
   const [number, setNumber] = useState("");
 
   return (
@@ -79,4 +79,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default ValidateCode;
+export default OTP;

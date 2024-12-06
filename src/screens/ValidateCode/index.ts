@@ -1,3 +1,3 @@
-import ValidateCode from "./ValidateCode";
+import OTP from "./OTP";
 
-export default ValidateCode;
+export default OTP;

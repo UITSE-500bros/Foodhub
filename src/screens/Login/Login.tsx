@@ -2,11 +2,12 @@ import { Button } from "@rneui/themed";
 import React from "react";
 import { Image, Text, View } from "react-native";
 
-interface LoginProps {
+export interface LoginProps {
   promptAsync?: () => void;
 }
 
 const Login: React.FC<LoginProps> = ({ promptAsync }) => {
+
   return (
     <View className="h-full w-full">
       <Image
