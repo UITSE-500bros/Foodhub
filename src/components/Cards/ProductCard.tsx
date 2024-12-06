@@ -1,21 +1,13 @@
-import { View, Text, Image, Button, TouchableOpacity } from "react-native";
-import React from "react";
-import AdjustButton from "../Button/AdjustButton";
 import { Icon } from "@rneui/base";
+import React from "react";
+import { Image, Text, TouchableOpacity, View } from "react-native";
+import ButtonGroup from "../ButtonGroup";
 
 interface ProductCardProps {
   adjust: boolean;
 }
 
 const ProductCard: React.FC<ProductCardProps> = ({ adjust }) => {
-  const [quantity, setQuantity] = React.useState(1);
-  const handlePlus = () => {
-    setQuantity(quantity + 1);
-  };
-  const handleMinus = () => {
-    if (quantity === 1) return;
-    setQuantity(quantity - 1);
-  };
 
   return (
     <View className="flex h-[100] flex-row justify-center items-center mx-2 mb-[25]">
@@ -31,13 +23,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ adjust }) => {
           Unit of measurement
         </Text>
         {adjust && (
-          <View className="flex flex-row items-center justify-center">
-            <AdjustButton type="minus" onPress={handleMinus} size={20} />
-            <Text className=" font-bold text-center px-5 justify-center items-center ">
-             {quantity}
-            </Text>
-            <AdjustButton type="plus" onPress={handlePlus} size={20} />
-          </View>
+          <ButtonGroup/>
         )}
       </View>
 

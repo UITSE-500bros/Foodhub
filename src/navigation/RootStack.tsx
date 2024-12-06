@@ -1,8 +1,9 @@
-import React from "react";
-import BottomTabNavigator from "./BottomTabNavigator";
 import { createStackNavigator } from "@react-navigation/stack";
-import { CategoryDetail } from "../screens/CategoryDetail";
+import React from "react";
 import { RootStackParamList } from "../../type";
+import { CategoryDetail } from "../screens/CategoryDetail";
+import BottomTabNavigator from "./BottomTabNavigator";
+import ProductDetail from "../screens/ProductDetail";
 
 const Stack = createStackNavigator<RootStackParamList>();
 
@@ -19,6 +20,7 @@ export default function RootStack() {
       <Stack.Screen
       name="CategoryDetail"
       component={CategoryDetail}/>
+      <Stack.Screen name="ProductDetail" component={ProductDetail} />
     </Stack.Navigator>
   );
 }
