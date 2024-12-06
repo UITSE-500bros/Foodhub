@@ -54,12 +54,10 @@ const Survey = () => {
         <FlatList
           data={foodCategories}
           renderItem={renderItem}
-          keyExtractor={(item, index) => index.toString()}
-          numColumns={3}
+          keyExtractor={( index) => index.toString()}
+          numColumns={4}
           style={{ width: "100%", height: 100 }}
           columnWrapperStyle={{
-            justifyContent: "space-evenly",
-            alignItems: "center",
             marginBottom: 10,
           }}
           contentContainerStyle={{ paddingHorizontal: 10 }}

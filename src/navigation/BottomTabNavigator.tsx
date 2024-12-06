@@ -7,6 +7,7 @@ import Favorite from "../screens/Favorite";
 import Profile from "../screens/Profile";
 
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import Home from "../screens/Home";
 
 const Tab = createBottomTabNavigator();
 
@@ -15,7 +16,7 @@ export default function BottomTabNavigator() {
     <Tab.Navigator>
       <Tab.Screen
         name="Home"
-        component={Survey}
+        component={Home}
         options={{
           tabBarLabel: "Home",
           tabBarIcon: ({ color }) => (

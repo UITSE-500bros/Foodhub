@@ -5,6 +5,7 @@ import ExploreCard from "../../components/Cards/ExploreCard";
 import { Category } from "../../models";
 import { categoriesService } from "../../service";
 import { useNavigation } from "@react-navigation/native";
+import { ExploreScreenNavigationProp, RootStackParamList } from "../../../type";
 
 const width = Dimensions.get("window").width;
 
@@ -17,7 +18,9 @@ const Explore = () => {
       setData(res);
     });
   }, []);
-  const nav = useNavigation();
+
+
+  const nav = useNavigation<ExploreScreenNavigationProp>();
 
   return (
     <View className="flex mt-14  flex-col justify-start items-center">
