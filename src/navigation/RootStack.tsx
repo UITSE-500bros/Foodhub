@@ -5,6 +5,10 @@ import { CategoryDetail } from "../screens/CategoryDetail";
 import BottomTabNavigator from "./BottomTabNavigator";
 import ProductDetail from "../screens/ProductDetail";
 import Login from "../screens/Login";
+import PhoneNumber from "../screens/PhoneNumber";
+
+import { LocationRegister } from "../screens/LocationRegister";
+import OTP from "../screens/OTP";
 
 const Stack = createStackNavigator<RootStackParamList>();
 
@@ -25,6 +29,9 @@ export default function RootStack() {
       />
       <Stack.Screen name="CategoryDetail" component={CategoryDetail} />
       <Stack.Screen name="ProductDetail" component={ProductDetail} />
+      <Stack.Screen name="PhoneNumber" component={PhoneNumber} />
+      <Stack.Screen name="OTP" component={OTP} />
+      <Stack.Screen name="LocationRegister" component={LocationRegister} />
     </Stack.Navigator>
-  );
+  );s
 }

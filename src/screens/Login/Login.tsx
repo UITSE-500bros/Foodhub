@@ -1,12 +1,15 @@
+import { useNavigation } from "@react-navigation/native";
 import { Button } from "@rneui/themed";
 import React from "react";
 import { Image, Text, View } from "react-native";
+import { LoginScreenNavigationProp } from "../../../type";
 
 export interface LoginProps {
   promptAsync?: () => void;
 }
 
 const Login: React.FC<LoginProps> = ({ promptAsync }) => {
+    const nav= useNavigation<LoginScreenNavigationProp>()
 
   return (
     <View className="h-full w-full">
@@ -68,9 +71,9 @@ const Login: React.FC<LoginProps> = ({ promptAsync }) => {
             marginHorizontal: 10,
             marginVertical: 10,
           }}
-        //   onPress={() => {
-        //     promptAsync();
-        //   }}
+          onPress={() => {
+            nav.navigate("PhoneNumber")
+          }}
         />
 
         <Button

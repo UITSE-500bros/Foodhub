@@ -1,3 +1,4 @@
+import { useNavigation } from "@react-navigation/native";
 import React, { useState } from "react";
 import {
   View,
@@ -9,9 +10,11 @@ import {
   Keyboard,
 } from "react-native";
 import { IconButton, TextInput as PaperTextInput } from "react-native-paper";
+import { PhoneNumberScreenNavigationProp } from "../../../type";
 
 const PhoneNumber = () => {
   const [number, setNumber] = useState("");
+  const nav= useNavigation<PhoneNumberScreenNavigationProp>();
 
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
@@ -36,7 +39,7 @@ const PhoneNumber = () => {
               icon="arrow-right"
               iconColor="#fff"
               size={20}
-              onPress={() => console.log("Pressed")}
+              onPress={() => nav.navigate("OTP")}
               style={{ backgroundColor: "#53b175" }}
             />
           </View>
