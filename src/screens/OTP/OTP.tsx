@@ -1,4 +1,5 @@
 import { TouchableOpacity } from "@gorhom/bottom-sheet";
+import { useNavigation } from "@react-navigation/native";
 import React, { useState } from "react";
 import {
   View,
@@ -14,6 +15,7 @@ import {
   IconButton,
   TextInput as PaperTextInput,
 } from "react-native-paper";
+import { OTPScreenNavigationProp } from "../../../type";
 
 const OTP = () => {
   const [code, setCode] = useState("");
@@ -25,6 +27,8 @@ const OTP = () => {
       setCode(numericInput);
     }
   };
+
+  const nav =useNavigation<OTPScreenNavigationProp>();
 
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
@@ -55,7 +59,7 @@ const OTP = () => {
             </Button>
             <Button
               mode="contained"
-              onPress={() => console.log("Submit code")}
+              onPress={() => nav.navigate("LocationRegister")}
               style={styles.submitButton}
             >
               Submit

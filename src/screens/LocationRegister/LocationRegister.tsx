@@ -9,8 +9,11 @@ import React from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { TextInput } from "react-native-paper";
 import { Button } from "../../components";
+import { useNavigation } from "@react-navigation/native";
+import { LocationRegisterScreenNavigationProp } from "../../../type";
 
 const LocationRegister = () => {
+  const nav= useNavigation<LocationRegisterScreenNavigationProp>();
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
       <SafeAreaView className="flex flex-col gap-4">
@@ -55,7 +58,7 @@ const LocationRegister = () => {
         <View className="w-full flex justify-center items-center mt-12 " >
           <Button
             title="Save"
-            onPress={() => console.log("Save")}
+            onPress={() => nav.navigate("BottomTabNavigator")}
             width={364}
             height={48}
             
