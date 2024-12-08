@@ -26,9 +26,9 @@ jobs:
 
       - name: Build Android App
         run: eas build --platform android --profile production
-          env:
-            GOOGLE_ANDROID_CLIENT_ID: ${{ secrets.GOOGLE_ANDROID_CLIENT_ID }}
-            API_URL: ${{ secrets.API_URL }} 
+        env:
+          GOOGLE_ANDROID_CLIENT_ID: ${{ secrets.GOOGLE_ANDROID_CLIENT_ID }}
+          API_URL: ${{ secrets.API_URL }} 
 
       - name: Publish to Expo
         run: npx expo publish --release-channel production --non-interactive
