@@ -39,7 +39,3 @@ jobs:
         env:
           GOOGLE_ANDROID_CLIENT_ID: ${{ secrets.GOOGLE_ANDROID_CLIENT_ID }}
           API_URL: ${{ secrets.API_URL }}
-
-    # Deploy to Expo
-    - name: Publish to Expo
-      run: npx expo publish --non-interactive
