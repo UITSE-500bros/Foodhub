@@ -16,7 +16,8 @@
       "distribution": "store",
       "env": {
         "GOOGLE_ANDROID_CLIENT_ID": "@GOOGLE_ANDROID_CLIENT_ID",
-        "API_URL": "@API_URL"
+        "API_URL": "@API_URL",
+        "GOOGLE_SERVICE_ACCOUNT_KEY": "@GOOGLE_SERVICE_ACCOUNT_KEY"
       }
     }
   },
