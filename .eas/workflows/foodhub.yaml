@@ -35,7 +35,10 @@ jobs:
 
     # Build the App
     - name: Build App
-      run: npx expo build:android --non-interactive # Replace with `expo build:ios` for iOS
+      run: eas build --platform android --profile production
+        env:
+          GOOGLE_ANDROID_CLIENT_ID: ${{ secrets.GOOGLE_ANDROID_CLIENT_ID }}
+          API_URL: ${{ secrets.API_URL }}
 
     # Deploy to Expo
     - name: Publish to Expo
