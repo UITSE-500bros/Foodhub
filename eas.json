@@ -12,12 +12,11 @@
       "distribution": "internal"
     },
     "production": {
-      "autoIncrement": true,
-      "distribution": "internal",
-      "env": {
-        "GOOGLE_ANDROID_CLIENT_ID": "@GOOGLE_ANDROID_CLIENT_ID",
-        "API_URL": "@API_URL",
-        "GOOGLE_SERVICE_ACCOUNT_KEY": "@GOOGLE_SERVICE_ACCOUNT_KEY"
+      "android": {
+        "image": "latest"
+      },
+      "ios": {
+        "image": "latest"
       }
     }
   },
