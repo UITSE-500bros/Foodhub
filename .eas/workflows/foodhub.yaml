@@ -1,13 +1,10 @@
 name: EAS Build
-name: EAS Build
 on:
-  workflow_dispatch:
   push:
     branches:
       - main
 jobs:
   build:
-    name: Install and build
     name: Install and build
     runs-on: ubuntu-latest
     steps:
