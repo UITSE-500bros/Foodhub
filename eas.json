@@ -13,7 +13,7 @@
     },
     "production": {
       "autoIncrement": true,
-      "distribution": "store",
+      "distribution": "internal",
       "env": {
         "GOOGLE_ANDROID_CLIENT_ID": "@GOOGLE_ANDROID_CLIENT_ID",
         "API_URL": "@API_URL",
