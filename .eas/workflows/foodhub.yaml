@@ -1,10 +1,13 @@
 name: EAS Build
+name: EAS Build
 on:
+  workflow_dispatch:
   push:
     branches:
       - main
 jobs:
   build:
+    name: Install and build
     name: Install and build
     runs-on: ubuntu-latest
     steps:
@@ -17,6 +20,8 @@ jobs:
         run: npx expo login -u ${{ secrets.EXPO_USERNAME }} -p ${{ secrets.EXPO_PASSWORD }}
       - name: Install dependencies
         run: npm install
+      - name: Build on EAS
+        run: eas build --platform all --no-wait
       - name: Build on EAS
         run: eas build --platform all --no-wait
         env:
