@@ -22,6 +22,12 @@ class UserService {
         const response = await apis.delete("user/userId/favorites/productId");
         return response;
     }
+    async checkout (userId: string, ) {
+        const response = await apis.post("user/userId/checkout", {
+            userId: userId
+        });
+        return response;
+    }
 }
 const userService = new UserService();
 export default userService;

@@ -1,0 +1,46 @@
+name: Expo CI/CD
+
+on:
+  push:
+    branches:
+      - main  # Trigger on pushes to the main branch
+  pull_request:
+    branches:
+      - main  # Trigger on pull requests to the main branch
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    # Checkout the code
+    - name: Checkout Code
+      uses: actions/checkout@v3
+
+    # Set up Node.js
+    - name: Setup Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: 16 # Specify the Node.js version
+
+    # Install dependencies
+    - name: Install Dependencies
+      run: npm install
+
+    # Authenticate with Expo
+    - name: Login to Expo
+      run: npx expo login -u ${{ secrets.EXPO_USERNAME }} -p ${{ secrets.EXPO_PASSWORD }}
+
+    # Run Linter and Tests
+    - name: Lint and Test
+      run: |
+        npm run lint
+        npm test
+
+    # Build the App
+    - name: Build App
+      run: npx expo build:android --non-interactive # Replace with `expo build:ios` for iOS
+
+    # Deploy to Expo
+    - name: Publish to Expo
+      run: npx expo publish --non-interactive
