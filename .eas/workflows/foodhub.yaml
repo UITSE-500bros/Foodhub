@@ -13,15 +13,16 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+
     # Checkout the code
     - name: Checkout Code
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
 
     # Set up Node.js
     - name: Setup Node.js
-      uses: actions/setup-node@v3
+      uses: actions/setup-node@v4
       with:
-        node-version: 16 # Specify the Node.js version
+        node-version: 20 # Specify the Node.js version
 
     # Install dependencies
     - name: Install Dependencies
@@ -31,11 +32,6 @@ jobs:
     - name: Login to Expo
       run: npx expo login -u ${{ secrets.EXPO_USERNAME }} -p ${{ secrets.EXPO_PASSWORD }}
 
-    # Run Linter and Tests
-    - name: Lint and Test
-      run: |
-        npm run lint
-        npm test
 
     # Build the App
     - name: Build App

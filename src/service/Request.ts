@@ -16,7 +16,7 @@ class APIs {
         
       },
     });
-    return response.json();
+    return await response.json();
   }
   async post(endpoint: string, data: object) {
     const response = await fetch(this.getURL(endpoint), {

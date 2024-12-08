@@ -14,10 +14,12 @@ const Explore = () => {
 
   const [searchQuery, setSearchQuery] = React.useState("");
   useEffect(() => {
-    categoriesService.getCategories().then((res) => {
-      setData(res);
-    });
-  }, []);
+    const fetchCategories = async () => {
+      const categories = await categoriesService.getCategories();
+      setData(categories);
+    }
+    fetchCategories();
+  }, [data]);
 
 
   const nav = useNavigation<ExploreScreenNavigationProp>();
