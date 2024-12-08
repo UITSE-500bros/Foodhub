@@ -23,6 +23,10 @@ jobs:
 
       - name: Login to Expo
         run: npx expo login -u ${{ secrets.EXPO_USERNAME }} -p ${{ secrets.EXPO_PASSWORD }}
+      - name: Set up Google Service Account Key
+        run: echo "${{ secrets.GOOGLE_SERVICE_ACCOUNT_KEY }}" > /tmp/google-service-account.json
+        env:
+          GOOGLE_SERVICE_ACCOUNT_KEY: ${{ secrets.GOOGLE_SERVICE_ACCOUNT_KEY }}
 
       - name: Build Android App
         run: eas build --platform android --profile production
@@ -30,7 +34,8 @@ jobs:
           GOOGLE_ANDROID_CLIENT_ID: ${{ secrets.GOOGLE_ANDROID_CLIENT_ID }}
           API_URL: ${{ secrets.API_URL }} 
 
-      - name: Publish to Expo
-        run: npx expo publish --release-channel production --non-interactive
+      - name: Build and Submit to Expo
+        run: npx eas build --platform android --profile production --auto-submit-with-profile production
         env:
+          GOOGLE_APPLICATION_CREDENTIALS: /tmp/google-service-account.json
           EXPO_TOKEN: ${{ secrets.EXPO_TOKEN }}
