@@ -1,28 +1,27 @@
+import { PUBLISABLE_KEY } from "@env";
+import { StripeProvider, usePaymentSheet } from '@stripe/stripe-react-native';
 import React, { useEffect, useState } from "react";
 import {
-  View,
-  Text,
-  FlatList,
   Dimensions,
+  FlatList,
+  Text,
   TouchableOpacity,
+  View
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { StripeProvider, usePaymentSheet } from '@stripe/stripe-react-native';
-import { orderService } from "../../service";
 import { ProductCard } from "../../components";
-import {PUBLISABLE_KEY} from "@env";
+import { orderService } from "../../service";
+
 const data = Array.from({ length: 20 }, (_, i) => i + 1);
-const width = Dimensions.get("window").width;
-const height = Dimensions.get("window").height;
 
 const Cart = () => {
-  const [publishableKey, setPublishableKey] = useState('');
   const [ready, setReady] = useState(false);
   const { initPaymentSheet, presentPaymentSheet, loading } = usePaymentSheet();
+  const width = Dimensions.get("window").width;
+  const height = Dimensions.get("window").height;
 
-  setPublishableKey(PUBLISABLE_KEY); // Replace with actual key
   useEffect(() => {
-    // Set publishable key and initialize the payment sheet
+
     initialisePaymentSheet();
   }, []);
 
@@ -45,12 +44,12 @@ const Cart = () => {
       });
 
       if (error) {
-        console.error('Error initializing payment sheet:', error);
+        console.error("Error initializing payment sheet:", error);
       } else {
         setReady(true);
       }
     } catch (error) {
-      console.error('Error during payment sheet initialization:', error);
+      console.error("Error during payment sheet initialization:", error);
     }
   };
 
@@ -60,7 +59,7 @@ const Cart = () => {
       const { paymentIntent, ephemeraKey, customer } = await response.json();
       return { paymentIntent, ephemeraKey, customer };
     } catch (error) {
-      console.error('Error fetching payment sheet params:', error);
+      console.error("Error fetching payment sheet params:", error);
       throw error;
     }
   };
@@ -69,22 +68,22 @@ const Cart = () => {
     try {
       const { error } = await presentPaymentSheet();
       if (error) {
-        console.error('Payment failed:', error.message);
+        console.error("Payment failed:", error.message);
         alert(`Error: ${error.message}`);
       } else {
-        console.log('Payment successful!');
-        alert('Payment completed successfully!');
+        console.log("Payment successful!");
+        alert("Payment completed successfully!");
       }
     } catch (error) {
-      console.error('Error presenting payment sheet:', error);
+      console.error("Error presenting payment sheet:", error);
     }
   };
 
   return (
     <StripeProvider
-      publishableKey={publishableKey}
-      merchantIdentifier="merchant.identifier"
-      urlScheme="your-url-scheme"
+      publishableKey={PUBLISABLE_KEY}
+      merchantIdentifier="merchant.identifier" // Ensure this is valid
+      urlScheme="android.intent.action.VIEW"
     >
       <SafeAreaView>
         <View className="flex justify-center items-center mt-10">
@@ -104,9 +103,8 @@ const Cart = () => {
           )}
         />
         <TouchableOpacity
-          className={`absolute h-[67px] bottom-0 flex items-center justify-center left-6 right-6 ${
-            ready ? 'bg-[#53B175]' : 'bg-gray-400'
-          } rounded-2xl`}
+          className={`absolute h-[67px] bottom-0 flex items-center justify-center left-6 right-6 ${ready ? 'bg-[#53B175]' : 'bg-gray-400'
+            } rounded-2xl`}
           onPress={handlePayment}
           disabled={!ready || loading}
         >

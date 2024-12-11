@@ -7,6 +7,7 @@ import React, { useEffect, useState } from "react";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import RootStack from "./src/navigation/RootStack";
+import Login from "./src/screens/Login";
 
 WebBrowser.maybeCompleteAuthSession();
 
@@ -83,13 +84,13 @@ export default function App() {
   return (
     // !userInfo ?
     // <Login promptAsync={promptAsync}/>
-    // :
-    <GestureHandlerRootView>
-      <NavigationContainer>
-        <SafeAreaProvider>
-          <RootStack />
-        </SafeAreaProvider>
-      </NavigationContainer>
-    </GestureHandlerRootView>
+    // : (
+      <GestureHandlerRootView>
+        <NavigationContainer>
+          <SafeAreaProvider>
+            <RootStack />
+          </SafeAreaProvider>
+        </NavigationContainer>
+      </GestureHandlerRootView>
   );
 }
