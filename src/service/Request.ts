@@ -27,7 +27,8 @@ class APIs {
       },
       body: JSON.stringify(data),
     });
-    return response.json();
+
+    return response;
   }
 
   async put(endpoint: string, data: object) {

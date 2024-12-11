@@ -23,7 +23,6 @@
       },
       "package": "com.se121.foodhub"
     },
-    "plugins": [],
     "web": {
       "favicon": "./assets/favicon.png"
     },
@@ -35,6 +34,15 @@
         "androidClientId": "252512409853-l00cu1u8ragkk8nmevo7sqjf1ebd04j7.apps.googleusercontent.com"
       }
     },
-    "owner": "uit-se121"
+    "owner": "uit-se121",
+    "plugins": [
+      [
+        "@stripe/stripe-react-native",
+        {
+          "merchantIdentifier": "",
+          "enableGooglePay": true
+        }
+      ]
+    ]
   }
 }
