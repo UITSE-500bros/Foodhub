@@ -1,10 +1,17 @@
 import { View, Text, Image } from "react-native";
 import React from "react";
 import AdjustButton from "../Button/AdjustButton";
+import { TouchableOpacity } from "react-native-gesture-handler";
+import { useNavigation } from "@react-navigation/native";
+import { HomeScreenNavigationProp, RootStackParamList } from "../../../type";
+
 
 const ProductCardSquare = () => {
+  const nav = useNavigation<HomeScreenNavigationProp>();
   return (
-    <View className="flex w-[173] h-[250] flex-col justify-center items-center border rounded-2xl">
+    <TouchableOpacity className="flex w-[173] h-[250] flex-col justify-center items-center border rounded-2xl" 
+      onPress={()=>nav.navigate('ProductDetail')}
+    >
       <Image
         source={{
           uri: "https://nutritionsource.hsph.harvard.edu/wp-content/uploads/2018/08/bananas-1354785_1920.jpg",
@@ -27,7 +34,7 @@ const ProductCardSquare = () => {
           size={30}
         />
       </View>
-    </View>
+    </TouchableOpacity>
   );
 };
 

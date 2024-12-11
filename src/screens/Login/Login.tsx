@@ -1,19 +1,27 @@
-import { Button } from '@rneui/themed';
-import React from 'react';
-import { Image, Text, View } from 'react-native';
+import { useNavigation } from "@react-navigation/native";
+import { Button } from "@rneui/themed";
+import React from "react";
+import { Image, Text, View } from "react-native";
+import { LoginScreenNavigationProp } from "../../../type";
 
-
-interface LoginProps {
-    promptAsync: () => void;
+export interface LoginProps {
+  promptAsync?: () => void;
 }
 
 const Login: React.FC<LoginProps> = ({ promptAsync }) => {
-    return (
-        <View className='h-full w-full'>
-            <Image source={require('../../../assets/maskgroup.png')} className='w-full h-[35%]' />
-            <Text className='text-2xl text-center font-bold'>Get your groceries with Foodhub</Text>
+    const nav= useNavigation<LoginScreenNavigationProp>()
 
-            {/* <Text className='text-center mt-3'>Enter your email to get started</Text>
+  return (
+    <View className="h-full w-full">
+      <Image
+        source={require("../../../assets/maskgroup.png")}
+        className="w-full h-[35%]"
+      />
+      <Text className="text-2xl text-center font-bold">
+        Get your groceries with Foodhub
+      </Text>
+
+      {/* <Text className='text-center mt-3'>Enter your email to get started</Text>
             <View className='h-[1px] bg-black mx-3 mt-3'/>
             <View className='h-[1px] bg-black mx-3 mt-3'/>
 
@@ -34,66 +42,72 @@ const Login: React.FC<LoginProps> = ({ promptAsync }) => {
                     </View>
                 )}
             </Formik> */}
-            <View className='mt-[160px]'>
-                <Text className='text-center'>Continue with</Text>
-                <Button
-                    title="Sign in with google"
-                    icon={
-                        <Image source={require('../../../assets/google.png')} className='w-8 h-8' />
-                    }
-                    iconContainerStyle={{ marginRight: 50 }}
-                    titleStyle={{
-                        fontWeight: '700',
-                        color: 'black',
-                    }}
-                    buttonStyle={{
-                        backgroundColor: 'white',
-                        borderColor: '#889397',
-                        borderWidth: 1,
-                        borderRadius: 10,
-                        paddingVertical: 20, // Optional padding for box content
-                        display: 'flex',
-                        flexDirection: 'row',
-                        gap: 10,
-                    }}
-                    containerStyle={{
-                        marginHorizontal: 10,
-                        marginVertical: 10,
-                    }}
-                    onPress={() => {
-                        promptAsync();
-                    }}
-                />
+      <View className="mt-[160px]">
+        <Text className="text-center">Continue with</Text>
+        <Button
+          title="Sign in with google"
+          icon={
+            <Image
+              source={require("../../../assets/google.png")}
+              className="w-8 h-8"
+            />
+          }
+          iconContainerStyle={{ marginRight: 50 }}
+          titleStyle={{
+            fontWeight: "700",
+            color: "black",
+          }}
+          buttonStyle={{
+            backgroundColor: "white",
+            borderColor: "#889397",
+            borderWidth: 1,
+            borderRadius: 10,
+            paddingVertical: 20, // Optional padding for box content
+            display: "flex",
+            flexDirection: "row",
+            gap: 10,
+          }}
+          containerStyle={{
+            marginHorizontal: 10,
+            marginVertical: 10,
+          }}
+          onPress={() => {
+            nav.navigate("PhoneNumber")
+          }}
+        />
 
-                <Button
-                    title="Sign in with facebook"
-                    icon={
-                        <Image source={require('../../../assets/facebook.png')} className='w-8 h-8' />
-                    }
-                    iconContainerStyle={{ marginRight: 50 }}
-                    titleStyle={{
-                        fontWeight: '700',
-                        color: 'black',
-                    }}
-                    buttonStyle={{
-                        backgroundColor: 'white',
-                        borderColor: '#889397',
-                        borderWidth: 1,
-                        borderRadius: 10,
-                        paddingVertical: 20,
+        <Button
+          title="Sign in with facebook"
+          icon={
+            <Image
+              source={require("../../../assets/facebook.png")}
+              className="w-8 h-8"
+            />
+          }
+          iconContainerStyle={{ marginRight: 50 }}
+          titleStyle={{
+            fontWeight: "700",
+            color: "black",
+          }}
+          buttonStyle={{
+            backgroundColor: "white",
+            borderColor: "#889397",
+            borderWidth: 1,
+            borderRadius: 10,
+            paddingVertical: 20,
 
-                        display: 'flex',
-                        flexDirection: 'row',
-                        gap: 10,
-                    }}
-                    containerStyle={{
-                        marginHorizontal: 10,
-                        marginVertical: 10,
-                    }}
-                />
-            </View>
-        </View>
-    )
-}
+            display: "flex",
+            flexDirection: "row",
+            gap: 10,
+          }}
+          containerStyle={{
+            marginHorizontal: 10,
+            marginVertical: 10,
+          }}
+        />
+      </View>
+    </View>
+  );
+};
 
-export default Login
+export default Login;
