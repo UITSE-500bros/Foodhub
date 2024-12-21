@@ -42,7 +42,7 @@ class APIs {
     });
     return response.json();
   }
-  async delete(endpoint: string) {
+  async delete(endpoint: string,data: object) {
     const response = await fetch(this.getURL(endpoint), {
       method: "DELETE",
       headers: {
