@@ -1,36 +1,43 @@
-import { View, Text, Image } from "react-native";
-import React from "react";
-import AdjustButton from "../Button/AdjustButton";
-import { TouchableOpacity } from "react-native-gesture-handler";
-import { useNavigation } from "@react-navigation/native";
-import { HomeScreenNavigationProp, RootStackParamList } from "../../../type";
+import React from 'react';
+import { View, Text, Image, TouchableOpacity } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
+import { HomeScreenNavigationProp } from '../../../type'; // Adjust the import path as necessary
+import Product from '../../models/Product'; // Adjust the import path as necessary
+import AdjustButton from '../Button/AdjustButton';
 
+type ProductCardSquareProps = {
+  product: Product;
+};
 
-const ProductCardSquare = () => {
+const ProductCardSquare = ({ product }: ProductCardSquareProps) => {
   const nav = useNavigation<HomeScreenNavigationProp>();
+
+  // Format the price as a currency value
+  const formattedPrice = new Intl.NumberFormat('en-US', {
+    style: 'currency',
+    currency: 'VND',
+  }).format(product.product_price);
+
   return (
-    <TouchableOpacity className="flex w-[173] h-[250] flex-col justify-center items-center border rounded-2xl" 
-      onPress={()=>nav.navigate('ProductDetail')}
+    <TouchableOpacity
+      className="flex w-[173px] h-[250px] flex-col justify-center items-center border rounded-2xl m-2"
+      onPress={() => nav.navigate('ProductDetail')}
     >
       <Image
-        source={{
-          uri: "https://nutritionsource.hsph.harvard.edu/wp-content/uploads/2018/08/bananas-1354785_1920.jpg",
-        }}
-        className="w-[100px] h-[80px] rounded-lg resize-stretch mb-[10] mt-[25px] mx-8"
+        source={{ uri: product.product_image }}
+        className="w-[100px] h-[80px] rounded-lg resize-stretch mb-2 mt-6 mx-2"
       />
-      <Text className=" text-black text-base font-black tracking-tight mx-[15px] ">
-        Organic Banana
+      <Text className="text-black text-base font-black tracking-tight mx-4">
+        {product.product_name}
       </Text>
-      <Text className=" text-[#7C7C7C] text-sm font-[900]  ">
-        7 pieces
-      </Text>
-      <View className=" items-center flex justify-around flex-row mt-7">
-        <Text className=" mr-14 text-black text-lg font-semibold tracking-tighter">
-          $4.99
+      <Text className="text-[#7C7C7C] text-sm font-[900]">7 pieces</Text>
+      <View className="flex flex-row justify-between items-center mt-5 mb-2 w-full px-4">
+        <Text className="text-black text-lg font-semibold tracking-tighter">
+          {formattedPrice}
         </Text>
         <AdjustButton
           type="plus"
-          onPress={() => console.log("plus")}
+          onPress={() => console.log('plus')}
           size={30}
         />
       </View>

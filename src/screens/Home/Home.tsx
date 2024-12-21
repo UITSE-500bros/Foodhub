@@ -1,12 +1,27 @@
 import { View, Text, Image, StyleSheet, ScrollView } from "react-native";
-import React from "react";
+import React, { useEffect } from "react";
 import { Button, Searchbar } from "react-native-paper";
 import ProductCarousel from "../../components/Carousels/ProductCarousel";
 
 import Icon from "react-native-vector-icons/MaterialIcons";
 import ImageCarousel from "../../components/Carousels/ImageCarousel";
+import { getHomeProductsApi } from "../../service/Home.service";
 
 const Home = () => {
+  const [products, setProducts] = React.useState([]);
+  useEffect(() => {
+    const fetchProducts = async () => {
+      getHomeProductsApi()
+        .then((products) => {
+          setProducts(products);
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    };
+    fetchProducts();
+  }, []);
+  console.log(products);
   return (
     <ScrollView className="flex flex-col w-full mt-8">
       <View className="items-center mt-7 ">
@@ -41,9 +56,9 @@ const Home = () => {
 
       {/* product cards */}
       <View className="w-full  mt-4">
-        <ProductCarousel title="Exclusive Offer" />
-        <ProductCarousel title="Best Sellers" />
-        <ProductCarousel title="New Arrivals" />
+        <ProductCarousel products={products} title="Exclusive Offer" />
+        <ProductCarousel products={products} title="Best Sellers" />
+        <ProductCarousel products={products} title="New Arrivals" />
       </View>
     </ScrollView>
   );

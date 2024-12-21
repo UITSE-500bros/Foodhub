@@ -3,12 +3,15 @@ import React from "react";
 import { Button } from "react-native-paper";
 
 import ProductCardSquare from "../Cards/ProductCardSquare"
+import Product from "../../models/Product";
 
 type ProductCarouselProps = {
   title: string;
+  products: Product[];
+
 };
 
-const ProductCarousel = ({ title }: ProductCarouselProps) => {
+const ProductCarousel = ({ title,products }: ProductCarouselProps) => {
   return (
     <View className="w-full px-4">
       <View className="flex flex-row items-center justify-between w-full">
@@ -19,13 +22,13 @@ const ProductCarousel = ({ title }: ProductCarouselProps) => {
       </View>
       <View className="flex flex-row mx-3">
         <FlatList
-          data={[1, 2, 3, 4]}
-          renderItem={() => (
+          data={products}
+          renderItem={({item}) => (
             <View className=" m-2">
-              <ProductCardSquare />
+              <ProductCardSquare product={item}  />
             </View>
           )}
-          keyExtractor={(item) => item.toString()}
+          keyExtractor={(item) => item.id}
           horizontal
         />
       </View>
