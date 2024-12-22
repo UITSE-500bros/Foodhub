@@ -30,9 +30,6 @@
     "extra": {
       "eas": {
         "projectId": "77cb0a0b-ccf7-49a2-9fec-422b9482b2ea"
-      },
-      "google": {
-        "androidClientId": "252512409853-l00cu1u8ragkk8nmevo7sqjf1ebd04j7.apps.googleusercontent.com"
       }
     },
     "owner": "uit-se121",
@@ -44,7 +41,8 @@
           "enableGooglePay": true
         }
       ],
-      "expo-font"
+      "expo-font",
+      "@react-native-google-signin/google-signin"
     ]
   }
 }

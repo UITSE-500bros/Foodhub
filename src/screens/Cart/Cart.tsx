@@ -15,65 +15,14 @@ import { orderService } from "../../service";
 const data = Array.from({ length: 20 }, (_, i) => i + 1);
 
 const Cart = () => {
+  const [loading, setLoading] = useState(false);
   const [ready, setReady] = useState(false);
-  const { initPaymentSheet, presentPaymentSheet, loading } = usePaymentSheet();
-  const width = Dimensions.get("window").width;
-  const height = Dimensions.get("window").height;
-
-  useEffect(() => {
-
-    initialisePaymentSheet();
-  }, []);
-
-  const initialisePaymentSheet = async () => {
-    try {
-      const { paymentIntent, ephemeraKey, customer } = await fetchPaymentSheetParams();
-
-      const { error } = await initPaymentSheet({
-        paymentIntentClientSecret: paymentIntent,
-        customerId: customer,
-        customerEphemeralKeySecret: ephemeraKey,
-        merchantDisplayName: 'Example Inc.',
-        allowsDelayedPaymentMethods: true,
-        returnURL: 'payments-example://stripe-redirect',
-        googlePay: {
-          merchantCountryCode: 'VN',
-          testEnv: true,
-          currencyCode: 'vnd',
-        },
-      });
-
-      if (error) {
-        console.error("Error initializing payment sheet:", error);
-      } else {
-        setReady(true);
-      }
-    } catch (error) {
-      console.error("Error during payment sheet initialization:", error);
-    }
-  };
-
-  const fetchPaymentSheetParams = async () => {
-    try {
-      const response = await orderService.createOrder();
-      const { paymentIntent, ephemeraKey, customer } = await response.json();
-      return { paymentIntent, ephemeraKey, customer };
-    } catch (error) {
-      console.error("Error fetching payment sheet params:", error);
-      throw error;
-    }
-  };
+  const width= Dimensions.get('window').width
+  const height= Dimensions.get('window').height
 
   const handlePayment = async () => {
     try {
-      const { error } = await presentPaymentSheet();
-      if (error) {
-        console.error("Payment failed:", error.message);
-        alert(`Error: ${error.message}`);
-      } else {
-        console.log("Payment successful!");
-        alert("Payment completed successfully!");
-      }
+      
     } catch (error) {
       console.error("Error presenting payment sheet:", error);
     }

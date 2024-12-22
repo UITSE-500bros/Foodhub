@@ -10,21 +10,14 @@
     },
     "preview": {
       "extends": "production",
-      "distribution": "internal",
-      "env": {
-        "API_URL": "https://se-foodhub-7fdf668fb550.herokuapp.com/api/",
-        "GOOGLE_ANDROID_CLIENT_ID": "252512409853-l00cu1u8ragkk8nmevo7sqjf1ebd04j7.apps.googleusercontent.com"
-      }
+      "distribution": "internal"
     },
     "production": {
       "node": "22.12.0",
       "android": {
         "image": "latest",
-        "resourceClass": "medium"
-      },
-      "env": {
-        "API_URL": "https://se-foodhub-7fdf668fb550.herokuapp.com/api/",
-        "GOOGLE_ANDROID_CLIENT_ID": "252512409853-l00cu1u8ragkk8nmevo7sqjf1ebd04j7.apps.googleusercontent.com"
+        "resourceClass": "medium",
+        "buildType": "apk"
       },
       "ios": {
         "image": "latest"
