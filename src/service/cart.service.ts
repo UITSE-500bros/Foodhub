@@ -1,17 +1,20 @@
-import { API_URL } from "@env"
-let url = `${API_URL}/products`
+import apis from "./Request";
 
 class CartService {
-    async getCart(userId: string) {
-        
+    baseURI: string;
+    constructor() {
+        this.baseURI = "products";
     }
-    async addToCart (userId: string, productId: string) {
+    async getCart() {
+        const response = await apis.get("cart");
+    }
+    async addToCart (productId: string) {
 
     }
-    async checkout (userId: string) {
+    async checkout () {
 
     }
-    async removeItem (userId: string, productId: string) {
+    async removeItem (productId: string) {
 
     }
 }
