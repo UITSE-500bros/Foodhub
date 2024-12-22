@@ -6,6 +6,7 @@ export const getHomeProductsApi = async () => {
 
     try {
         const response = await axios.get(url);
+        console.log(response.status);
         return response.data;
     } catch (error) {
         console.error(error);

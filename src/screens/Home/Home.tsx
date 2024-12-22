@@ -5,20 +5,15 @@ import ProductCarousel from "../../components/Carousels/ProductCarousel";
 
 import Icon from "react-native-vector-icons/MaterialIcons";
 import ImageCarousel from "../../components/Carousels/ImageCarousel";
-import { getHomeProductsApi } from "../../service/Home.service";
+import { getHomeProductsApi } from "./services/Home.service";
+import apis from "../../service/Request";
 
 const Home = () => {
   const [products, setProducts] = React.useState([]);
   useEffect(() => {
     const fetchProducts = async () => {
-      getHomeProductsApi()
-        .then((products) => {
-          setProducts(products)
-          
-        })
-        .catch((error) => {
-          console.error(error);
-        });
+      const response = await getHomeProductsApi();
+      setProducts(response);
     };
     fetchProducts();
   }, []);
