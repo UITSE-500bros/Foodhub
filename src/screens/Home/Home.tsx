@@ -13,7 +13,8 @@ const Home = () => {
     const fetchProducts = async () => {
       getHomeProductsApi()
         .then((products) => {
-          setProducts(products);
+          setProducts(products)
+          
         })
         .catch((error) => {
           console.error(error);

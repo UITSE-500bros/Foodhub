@@ -4,6 +4,7 @@ import React from "react";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import RootStack from "./src/navigation/RootStack";
+import '../Foodhub/src/utils/configureLogger.ts';
 
 WebBrowser.maybeCompleteAuthSession();
 
