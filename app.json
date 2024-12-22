@@ -12,6 +12,7 @@
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
+    "newArchEnabled": true,
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "com.se121.foodhub"
@@ -42,7 +43,8 @@
           "merchantIdentifier": "",
           "enableGooglePay": true
         }
-      ]
+      ],
+      "expo-font"
     ]
   }
 }
