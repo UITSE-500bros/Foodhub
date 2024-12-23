@@ -20,7 +20,7 @@ const ProductCarousel = ({ title,products }: ProductCarouselProps) => {
           See All
         </Button>
       </View>
-      <View className="flex flex-row mx-3">
+     
         <FlatList
           data={products}
           renderItem={({item}) => (
@@ -31,7 +31,7 @@ const ProductCarousel = ({ title,products }: ProductCarouselProps) => {
           keyExtractor={(item) => item.id}
           horizontal
         />
-      </View>
+      
     </View>
   );
 };

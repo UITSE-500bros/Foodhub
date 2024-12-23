@@ -1,15 +1,16 @@
 import axios from "axios";
 import { API_URL } from "@env";
 
-
-export const getNewArrivalProductsApi = async () => {
-  let url = `${API_URL}/product/new_arrivals`;
-
+const fetchProducts = async (endpoint: string) => {
+  let url = `${API_URL}/product/${endpoint}`;
   try {
     const response = await axios.get(url);
     return response.data;
   } catch (error) {
     console.error(error);
-    console.log("api url: ", url);
   }
 };
+
+export const getNewArrivalProductsApi = () => fetchProducts('new_arrivals');
+export const getBestSellerProductsApi = () => fetchProducts('best_seller');
+export const getExclusiveOfferProductsApi = () => fetchProducts('exclusive');
