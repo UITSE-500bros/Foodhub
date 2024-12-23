@@ -33,5 +33,5 @@ export default function RootStack() {
       <Stack.Screen name="OTP" component={OTP} />
       <Stack.Screen name="LocationRegister" component={LocationRegister} />
     </Stack.Navigator>
-  );s
+  );
 }
