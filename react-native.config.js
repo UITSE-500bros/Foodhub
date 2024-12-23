@@ -3,7 +3,7 @@ module.exports = {
   project: {
     ios: {},
     android: {
-      packageName: 'com.se121.foodhub',
+      packageName: 'com.se.foodhub',
     },
   },
 };

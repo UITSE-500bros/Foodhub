@@ -3,13 +3,60 @@ import { Button } from "@rneui/themed";
 import React from "react";
 import { Image, Text, View } from "react-native";
 import { LoginScreenNavigationProp } from "../../../type";
+import { makeRedirectUri } from "expo-auth-session";
+import * as QueryParams from "expo-auth-session/build/QueryParams";
+import * as WebBrowser from "expo-web-browser";
+import * as Linking from "expo-linking";
+import { supabase } from "../../utils/supabase";
+WebBrowser.maybeCompleteAuthSession(); // required for web only
 
-export interface LoginProps {
-  promptAsync?: () => void;
-}
+const redirectTo = makeRedirectUri();
 
-const Login: React.FC<LoginProps> = ({ promptAsync }) => {
-    const nav= useNavigation<LoginScreenNavigationProp>()
+const createSessionFromUrl = async (url: string) => {
+  const { params, errorCode } = QueryParams.getQueryParams(url);
+
+  if (errorCode) throw new Error(errorCode);
+  const { access_token, refresh_token } = params;
+
+  if (!access_token) return;
+
+  const { data, error } = await supabase.auth.setSession({
+    access_token,
+    refresh_token,
+  });
+  if (error) throw error;
+  return data.session;
+};
+
+const performOAuth = async () => {
+  const { data, error } = await supabase.auth.signInWithOAuth({
+    provider: "google", // Change provider to Google
+    options: {
+      redirectTo,
+      skipBrowserRedirect: true,
+    },
+  });
+  if (error) throw error;
+  
+  const res = await WebBrowser.openAuthSessionAsync(
+    data?.url ?? "",
+    redirectTo
+  );
+  
+  if (res.type === "success") {
+    const { url } = res;
+    await createSessionFromUrl(url);
+  }
+};
+
+
+const Login = () => {
+  const nav = useNavigation<LoginScreenNavigationProp>()
+
+  const url = Linking.useURL();
+  if (url) createSessionFromUrl(url);
+
+  console.log(redirectTo);
 
   return (
     <View className="h-full w-full">
@@ -72,7 +119,8 @@ const Login: React.FC<LoginProps> = ({ promptAsync }) => {
             marginVertical: 10,
           }}
           onPress={() => {
-            nav.navigate("PhoneNumber")
+            // nav.navigate("PhoneNumber")
+            performOAuth();
           }}
         />
 

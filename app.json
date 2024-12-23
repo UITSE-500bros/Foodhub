@@ -2,7 +2,7 @@
   "expo": {
     "name": "foodhub",
     "slug": "foodhub",
-    "scheme": "com.se121.foodhub",
+    "scheme": "com.se.foodhub",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -15,14 +15,14 @@
     "newArchEnabled": true,
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.se121.foodhub"
+      "bundleIdentifier": "com.se.foodhub"
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
-      "package": "com.se121.foodhub"
+      "package": "com.se.foodhub"
     },
     "web": {
       "favicon": "./assets/favicon.png"
