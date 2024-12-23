@@ -15,11 +15,11 @@ const Stack = createStackNavigator<RootStackParamList>();
 export default function RootStack() {
   return (
     <Stack.Navigator>
-      <Stack.Screen
+      {/* <Stack.Screen
         name="Login"
         component={Login}
         
-      />
+      /> */}
       <Stack.Screen
         options={{
           headerShown: false,
@@ -33,5 +33,5 @@ export default function RootStack() {
       <Stack.Screen name="OTP" component={OTP} />
       <Stack.Screen name="LocationRegister" component={LocationRegister} />
     </Stack.Navigator>
-  );s
+  );
 }

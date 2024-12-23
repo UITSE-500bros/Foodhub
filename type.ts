@@ -4,7 +4,7 @@ import { LoginProps } from "./src/screens/Login/Login";
 export type RootStackParamList = {
   Home: undefined;
   Explore: undefined;
-  CategoryDetail: undefined;
+  CategoryDetail: { id: string };
   ProductDetail: undefined;
   Cart: undefined;
   Profile: undefined;
@@ -44,3 +44,9 @@ export type LocationRegisterScreenNavigationProp = StackNavigationProp<
   RootStackParamList,
   "LocationRegister"
 >;
+
+export type CategoryDetailScreenNavigationProp = StackNavigationProp<
+  RootStackParamList,
+  "CategoryDetail"
+>;
+
