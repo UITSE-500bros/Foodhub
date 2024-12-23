@@ -6,6 +6,9 @@ import { Category } from "../../models";
 import { categoriesService } from "../../service";
 import { useNavigation } from "@react-navigation/native";
 import { ExploreScreenNavigationProp, RootStackParamList } from "../../../type";
+import { getCategoriesApi } from "./services/Explore.service";
+import Item from "../Survey/components/Item";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 const width = Dimensions.get("window").width;
 
@@ -15,17 +18,17 @@ const Explore = () => {
   const [searchQuery, setSearchQuery] = React.useState("");
   useEffect(() => {
     const fetchCategories = async () => {
-      const categories = await categoriesService.getCategories();
+      const categories = await getCategoriesApi();
       setData(categories);
-    }
+    };
     fetchCategories();
-  }, [data]);
+  }, []);
 
 
   const nav = useNavigation<ExploreScreenNavigationProp>();
 
   return (
-    <View className="flex mt-14  flex-col justify-start items-center">
+    <SafeAreaView className="flex mt-14 pb-10  flex-col justify-start items-center">
       <Text className="text-black mt-5 text-2xl font-black ">
         Find Products
       </Text>
@@ -36,31 +39,21 @@ const Explore = () => {
         style={{ width: width - 40, marginTop: 20, borderRadius: 10 }}
       />
       <FlatList
+      className=" my-6 "
         data={data}
-        renderItem={({ item }) => {
-          return (
-            <ExploreCard
-              onPress={() => {
-                nav.navigate('CategoryDetail')
-              }}
-              title={item.categoryName}
-              color={""}
-              image={item.categoryImage}
-            />
-          );
-        }}
-        keyExtractor={(item) => item._id}
+        keyExtractor={(item) => item.id.toString()}
         numColumns={2}
-        contentContainerStyle={{
-          paddingHorizontal: 10,
-          paddingVertical: 20,
-        }}
-        columnWrapperStyle={{
-          justifyContent: "space-between",
-          marginBottom: 10,
-        }}
+        contentContainerStyle={{paddingBottom: 100}}
+
+        renderItem={({ item }) => (
+          <ExploreCard
+            image={item.image}
+            title={item.name}
+            onPress={() => nav.navigate("CategoryDetail")}
+          />
+        )}
       />
-    </View>
+    </SafeAreaView>
   );
 };
 
