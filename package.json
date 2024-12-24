@@ -55,7 +55,8 @@
     "xml2js": "^0.6.2",
     "react-dom": "18.3.1",
     "react-native-web": "~0.19.13",
-    "@expo/metro-runtime": "~4.0.0"
+    "@expo/metro-runtime": "~4.0.0",
+    "expo-secure-store": "~14.0.0"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",

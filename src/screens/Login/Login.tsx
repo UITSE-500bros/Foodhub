@@ -8,6 +8,8 @@ import * as QueryParams from "expo-auth-session/build/QueryParams";
 import * as WebBrowser from "expo-web-browser";
 import * as Linking from "expo-linking";
 import { supabase } from "../../utils/supabase";
+import * as SecureStore from 'expo-secure-store';
+
 WebBrowser.maybeCompleteAuthSession(); // required for web only
 
 const redirectTo = makeRedirectUri();
@@ -34,29 +36,36 @@ const performOAuth = async () => {
     options: {
       redirectTo,
       skipBrowserRedirect: true,
+      queryParams: {
+        prompt: "select_account", // Forces Google to show the account picker
+      },
     },
   });
   if (error) throw error;
-  
+
   const res = await WebBrowser.openAuthSessionAsync(
     data?.url ?? "",
     redirectTo
   );
-  
+
   if (res.type === "success") {
     const { url } = res;
-    await createSessionFromUrl(url);
+    const session = await createSessionFromUrl(url);
+    await SecureStore.setItemAsync('access_token', session?.access_token as string);
   }
 };
 
+const logout = async () => {
+  const { error } = await supabase.auth.signOut();
+  if (error) throw error;
+}
 
 const Login = () => {
   const nav = useNavigation<LoginScreenNavigationProp>()
-
   const url = Linking.useURL();
-  if (url) createSessionFromUrl(url);
-
-  console.log(redirectTo);
+  if (url) {
+    createSessionFromUrl(url);
+  }
 
   return (
     <View className="h-full w-full">
@@ -119,8 +128,8 @@ const Login = () => {
             marginVertical: 10,
           }}
           onPress={() => {
-            // nav.navigate("PhoneNumber")
             performOAuth();
+            // nav.navigate("PhoneNumber")
           }}
         />
 
@@ -151,6 +160,9 @@ const Login = () => {
           containerStyle={{
             marginHorizontal: 10,
             marginVertical: 10,
+          }}
+          onPress={() => {
+            logout();
           }}
         />
       </View>
