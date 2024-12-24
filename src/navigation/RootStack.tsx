@@ -9,6 +9,7 @@ import PhoneNumber from "../screens/PhoneNumber";
 
 import { LocationRegister } from "../screens/LocationRegister";
 import OTP from "../screens/OTP";
+import Survey from "../screens/Survey";
 
 const Stack = createStackNavigator<RootStackParamList>();
 
@@ -32,6 +33,7 @@ export default function RootStack() {
       <Stack.Screen name="PhoneNumber" component={PhoneNumber} />
       <Stack.Screen name="OTP" component={OTP} />
       <Stack.Screen name="LocationRegister" component={LocationRegister} />
+      <Stack.Screen name="Survey" component={Survey} />
     </Stack.Navigator>
   );
 }

@@ -5,7 +5,7 @@ export type RootStackParamList = {
   Home: undefined;
   Explore: undefined;
   CategoryDetail: { id: string };
-  ProductDetail: undefined;
+  ProductDetail: { id: string };
   Cart: undefined;
   Profile: undefined;
   BottomTabNavigator: undefined;
@@ -13,6 +13,7 @@ export type RootStackParamList = {
   PhoneNumber: undefined;
   OTP: undefined;
   LocationRegister: undefined;
+  Survey: undefined;
 };
 
 export type ExploreScreenNavigationProp = StackNavigationProp<

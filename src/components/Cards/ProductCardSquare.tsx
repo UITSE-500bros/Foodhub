@@ -21,7 +21,9 @@ const ProductCardSquare = ({ product }: ProductCardSquareProps) => {
   return (
     <TouchableOpacity
       className="flex w-[173px] h-[250px] flex-col justify-center items-center border rounded-2xl m-2"
-      onPress={() => nav.navigate("ProductDetail")}
+      onPress={() => nav.navigate("ProductDetail",{
+        id: product.id
+      })}
     >
       <Image
         source={{ uri: product.product_image }}

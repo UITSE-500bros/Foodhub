@@ -1,22 +1,21 @@
 import { View, Text, Image, TouchableOpacity } from "react-native";
 import React, { useEffect } from "react";
 import { AdjustButton } from "../../components";
+import { useRoute } from "@react-navigation/native";
+import Product from "../../models/Product";
 
 const ProductDetail = () => {
-  useEffect(() => {
-    // fetch(`https://fakestoreapi.com/products/${product_id}`)
-    //   .then((response) => response.json())
-    //   .then((json) => setData(json))
-    //   .catch((error) => console.error(error))
-  }, []);
-  const [data, setData] = React.useState<{
-    image: string;
-    title: string;
-  } | null>(null);
+  const [product, setProduct] = React.useState<Product>({});
+  const route = useRoute();
+  const { id } = route.params;
+
   const [isOpen, setIsOpen] = React.useState(false);
   const toggle = () => {
     setIsOpen(!isOpen);
   };
+  
+
+
 
   return (
     <View className="relative flex flex-1 w-full">
