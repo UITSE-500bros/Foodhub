@@ -4,11 +4,17 @@ import React from "react";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import RootStack from "./src/navigation/RootStack";
-import '../Foodhub/src/utils/configureLogger.ts';
+import * as Linking from 'expo-linking';
+
 
 WebBrowser.maybeCompleteAuthSession();
 
+const prefix = Linking.createURL('/');
+console.log(prefix);
 export default function App() {
+  const linking={
+    prefixes:[prefix],
+  }
   
 
   return (
@@ -16,7 +22,7 @@ export default function App() {
     // <Login promptAsync={promptAsync}/>
     // : (
       <GestureHandlerRootView>
-        <NavigationContainer>
+        <NavigationContainer linking={linking}>
           <SafeAreaProvider>
             <RootStack />
           </SafeAreaProvider>
