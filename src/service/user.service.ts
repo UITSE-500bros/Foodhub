@@ -5,6 +5,7 @@ class UserService {
         this.baseURI = "user/userId";
     }
     private getURI(uri: string) {
+        console.log(`${this.baseURI}${uri}`);
         return `${this.baseURI}${uri}`;
     }
     async updateInfo(userId: string, image: string) {
@@ -31,10 +32,12 @@ class UserService {
         return response;
     }
     async checkout(amount: number) {
-        const response = await apis.post("checkout", {
-            ammount: amount,
+        const response = await apis.post("/user/payment", {
+            "amount": amount,
         });
-        return response;
+        const responseData = await response.json();  // Await here to get the parsed data
+        console.log(responseData);
+        return responseData;
     }
 }
 const userService = new UserService();

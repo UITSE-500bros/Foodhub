@@ -162,7 +162,7 @@ const Login = () => {
             marginVertical: 10,
           }}
           onPress={() => {
-            logout();
+            nav.navigate("PhoneNumber")
           }}
         />
       </View>
