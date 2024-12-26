@@ -1,35 +1,36 @@
 import { View, Text, FlatList } from "react-native";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { ProductCardSquare } from "../../components";
 import { Icon, IconButton } from "react-native-paper";
+import { useRoute } from "@react-navigation/native";
+import Product from "../../models/Product";
+import { getProductsByIDApi } from "./service/CategoryDetail.service";
 
-const data = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15];
+
+
 const CategoryDetail = () => {
+  const [products, setProducts] = useState<Product[]>([]);
+  const route = useRoute();
+  const { id } = route.params;
+  useEffect(() => {
+    const fetchProducts = async () => {
+      const products = await getProductsByIDApi(id);
+      setProducts(products);
+    };
+    fetchProducts();
+  }, []);
+  
+
   return (
-    <View>
-      {/* <View className=" flex-row flex justify-between items-center mt-10">
-        <IconButton
-          icon="arrow-left"
-          size={30}
-          onPress={() => console.log("Pressed")}
-        />
-        <Text className="text-black  text-2xl font-black  ">
-          Fruits
-        </Text>
-        <IconButton
-          icon="filter"
-          size={25}
-          onPress={() => console.log("Pressed")}
-        />
-      </View> */}
+    <View className="flex justify-center items-center">
       <FlatList
-        data={data}
-        keyExtractor={(item) => item.toString()}
+        data={products}
+        keyExtractor={(item) => item.id}
         numColumns={2}
         renderItem={({ item }) => (
-          <View className=" m-3">
-            <ProductCardSquare />
-          </View>
+         
+            <ProductCardSquare product={item} />
+         
         )}
       />
     </View>

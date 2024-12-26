@@ -5,24 +5,30 @@ import ProductCarousel from "../../components/Carousels/ProductCarousel";
 
 import Icon from "react-native-vector-icons/MaterialIcons";
 import ImageCarousel from "../../components/Carousels/ImageCarousel";
-import { getHomeProductsApi } from "../../service/Home.service";
+import apis from "../../service/Request";
+import {
+  getBestSellerProductsApi,
+  getExclusiveOfferProductsApi,
+  getNewArrivalProductsApi,
+} from "./services/Home.service";
 
 const Home = () => {
-  const [products, setProducts] = React.useState([]);
+  const [products, setProducts] = React.useState({
+    exclusiveOffer: [],
+    newArrivals: [],
+    bestSellers: [],
+  });
+
   useEffect(() => {
     const fetchProducts = async () => {
-      getHomeProductsApi()
-        .then((products) => {
-          setProducts(products)
-          
-        })
-        .catch((error) => {
-          console.error(error);
-        });
+      const newArrivals = await getNewArrivalProductsApi();
+      const bestSellers = await getBestSellerProductsApi();
+      const exclusiveOffer = await getExclusiveOfferProductsApi();
+      setProducts({ newArrivals, bestSellers, exclusiveOffer });
     };
     fetchProducts();
   }, []);
-  console.log(products);
+
   return (
     <ScrollView className="flex flex-col w-full mt-8">
       <View className="items-center mt-7 ">
@@ -57,9 +63,9 @@ const Home = () => {
 
       {/* product cards */}
       <View className="w-full  mt-4">
-        <ProductCarousel products={products} title="Exclusive Offer" />
-        <ProductCarousel products={products} title="Best Sellers" />
-        <ProductCarousel products={products} title="New Arrivals" />
+        <ProductCarousel products={products.exclusiveOffer} title="Exclusive Offer" />
+        <ProductCarousel products={products.bestSellers} title="Best Sellers" />
+        <ProductCarousel products={products.newArrivals} title="New Arrivals" />
       </View>
     </ScrollView>
   );
