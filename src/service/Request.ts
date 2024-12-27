@@ -6,6 +6,7 @@ class APIs {
     this.baseUrl = API_URL;
   }
   private getURL(url: string) {
+    console.log(`${this.baseUrl}${url}`);
     return `${this.baseUrl}${url}`;
   }
   async get(endpoint: string) {
@@ -22,12 +23,10 @@ class APIs {
     const response = await fetch(this.getURL(endpoint), {
       method: "POST",
       headers: {
-        "Content-Type": "application/json",
         accept: "*/*",
       },
       body: JSON.stringify(data),
     });
-
     return response;
   }
 
