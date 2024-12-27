@@ -31,27 +31,38 @@ const createSessionFromUrl = async (url: string) => {
 };
 
 const performOAuth = async () => {
-  const { data, error } = await supabase.auth.signInWithOAuth({
-    provider: "google", // Change provider to Google
-    options: {
-      redirectTo,
-      skipBrowserRedirect: true,
-      queryParams: {
-        prompt: "select_account", // Forces Google to show the account picker
+  const storedToken = await SecureStore.getItemAsync('access_token');
+
+  if (storedToken) {
+    const { data, error } = await supabase.auth.refreshSession();
+    if (error) throw error;
+    if (data) {
+      await SecureStore.setItemAsync('access_token', data.session?.access_token as string);
+    }
+  } else {
+    const { data, error } = await supabase.auth.signInWithOAuth({
+      provider: "google", // Change provider to Google
+      options: {
+        redirectTo,
+        skipBrowserRedirect: true,
+        queryParams: {
+          prompt: "select_account", // Forces Google to show the account picker
+        },
       },
-    },
-  });
-  if (error) throw error;
+    });
+    if (error) throw error;
 
-  const res = await WebBrowser.openAuthSessionAsync(
-    data?.url ?? "",
-    redirectTo
-  );
+    const res = await WebBrowser.openAuthSessionAsync(
+      data?.url ?? "",
+      redirectTo
+    );
 
-  if (res.type === "success") {
-    const { url } = res;
-    const session = await createSessionFromUrl(url);
-    await SecureStore.setItemAsync('access_token', session?.access_token as string);
+    if (res.type === "success") {
+      const { url } = res;
+      const session = await createSessionFromUrl(url);
+      await SecureStore.setItemAsync('access_token', session?.access_token as string);
+
+    }
   }
 };
 

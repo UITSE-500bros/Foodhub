@@ -8,6 +8,9 @@ class APIs {
   private getURL(url: string) {
     return `${this.baseUrl}${url}`;
   }
+
+  
+
   async get(endpoint: string) {
     const response = await fetch(this.getURL(endpoint), {
       method: "GET",
@@ -23,6 +26,7 @@ class APIs {
       method: "POST",
       headers: {
         accept: "*/*",
+        'Content-Type': 'application/json',
       },
       body: JSON.stringify(data),
     });
@@ -46,6 +50,7 @@ class APIs {
       method: "DELETE",
       headers: {
         accept: "*/*",
+        'Content-Type': 'application/json',
       },
     });
     return response.json();
