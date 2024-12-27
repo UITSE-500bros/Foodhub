@@ -15,6 +15,7 @@ import { VNpayScreenNavigationProp } from "../../../type";
 const data = Array.from({ length: 20 }, (_, i) => i + 1);
 
 const Cart = () => {
+  const [total, setTotal] = useState(0);
   const width = Dimensions.get('window').width
   const height = Dimensions.get('window').height
 
@@ -33,14 +34,23 @@ const Cart = () => {
   };
 
   return (
-    <SafeAreaView className="flex-1 ">
+    <SafeAreaView className="flex-1 px-4 ">
+
       <View className="flex justify-center items-center mt-10">
         <Text className="text-center text-[#181725] text-xl font-black">
           My Cart
         </Text>
       </View>
+      <Text className="text-center text-[#7C7C7C] text-xl font-[900]">
+        Tổng tiền {total} 
+      </Text>
+      <View>
+        <Text className="text-lg font-semibold">Địa chỉ giao hàng: </Text>
+        <Text>Phường Linh Trung, Quận Thủ Đức, TP.HCM</Text>
+      </View>
       <FlatList
         data={data}
+        className="mr-4"
         style={{ width: width, height: height - 200 }}
         keyExtractor={(item) => item.toString()}
         renderItem={({ item }) => (

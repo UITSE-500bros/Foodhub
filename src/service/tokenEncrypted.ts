@@ -1,4 +1,3 @@
-import EncryptedStorage from 'react-native-encrypted-storage';
 import * as SecureStore from 'expo-secure-store';
 
 export const storeTokens = async (

@@ -8,6 +8,7 @@ import Profile from "../screens/Profile";
 
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Home from "../screens/Home";
+import Search from "../screens/Search";
 
 const Tab = createBottomTabNavigator();
 
@@ -16,7 +17,7 @@ export default function BottomTabNavigator() {
     <Tab.Navigator>
       <Tab.Screen
         name="Home"
-        component={Home}
+        component={Search}
         options={{
           tabBarLabel: "Home",
           tabBarIcon: ({ color }) => (

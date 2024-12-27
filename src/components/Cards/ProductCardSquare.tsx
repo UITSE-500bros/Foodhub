@@ -4,6 +4,7 @@ import { useNavigation } from "@react-navigation/native";
 import { HomeScreenNavigationProp } from "../../../type"; // Adjust the import path as necessary
 import Product from "../../models/Product"; // Adjust the import path as necessary
 import AdjustButton from "../Button/AdjustButton";
+import { sCartItems } from "../../screens/Cart/store/CartStore";
 
 type ProductCardSquareProps = {
   product: Product;
@@ -18,12 +19,15 @@ const ProductCardSquare = ({ product }: ProductCardSquareProps) => {
     currency: "VND",
   }).format(product.product_price);
 
+
   return (
     <TouchableOpacity
       className="flex w-[173px] h-[250px] flex-col justify-center items-center border rounded-2xl m-2"
-      onPress={() => nav.navigate("ProductDetail",{
-        id: product.id
-      })}
+      onPress={() =>
+        nav.navigate("ProductDetail", {
+          id: product.id,
+        })
+      }
     >
       <Image
         source={{ uri: product.product_image }}
@@ -37,11 +41,7 @@ const ProductCardSquare = ({ product }: ProductCardSquareProps) => {
         <Text className="text-black text-lg font-semibold tracking-tighter">
           {formattedPrice}
         </Text>
-        <AdjustButton
-          type="plus"
-          onPress={() => console.log("plus")}
-          size={30}
-        />
+        <AdjustButton type="plus" onPress={()=>{}} size={30} />
       </View>
     </TouchableOpacity>
   );

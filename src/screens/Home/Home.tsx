@@ -1,6 +1,6 @@
 import { View, Text, Image, StyleSheet, ScrollView } from "react-native";
 import React, { useEffect } from "react";
-import { Button, Searchbar } from "react-native-paper";
+import SearchBar from "../../components/SearchBar";
 import ProductCarousel from "../../components/Carousels/ProductCarousel";
 
 import Icon from "react-native-vector-icons/MaterialIcons";
@@ -11,6 +11,7 @@ import {
   getBestSellerProductsApi,
   getExclusiveOfferProductsApi,
   getNewArrivalProductsApi,
+  getProductBySearchQueryApi,
 } from "./services/Home.service";
 import Banner from "../../models/banner";
 import { Skeleton } from '@rneui/themed';
@@ -24,8 +25,15 @@ const Home = () => {
   const [searchQuery, setSearchQuery] = React.useState("");
 
   const onChangeSearch = (query: string) => setSearchQuery(query);
-  const onSeacrhSubmit = () => {
-    console.log("searching for ", searchQuery);
+  const onSeacrhSubmit =async () => {
+    try{
+      const searchProduct = await getProductBySearchQueryApi(searchQuery);
+      console.log(searchProduct);
+
+    }
+    catch(err){
+      console.log(err);}
+
   }
   useEffect(() => {
     const fetchProducts = async () => {
@@ -36,6 +44,8 @@ const Home = () => {
     };
     fetchProducts();
   }, []);
+
+  
 
   return (
     <ScrollView className="flex flex-col w-full mt-8">
@@ -53,19 +63,7 @@ const Home = () => {
       </View>
 
       {/* search bar */}
-      <View className="w-full h-[52px] px-4 bg-transparent ">
-        <Searchbar
-          placeholder="Search Store"
-          value={searchQuery}
-          onChangeText={onChangeSearch}
-          onSubmitEditing={onSeacrhSubmit}
-          style={{
-            borderRadius: 15,
-            backgroundColor: "#F9F9F9",
-            width: "100%",
-          }}
-        />
-      </View>
+      <SearchBar />
       {/* image carousel */}
 
       <ImageCarousel />
