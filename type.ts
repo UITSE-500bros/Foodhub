@@ -1,5 +1,6 @@
 import { StackNavigationProp } from "@react-navigation/stack";
 import { LoginProps } from "./src/screens/Login/Login";
+import { RouteProp } from "@react-navigation/native";
 
 export type RootStackParamList = {
   Home: undefined;
@@ -14,6 +15,7 @@ export type RootStackParamList = {
   OTP: undefined;
   LocationRegister: undefined;
   Survey: undefined;
+  VNpay: { uri: string };
 };
 
 export type ExploreScreenNavigationProp = StackNavigationProp<
@@ -51,3 +53,8 @@ export type CategoryDetailScreenNavigationProp = StackNavigationProp<
   "CategoryDetail"
 >;
 
+export type VNpayScreenNavigationProp = StackNavigationProp<
+  RootStackParamList,
+  "VNpay"
+>;
+export type VNpayScreenRouteProp = RouteProp<RootStackParamList, "VNpay">;

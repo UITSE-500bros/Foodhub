@@ -9,6 +9,8 @@ import {
 import { SafeAreaView } from "react-native-safe-area-context";
 import { ProductCard } from "../../components";
 import { usersService } from "../../service";
+import { useNavigation } from "@react-navigation/native";
+import { VNpayScreenNavigationProp } from "../../../type";
 
 const data = Array.from({ length: 20 }, (_, i) => i + 1);
 
@@ -16,16 +18,22 @@ const Cart = () => {
   const width = Dimensions.get('window').width
   const height = Dimensions.get('window').height
 
+  const nav = useNavigation<VNpayScreenNavigationProp>();
+
   const handlePayment = async () => {
     try {
       const url = await usersService.checkout(50000);
+      
+      if (url) {
+        nav.navigate("VNpay", { uri: url });
+      }
     } catch (error) {
       console.error("Error presenting payment sheet:", error);
     }
   };
 
   return (
-    <SafeAreaView>
+    <SafeAreaView className="flex-1 ">
       <View className="flex justify-center items-center mt-10">
         <Text className="text-center text-[#181725] text-xl font-black">
           My Cart

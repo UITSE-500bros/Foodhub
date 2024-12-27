@@ -2,6 +2,14 @@ import { View, Text, Image, TouchableOpacity } from "react-native";
 import React from "react";
 import { Icon } from "@rneui/themed";
 import { Button } from "@rneui/themed";
+import { supabase } from "../../utils/supabase";
+
+const Logout = async () => {
+
+  const { error } = await supabase.auth.signOut();
+  if (error) throw error;
+
+}
 
 const Profile = () => {
   return (
@@ -125,6 +133,7 @@ const Profile = () => {
           marginHorizontal: 25,
           justifyContent: "space-around",
         }}
+        onPress={Logout}
       />
     </View>
   );

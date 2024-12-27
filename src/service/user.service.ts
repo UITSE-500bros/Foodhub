@@ -32,11 +32,8 @@ class UserService {
         return response;
     }
     async checkout(amount: number) {
-        const response = await apis.post("/user/payment", {
-            "amount": amount,
-        });
-        const responseData = await response.json();  // Await here to get the parsed data
-        console.log(responseData);
+        const response = await apis.post("/user/payment", { amount: amount });
+        const responseData = await response.json();
         return responseData;
     }
 }

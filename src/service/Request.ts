@@ -6,7 +6,6 @@ class APIs {
     this.baseUrl = API_URL;
   }
   private getURL(url: string) {
-    console.log(`${this.baseUrl}${url}`);
     return `${this.baseUrl}${url}`;
   }
   async get(endpoint: string) {
@@ -27,6 +26,7 @@ class APIs {
       },
       body: JSON.stringify(data),
     });
+    console.log(JSON.stringify(data));
     return response;
   }
 
