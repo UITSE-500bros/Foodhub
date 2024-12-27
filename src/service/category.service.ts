@@ -1,7 +1,8 @@
-import apis from "./Request";
+import axiosInstance from "./axiosInstance";
+
 class CategoryService {
     async getCategories() {
-        const categories = await apis.get("category");
+        const categories = await axiosInstance.get("category");
         return categories;
     }
 }

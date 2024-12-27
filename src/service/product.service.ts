@@ -1,13 +1,13 @@
-import apis from "./Request";
+import axiosInstance from "./axiosInstance";
 class ProductService {
-    async getProductsByCategory(category: string) {
-        const response = await apis.get(`product/category/${category}`);
-        return response;
-    }
-    async getProductsById (id: string) {
-        const response = await apis.get(`product/${id}`);
-        return response;
-    }
+  async getProductsByCategory(category: string) {
+    const response = await axiosInstance.get(`product/category/${category}`);
+    return response.data;
+  }
+  async getProductsById(id: string) {
+    const response = await axiosInstance.get(`product/${id}`);
+    return response.data;
+  }
 }
 const productService = new ProductService();
 

@@ -1,4 +1,5 @@
-import apis from "./Request";
+import axiosInstance from "./axiosInstance";
+
 
 class CartService {
     baseURI: string;
@@ -6,7 +7,7 @@ class CartService {
         this.baseURI = "products";
     }
     async getCart() {
-        const response = await apis.get("cart");
+        const response = await axiosInstance.get("cart");
     }
     async addToCart (productId: string) {
 

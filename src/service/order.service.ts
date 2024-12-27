@@ -1,5 +1,6 @@
 import { API_URL } from "@env"
-import apis from "./Request";
+
+import axiosInstance from "./axiosInstance";
 let url = `${API_URL}`
 
 class OrderService {
@@ -13,7 +14,7 @@ class OrderService {
 
     }
     async createOrder() {
-        const response = await apis.post(`order/payment`, {
+        const response = await axiosInstance.post(`order/payment`, {
             "amount": 15000,
             "currency": "VND"
         });

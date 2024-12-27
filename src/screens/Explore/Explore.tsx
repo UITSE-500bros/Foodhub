@@ -32,12 +32,12 @@ const Explore = () => {
       <Text className="text-black mt-5 text-2xl font-black ">
         Find Products
       </Text>
-      <Searchbar
+      {/* <Searchbar
         value={searchQuery}
         onChangeText={setSearchQuery}
         placeholder="Search"
         style={{ width: width - 40, marginTop: 20, borderRadius: 10 }}
-      />
+      /> */}
       <FlatList
       className=" my-6 "
         data={data}

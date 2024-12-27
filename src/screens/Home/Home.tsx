@@ -20,9 +20,12 @@ const Home = () => {
     newArrivals: [],
     bestSellers: [],
   });
+  const [searchQuery, setSearchQuery] = React.useState("");
 
-  const [bannerImages, setBannerImages] = React.useState<Banner[]>([]);
-
+  const onChangeSearch = (query: string) => setSearchQuery(query);
+  const onSeacrhSubmit = () => {
+    console.log("searching for ", searchQuery);
+  }
   useEffect(() => {
     const fetchProducts = async () => {
       const newArrivals = await getNewArrivalProductsApi();
@@ -31,14 +34,6 @@ const Home = () => {
       setProducts({ newArrivals, bestSellers, exclusiveOffer });
     };
     fetchProducts();
-  }, []);
-
-  useEffect(() => {
-    const fetchBannerImages = async () => {
-      const images = await getBannerImagesApi();
-      setBannerImages(images);
-    };
-    fetchBannerImages();
   }, []);
 
   return (
@@ -60,8 +55,9 @@ const Home = () => {
       <View className="w-full h-[52px] px-4 bg-transparent ">
         <Searchbar
           placeholder="Search Store"
-          value=""
-          onChangeText={() => {}}
+          value={searchQuery}
+          onChangeText={onChangeSearch}
+          onSubmitEditing={onSeacrhSubmit}
           style={{
             borderRadius: 15,
             backgroundColor: "#F9F9F9",
@@ -71,11 +67,8 @@ const Home = () => {
       </View>
       {/* image carousel */}
 
-      <ImageCarousel images={bannerImages}/>
+      <ImageCarousel />
 
-
- 
-     
       {/* product cards */}
       <View className="w-full  mt-4">
         <ProductCarousel

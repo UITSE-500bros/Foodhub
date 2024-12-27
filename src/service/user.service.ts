@@ -1,4 +1,5 @@
-import apis from "./Request";
+import axiosInstance from "./axiosInstance";
+
 class UserService {
     baseURI: string;
     constructor() {
@@ -9,32 +10,30 @@ class UserService {
         return `${this.baseURI}${uri}`;
     }
     async updateInfo(userId: string, image: string) {
-        const response = await apis.put("", {
+        const response = await axiosInstance.put("", {
             userId: userId,
             Image: image,
         });
-        return response;
+        return response.data;
     }
     async getFavorites(userId: string) {
-        const favorites = await apis.get("favorites");
-        return favorites;
+        const favorites = await axiosInstance.get("favorites");
+        return favorites.data;
     }
     async addFavorite(userId: string, productId: string) {
-        const response = await apis.post("favorites", {
+        const response = await axiosInstance.post("favorites", {
             productId: productId,
         });
-        return response;
+        return response.data;
     }
     async removeFavorite(userId: string, productId: string) {
-        const response = await apis.delete("favorites/", {
-            productId: productId,
-        });
+        const response = await axiosInstance.delete(`favorites/${productId}`);
         return response;
     }
     async checkout(amount: number) {
-        const response = await apis.post("/user/payment", { amount: amount });
-        const responseData = await response.json();
-        return responseData;
+        const response = await axiosInstance.post("/user/payment", { amount: amount });
+        // const responseData = await response.json();
+        return response.data;
     }
 }
 const userService = new UserService();
