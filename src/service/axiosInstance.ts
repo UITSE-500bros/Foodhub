@@ -11,6 +11,17 @@ const axiosInstance = axios.create({
 
 });
 
+axiosInstance.interceptors.request.use(
+    async (config) => {
+      const tokens = await getTokens();
+      if (tokens && tokens.accessToken) {
+        config.headers.Authorization = `Bearer ${tokens.accessToken}`;
+      }
+      return config;
+    },
+    (error) => Promise.reject(error)
+  );
+
 axiosInstance.interceptors.response.use(
     (response) => response,
     async (error) => {
