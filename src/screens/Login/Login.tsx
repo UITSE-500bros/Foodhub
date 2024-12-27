@@ -7,73 +7,58 @@ import { makeRedirectUri } from "expo-auth-session";
 import * as QueryParams from "expo-auth-session/build/QueryParams";
 import * as WebBrowser from "expo-web-browser";
 import * as Linking from "expo-linking";
-import { supabase } from "../../utils/supabase";
 import * as SecureStore from 'expo-secure-store';
+import { API_URL } from "@env";
 
 WebBrowser.maybeCompleteAuthSession(); // required for web only
 
 const redirectTo = makeRedirectUri();
-
-const createSessionFromUrl = async (url: string) => {
-  const { params, errorCode } = QueryParams.getQueryParams(url);
-
-  if (errorCode) throw new Error(errorCode);
-  const { access_token, refresh_token } = params;
-
-  if (!access_token) return;
-
-  const { data, error } = await supabase.auth.setSession({
-    access_token,
-    refresh_token,
-  });
-  if (error) throw error;
-  return data.session;
-};
-
 const performOAuth = async () => {
-  const storedToken = await SecureStore.getItemAsync('access_token');
-
-  if (storedToken) {
-    const { data, error } = await supabase.auth.refreshSession();
-    if (error) throw error;
-    if (data) {
-      await SecureStore.setItemAsync('access_token', data.session?.access_token as string);
-    }
-  } else {
-    const { data, error } = await supabase.auth.signInWithOAuth({
-      provider: "google", // Change provider to Google
-      options: {
-        redirectTo,
-        skipBrowserRedirect: true,
-        queryParams: {
-          prompt: "select_account", // Forces Google to show the account picker
-        },
+  try {
+    const response = await fetch(`${API_URL}/user/google`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        accept: "*/*",
       },
     });
-    if (error) throw error;
+    if (response.ok) {
+      const data = await response.json();
+      if (data.url) {
+        const res = await WebBrowser.openAuthSessionAsync(
+          data.url,
+          redirectTo
+        );
+        if (res.type === "success") {
+          const { url } = res;
 
-    const res = await WebBrowser.openAuthSessionAsync(
-      data?.url ?? "",
-      redirectTo
-    );
+          // Save the accessToken to the secure store
+          const { params, errorCode } = QueryParams.getQueryParams(url);
 
-    if (res.type === "success") {
-      const { url } = res;
-      const session = await createSessionFromUrl(url);
-      await SecureStore.setItemAsync('access_token', session?.access_token as string);
+          if (errorCode) throw new Error(errorCode);
+          const { access_token, refresh_token } = params;
 
+          if (access_token && refresh_token) {
+            await SecureStore.setItemAsync("access_token", access_token);
+            await SecureStore.setItemAsync("refresh_token", refresh_token);
+          } else {
+            console.error("No access token found in the response");
+          }
+        }
+      } else {
+        console.error("No URL found in the response");
+      }
+    } else {
+      console.error("Failed to fetch OAuth URL:", response.statusText);
     }
+  } catch (error) {
+    console.error("Error during OAuth request:", error);
   }
 };
-
-
 
 const Login = () => {
   const nav = useNavigation<LoginScreenNavigationProp>()
-  const url = Linking.useURL();
-  if (url) {
-    createSessionFromUrl(url);
-  }
+  const url = Linking.createURL("/login");
 
   return (
     <View className="h-full w-full">

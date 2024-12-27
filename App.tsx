@@ -10,7 +10,7 @@ import './logger.config'
 
 WebBrowser.maybeCompleteAuthSession();
 
-const prefix = Linking.createURL('/');
+const prefix = Linking.createURL('');
 console.log(prefix);
 export default function App() {
   const linking={
