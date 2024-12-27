@@ -5,6 +5,7 @@ import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import RootStack from "./src/navigation/RootStack";
 import * as Linking from 'expo-linking';
+import './logger.config'
 
 
 WebBrowser.maybeCompleteAuthSession();

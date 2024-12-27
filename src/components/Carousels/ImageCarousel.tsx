@@ -1,38 +1,37 @@
 import React, { useEffect, useState } from "react";
 import { Dimensions, Image, StyleSheet, View } from "react-native";
 import Carousel from "react-native-reanimated-carousel";
+import Banner from "../../models/banner";
+import { getBannerImagesApi } from "../../screens/Home/services/Home.service";
 
 const width = Dimensions.get("window").width;
+type ImageCarouselProps = {
+  images: Banner[];
+};
 
 const ImageCarousel = () => {
-  const [images, setImages] = useState<string[]>([]);
-
-  useEffect(() => {
+  const [data, setData] = useState<Banner[]>([]);
+  useEffect(()=>{
     const fetchImages = async () => {
-      const imageUrls = Array.from(
-        { length: 4 },
-        () => `https://picsum.photos/400/115?random=${Math.random()}`
-      );
-      await Promise.all(imageUrls.map((url) => Image.prefetch(url)));
-      setImages(imageUrls);
-    };
-
+      const res= await getBannerImagesApi();
+      setData(res);
+    }
     fetchImages();
-
-  }, []);
+  },[])
+ 
 
   return (
     <View className="w-full m-5  ">
       <Carousel
         width={width}
         height={width / 3}
-        data={images}
+        data={data}
         loop
         autoPlay
-       
         renderItem={({ item }) => (
           <View style={styles.imageContainer}>
-            <Image source={{ uri: item }} style={styles.image} />
+           
+            <Image source={{ uri: item.publicUrl }} style={styles.image} />
           </View>
         )}
       />

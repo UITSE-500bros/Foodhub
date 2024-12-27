@@ -7,10 +7,12 @@ import Icon from "react-native-vector-icons/MaterialIcons";
 import ImageCarousel from "../../components/Carousels/ImageCarousel";
 import apis from "../../service/Request";
 import {
+  getBannerImagesApi,
   getBestSellerProductsApi,
   getExclusiveOfferProductsApi,
   getNewArrivalProductsApi,
 } from "./services/Home.service";
+import Banner from "../../models/banner";
 
 const Home = () => {
   const [products, setProducts] = React.useState({
@@ -18,6 +20,8 @@ const Home = () => {
     newArrivals: [],
     bestSellers: [],
   });
+
+  const [bannerImages, setBannerImages] = React.useState<Banner[]>([]);
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -27,6 +31,14 @@ const Home = () => {
       setProducts({ newArrivals, bestSellers, exclusiveOffer });
     };
     fetchProducts();
+  }, []);
+
+  useEffect(() => {
+    const fetchBannerImages = async () => {
+      const images = await getBannerImagesApi();
+      setBannerImages(images);
+    };
+    fetchBannerImages();
   }, []);
 
   return (
@@ -59,11 +71,17 @@ const Home = () => {
       </View>
       {/* image carousel */}
 
-      <ImageCarousel />
+      <ImageCarousel images={bannerImages}/>
 
+
+ 
+     
       {/* product cards */}
       <View className="w-full  mt-4">
-        <ProductCarousel products={products.exclusiveOffer} title="Exclusive Offer" />
+        <ProductCarousel
+          products={products.exclusiveOffer}
+          title="Exclusive Offer"
+        />
         <ProductCarousel products={products.bestSellers} title="Best Sellers" />
         <ProductCarousel products={products.newArrivals} title="New Arrivals" />
       </View>
