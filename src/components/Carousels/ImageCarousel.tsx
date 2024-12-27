@@ -3,7 +3,7 @@ import { Dimensions, Image, StyleSheet, View } from "react-native";
 import Carousel from "react-native-reanimated-carousel";
 import Banner from "../../models/banner";
 import { getBannerImagesApi } from "../../screens/Home/services/Home.service";
-
+import { Skeleton } from '@rneui/themed';
 const width = Dimensions.get("window").width;
 type ImageCarouselProps = {
   images: Banner[];
@@ -11,16 +11,22 @@ type ImageCarouselProps = {
 
 const ImageCarousel = () => {
   const [data, setData] = useState<Banner[]>([]);
-  useEffect(()=>{
+  useEffect(() => {
     const fetchImages = async () => {
-      const res= await getBannerImagesApi();
+      const res = await getBannerImagesApi();
       setData(res);
-    }
+    };
     fetchImages();
-  },[])
- 
+  }, []);
 
+if(data.length === 0) {
   return (
+    <View className="w-full m-5  ">
+      <Skeleton  height={115} width={width} />
+    </View>)
+}
+
+ return (
     <View className="w-full m-5  ">
       <Carousel
         width={width}
@@ -30,13 +36,12 @@ const ImageCarousel = () => {
         autoPlay
         renderItem={({ item }) => (
           <View style={styles.imageContainer}>
-           
             <Image source={{ uri: item.publicUrl }} style={styles.image} />
           </View>
         )}
       />
     </View>
-  );
+  ) 
 };
 
 const styles = StyleSheet.create({

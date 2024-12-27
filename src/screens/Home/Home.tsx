@@ -5,7 +5,7 @@ import ProductCarousel from "../../components/Carousels/ProductCarousel";
 
 import Icon from "react-native-vector-icons/MaterialIcons";
 import ImageCarousel from "../../components/Carousels/ImageCarousel";
-import apis from "../../service/Request";
+
 import {
   getBannerImagesApi,
   getBestSellerProductsApi,
@@ -13,6 +13,7 @@ import {
   getNewArrivalProductsApi,
 } from "./services/Home.service";
 import Banner from "../../models/banner";
+import { Skeleton } from '@rneui/themed';
 
 const Home = () => {
   const [products, setProducts] = React.useState({
