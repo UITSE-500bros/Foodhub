@@ -17,7 +17,7 @@ export default function BottomTabNavigator() {
     <Tab.Navigator>
       <Tab.Screen
         name="Home"
-        component={Search}
+        component={Home}
         options={{
           tabBarLabel: "Home",
           tabBarIcon: ({ color }) => (

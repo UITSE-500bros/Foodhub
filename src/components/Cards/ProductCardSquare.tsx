@@ -4,7 +4,6 @@ import { useNavigation } from "@react-navigation/native";
 import { HomeScreenNavigationProp } from "../../../type"; // Adjust the import path as necessary
 import Product from "../../models/Product"; // Adjust the import path as necessary
 import AdjustButton from "../Button/AdjustButton";
-import { sCartItems } from "../../screens/Cart/store/CartStore";
 
 type ProductCardSquareProps = {
   product: Product;

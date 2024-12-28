@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { TouchableOpacity, View } from "react-native";
 import { Icon } from "@rneui/themed";
 import { styled } from "nativewind";
+import useAdjust from "./stores/AdjustButtonStore";
 
 type AdjustButtonProps = {
     onPress: () => void;
@@ -11,6 +12,7 @@ type AdjustButtonProps = {
 
 
 const AdjustButton = ({onPress,type,size}:AdjustButtonProps) => {
+
   return (
     <TouchableOpacity className="border-2 border-[#E2E2E2] rounded-full p-1 justify-center items-center"
         onPress={onPress}    
