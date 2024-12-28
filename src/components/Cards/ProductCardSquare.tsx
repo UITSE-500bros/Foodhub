@@ -5,6 +5,7 @@ import { HomeScreenNavigationProp } from "../../../type"; // Adjust the import p
 import Product from "../../models/Product"; // Adjust the import path as necessary
 import AdjustButton from "../Button/AdjustButton";
 import { formattedPrice } from "../../utils/formattesPrice";
+import useCartStore from "../../screens/Cart/store/CartStore";
 
 type ProductCardSquareProps = {
   product: Product;
@@ -14,6 +15,7 @@ const ProductCardSquare = ({ product }: ProductCardSquareProps) => {
   const nav = useNavigation<HomeScreenNavigationProp>();
 
   // Format the price as a currency value
+  const addToCart = useCartStore((state)=>state.addToCart)
 
 
 
@@ -38,7 +40,7 @@ const ProductCardSquare = ({ product }: ProductCardSquareProps) => {
         <Text className="text-black text-lg font-semibold tracking-tighter">
           {formattedPrice(product.product_price)}
         </Text>
-        <AdjustButton type="plus" onPress={()=>{}} size={30} />
+        <AdjustButton type="plus" onPress={() => addToCart({ ...product, product_detail: "", quantity: 1 })} size={30} />
       </View>
     </TouchableOpacity>
   );

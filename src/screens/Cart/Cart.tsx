@@ -4,27 +4,26 @@ import {
   FlatList,
   Text,
   TouchableOpacity,
-  View
+  View,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { ProductCard } from "../../components";
 import { usersService } from "../../service";
 import { useNavigation } from "@react-navigation/native";
 import { VNpayScreenNavigationProp } from "../../../type";
-
-const data = Array.from({ length: 20 }, (_, i) => i + 1);
+import useCartStore from "./store/CartStore";
 
 const Cart = () => {
   const [total, setTotal] = useState(0);
-  const width = Dimensions.get('window').width
-  const height = Dimensions.get('window').height
+  const width = Dimensions.get("window").width;
+  const height = Dimensions.get("window").height;
 
   const nav = useNavigation<VNpayScreenNavigationProp>();
 
   const handlePayment = async () => {
     try {
       const url = await usersService.checkout(50000);
-      
+
       if (url) {
         nav.navigate("VNpay", { uri: url });
       }
@@ -32,29 +31,29 @@ const Cart = () => {
       console.error("Error presenting payment sheet:", error);
     }
   };
-
+  const cartItems = useCartStore((state) => state.cart);
+  console.log(cartItems)
   return (
     <SafeAreaView className="flex-1 px-4 ">
-
       <View className="flex justify-center items-center mt-10">
         <Text className="text-center text-[#181725] text-xl font-black">
           My Cart
         </Text>
       </View>
       <Text className="text-center text-[#7C7C7C] text-xl font-[900]">
-        Tổng tiền {total} 
+        Tổng tiền {total}
       </Text>
       <View>
         <Text className="text-lg font-semibold">Địa chỉ giao hàng: </Text>
         <Text>Phường Linh Trung, Quận Thủ Đức, TP.HCM</Text>
       </View>
       <FlatList
-        data={data}
+        data={cartItems}
         className="mr-4"
         style={{ width: width, height: height - 200 }}
         keyExtractor={(item) => item.toString()}
         renderItem={({ item }) => (
-          <View className="m-1">
+          <View key={item.id} className="m-1">
             <View className="h-[1px] bg-[#E5E5E5]" />
             <ProductCard adjust />
           </View>
