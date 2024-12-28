@@ -8,6 +8,8 @@ import { ActivityIndicator } from "react-native-paper";
 import { SafeAreaView } from "react-native-safe-area-context";
 import ButtonGroup from "../../components/ButtonGroup";
 import { ScrollView } from "react-native-gesture-handler";
+import { RootStackParamList } from "../../../type";
+import { formattedPrice } from "../../utils/formattesPrice";
 
 const ProductDetail = () => {
   const [product, setProduct] = React.useState<ProductDetailInterface | null>(
@@ -71,7 +73,7 @@ const ProductDetail = () => {
             <View className="flex flex-row items-center justify-center">
               <ButtonGroup quantity={quantity} onQuantityChange={setQuantity} />
             </View>
-            <Text className="font-black text-2xl tracking-wide	">$4.99</Text>
+            <Text className="font-black text-2xl tracking-wide	">{formattedPrice(product.product_price)}</Text>
           </View>
           <View className=" h-0.5 bg-black" />
           <View>
@@ -100,7 +102,7 @@ const ProductDetail = () => {
           </View>
         </View>
       </SafeAreaView>
-      <TouchableOpacity className="bg-[#53B175] h-[70px] self-center  justify-center items-center    max-w-[367px] w-full rounded-3xl">
+      <TouchableOpacity className="bg-[#53B175] mt-5 h-[70px] self-center  justify-center items-center    max-w-[367px] w-full rounded-3xl">
         <Text className="text-white text-lg font-semibold">Add to cart</Text>
       </TouchableOpacity>
     </ScrollView>

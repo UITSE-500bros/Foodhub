@@ -9,8 +9,11 @@ import { ExploreScreenNavigationProp, RootStackParamList } from "../../../type";
 import { getCategoriesApi } from "./services/Explore.service";
 import Item from "../Survey/components/Item";
 import { SafeAreaView } from "react-native-safe-area-context";
+import { Skeleton } from "@rneui/base";
+import Indicator from "../../components/Indicator";
 
 const width = Dimensions.get("window").width;
+const height = Dimensions.get('window').height
 
 const Explore = () => {
   const [data, setData] = useState<Category[]>([]);
@@ -30,7 +33,7 @@ const Explore = () => {
   return (
     <SafeAreaView className="flex mt-14 pb-10  flex-col justify-start items-center">
       <Text className="text-black mt-5 text-2xl font-black ">
-        Find Products
+        Danh mục sản phẩm
       </Text>
       {/* <Searchbar
         value={searchQuery}
@@ -38,7 +41,7 @@ const Explore = () => {
         placeholder="Search"
         style={{ width: width - 40, marginTop: 20, borderRadius: 10 }}
       /> */}
-      <FlatList
+      {data.length>0?(<FlatList
       className=" my-6 "
         data={data}
         keyExtractor={(item) => item.id.toString()}
@@ -52,7 +55,10 @@ const Explore = () => {
             onPress={() => nav.navigate("CategoryDetail", { id: item.id })}
           />
         )}
-      />
+      />):(
+        <Indicator/>
+      )}
+      
     </SafeAreaView>
   );
 };

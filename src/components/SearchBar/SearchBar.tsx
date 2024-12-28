@@ -26,7 +26,7 @@ export default function SearchBar() {
   return (
     <SafeAreaView className="w-full h-[52px] px-4 bg-transparent ">
       <Searchbar
-        placeholder="Search Store"
+        placeholder="Tìm kiếm sản phẩm"
         value={searchQuery}
         onChangeText={onChangeSearch}
         onSubmitEditing={onSeacrhSubmit}
