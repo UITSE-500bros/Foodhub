@@ -13,7 +13,7 @@ const ProductDetail = () => {
   const route = useRoute();
   const { id } = route.params;
   const [isloading, setIsloading] = useState(true);
-  const [quantity,setQuantity]=useState(1)
+  const [quantity, setQuantity] = useState(1);
   const [isOpen, setIsOpen] = React.useState(false);
   const toggle = () => {
     setIsOpen(!isOpen);
@@ -65,7 +65,7 @@ const ProductDetail = () => {
         </View>
         <View className="flex flex-row justify-between">
           <View className="flex flex-row items-center justify-center">
-            <ButtonGroup />
+            <ButtonGroup quantity={quantity} onQuantityChange={setQuantity} />
           </View>
           <Text className="font-black text-2xl tracking-wide	">$4.99</Text>
         </View>

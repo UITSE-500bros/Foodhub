@@ -2,14 +2,17 @@ import { View, Text } from "react-native";
 import React from "react";
 import AdjustButton from "../Button/AdjustButton";
 
-export default function ButtonGroup() {
-  const [quantity, setQuantity] = React.useState(1);
+type Props = {
+  quantity: number;
+  onQuantityChange: (newQuantity: number) => void;
+};
+export default function ButtonGroup({quantity,onQuantityChange}:Props) {
   const handlePlus = () => {
-    setQuantity(quantity + 1);
+    onQuantityChange(quantity + 1);
   };
   const handleMinus = () => {
     if (quantity === 1) return;
-    setQuantity(quantity - 1);
+    onQuantityChange(quantity - 1);
   };
 
   return (
