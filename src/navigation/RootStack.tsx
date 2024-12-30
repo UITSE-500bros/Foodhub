@@ -11,6 +11,7 @@ import { LocationRegister } from "../screens/LocationRegister";
 import OTP from "../screens/OTP";
 import Survey from "../screens/Survey";
 import VNpay from "../screens/Cart/VNpay";
+import Search from "../screens/Search";
 
 const Stack = createStackNavigator<RootStackParamList>();
 
@@ -40,6 +41,7 @@ export default function RootStack() {
           headerShown: false
         }
       }/>
+      <Stack.Screen name ='Search' component={Search} />
     </Stack.Navigator>
   );
 }

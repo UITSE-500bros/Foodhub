@@ -5,31 +5,33 @@ import { getProductBySearchQueryApi } from "../../screens/Home/services/Home.ser
 import { SafeAreaView } from "react-native-safe-area-context";
 import ProductCardSquare from "../Cards/ProductCardSquare";
 import Product from "../../models/Product";
+type SearchBarProps = {
+  searchQuery: string;
+  onChangeSearch: (query: string) => void;
+  onSearchSubmit: () => void;
+};
 
-export default function SearchBar() {
+export default function SearchBar({
+  searchQuery,
+  onChangeSearch,
+  onSearchSubmit,
+}: SearchBarProps) {
   const [isLoading, setIsLoading] = React.useState(false);
-  const [searchQuery, setSearchQuery] = React.useState("");
   const [searchProduct, setSearchProduct] = React.useState<Product[]>([]);
-  const onChangeSearch = (query: string) => setSearchQuery(query);
-  const onSeacrhSubmit = async () => {
+
+  const handleSeacrhSubmit = async () => {
     setIsLoading(true);
-    getProductBySearchQueryApi(searchQuery).then((res) => {
-      setSearchProduct(res);
-      if (res.length === 0) {
-        alert("No product found");
-      }
-      setIsLoading(false);
-    });
+    await onSearchSubmit();
+    setIsLoading(false);
   };
 
- 
   return (
     <SafeAreaView className="w-full h-[52px] px-4 bg-transparent ">
       <Searchbar
         placeholder="Tìm kiếm sản phẩm"
         value={searchQuery}
         onChangeText={onChangeSearch}
-        onSubmitEditing={onSeacrhSubmit}
+        onSubmitEditing={handleSeacrhSubmit}
         style={{
           borderRadius: 15,
           backgroundColor: "#F9F9F9",

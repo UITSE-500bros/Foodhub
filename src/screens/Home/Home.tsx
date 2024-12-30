@@ -15,8 +15,11 @@ import {
 } from "./services/Home.service";
 import Banner from "../../models/banner";
 import { Skeleton } from '@rneui/themed';
+import { useNavigation } from "@react-navigation/native";
+import { HomeScreenNavigationProp } from "../../../type";
 
 const Home = () => {
+  const nav = useNavigation<HomeScreenNavigationProp>();
   const [products, setProducts] = React.useState({
     exclusiveOffer: [],
     newArrivals: [],
@@ -27,9 +30,7 @@ const Home = () => {
   const onChangeSearch = (query: string) => setSearchQuery(query);
   const onSeacrhSubmit =async () => {
     try{
-      const searchProduct = await getProductBySearchQueryApi(searchQuery);
-      console.log(searchProduct);
-
+      nav.navigate("Search", { searchQuery });
     }
     catch(err){
       console.log(err);}
@@ -63,7 +64,7 @@ const Home = () => {
       </View>
 
       {/* search bar */}
-      <SearchBar />
+      <SearchBar searchQuery={searchQuery} onSearchSubmit={onSeacrhSubmit} onChangeSearch={onChangeSearch} />
       {/* image carousel */}
 
       <ImageCarousel />

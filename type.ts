@@ -1,5 +1,5 @@
 import { StackNavigationProp } from "@react-navigation/stack";
-import { LoginProps } from "./src/screens/Login/Login";
+import  LoginProps  from "./src/screens/Login/Login";
 import { RouteProp } from "@react-navigation/native";
 
 export type RootStackParamList = {
@@ -16,6 +16,7 @@ export type RootStackParamList = {
   LocationRegister: undefined;
   Survey: undefined;
   VNpay: { uri: string };
+  Search: { searchQuery: string };
 };
 
 export type ExploreScreenNavigationProp = StackNavigationProp<
@@ -58,3 +59,4 @@ export type VNpayScreenNavigationProp = StackNavigationProp<
   "VNpay"
 >;
 export type VNpayScreenRouteProp = RouteProp<RootStackParamList, "VNpay">;
+
