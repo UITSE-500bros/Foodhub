@@ -1,52 +1,66 @@
-import { View, Text } from "react-native";
-import React from "react";
-import { ActivityIndicator, Searchbar } from "react-native-paper";
-import { getProductBySearchQueryApi } from "../../screens/Home/services/Home.service";
-import { SafeAreaView } from "react-native-safe-area-context";
-import ProductCardSquare from "../Cards/ProductCardSquare";
-import Product from "../../models/Product";
+import React, { useEffect, useState } from 'react';
+import { View, StyleSheet } from 'react-native';
+import { Searchbar, ActivityIndicator } from 'react-native-paper';
+import { getProductBySearchQueryApi } from '../../screens/Home/services/Home.service';
+import Product from '../../models/Product';
+
 type SearchBarProps = {
   searchQuery: string;
   onChangeSearch: (query: string) => void;
-  onSearchSubmit: () => void;
+  onSearchResults: (results: Product[]) => void;
 };
 
-export default function SearchBar({
-  searchQuery,
-  onChangeSearch,
-  onSearchSubmit,
-}: SearchBarProps) {
-  const [isLoading, setIsLoading] = React.useState(false);
-  const [searchProduct, setSearchProduct] = React.useState<Product[]>([]);
+export default function SearchBar({ searchQuery, onChangeSearch, onSearchResults }: SearchBarProps) {
+  const [isLoading, setIsLoading] = useState(false);
 
-  const handleSeacrhSubmit = async () => {
-    setIsLoading(true);
-    await onSearchSubmit();
-    setIsLoading(false);
-  };
+  useEffect(() => {
+    const fetchSearchResults = async () => {
+      if (searchQuery.trim() === '') {
+        onSearchResults([]);
+        return;
+      }
+
+      setIsLoading(true);
+      try {
+        const res = await getProductBySearchQueryApi(searchQuery);
+        onSearchResults(res);
+      } catch (err) {
+        console.error(err);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    const delayDebounceFn = setTimeout(() => {
+      fetchSearchResults();
+    }, 300); // Add a delay to debounce the search input
+
+    return () => clearTimeout(delayDebounceFn);
+  }, [searchQuery]);
 
   return (
-    <SafeAreaView className="w-full h-[52px] px-4 bg-transparent ">
+    <View style={styles.container}>
       <Searchbar
-        placeholder="Tìm kiếm sản phẩm"
+        placeholder="Search"
         value={searchQuery}
         onChangeText={onChangeSearch}
-        onSubmitEditing={handleSeacrhSubmit}
-        style={{
-          borderRadius: 15,
-          backgroundColor: "#F9F9F9",
-          width: "100%",
-        }}
+        style={styles.searchbar}
       />
-      {isLoading && (
-        <View className="flex justify-center items-center">
-          <ActivityIndicator animating={true} color="#000" />
-        </View>
-      )}
-      {searchProduct.length > 0 &&
-        searchProduct.map((product) => {
-          return <ProductCardSquare key={product.id} product={product} />;
-        })}
-    </SafeAreaView>
+      {isLoading && <ActivityIndicator style={styles.indicator} />}
+    </View>
   );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    width: '100%',
+    paddingHorizontal: 16,
+    backgroundColor: 'transparent',
+  },
+  searchbar: {
+    borderRadius: 15,
+  },
+  indicator: {
+    marginTop: 10,
+  },
+});

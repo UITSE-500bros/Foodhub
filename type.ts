@@ -16,7 +16,7 @@ export type RootStackParamList = {
   LocationRegister: undefined;
   Survey: undefined;
   VNpay: { uri: string };
-  Search: { searchQuery: string };
+  Search: undefined;
 };
 
 export type ExploreScreenNavigationProp = StackNavigationProp<

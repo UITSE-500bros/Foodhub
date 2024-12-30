@@ -1,41 +1,34 @@
-import { View, Text, Image, StyleSheet, ScrollView } from "react-native";
-import React, { useEffect } from "react";
-import SearchBar from "../../components/SearchBar";
-import ProductCarousel from "../../components/Carousels/ProductCarousel";
-
-import Icon from "react-native-vector-icons/MaterialIcons";
-import ImageCarousel from "../../components/Carousels/ImageCarousel";
-
+import React, { useEffect } from 'react';
+import { View, Text, Image, StyleSheet, ScrollView } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
+import SearchBar from '../../components/SearchBar';
+import ProductCarousel from '../../components/Carousels/ProductCarousel';
+import Icon from 'react-native-vector-icons/MaterialIcons';
+import ImageCarousel from '../../components/Carousels/ImageCarousel';
 import {
   getBannerImagesApi,
   getBestSellerProductsApi,
   getExclusiveOfferProductsApi,
   getNewArrivalProductsApi,
-  getProductBySearchQueryApi,
-} from "./services/Home.service";
-import Banner from "../../models/banner";
-import { Skeleton } from '@rneui/themed';
-import { useNavigation } from "@react-navigation/native";
-import { HomeScreenNavigationProp } from "../../../type";
+} from './services/Home.service';
+import { useSearchStore } from '../Search/SearchStore';
 
 const Home = () => {
-  const nav = useNavigation<HomeScreenNavigationProp>();
+  const { setSearchQuery } = useSearchStore();
   const [products, setProducts] = React.useState({
     exclusiveOffer: [],
     newArrivals: [],
     bestSellers: [],
   });
-  const [searchQuery, setSearchQuery] = React.useState("");
+  const [searchQuery, setSearchQueryLocal] = React.useState("");
+  const navigation = useNavigation();
 
-  const onChangeSearch = (query: string) => setSearchQuery(query);
-  const onSeacrhSubmit =async () => {
-    try{
-      nav.navigate("Search", { searchQuery });
-    }
-    catch(err){
-      console.log(err);}
+  const onChangeSearch = (query: string) => {
+    setSearchQueryLocal(query);
+    setSearchQuery(query);
+    navigation.navigate("Search");
+  };
 
-  }
   useEffect(() => {
     const fetchProducts = async () => {
       const newArrivals = await getNewArrivalProductsApi();
@@ -45,8 +38,6 @@ const Home = () => {
     };
     fetchProducts();
   }, []);
-
-  
 
   return (
     <ScrollView className="flex flex-col w-full mt-8">
@@ -64,9 +55,12 @@ const Home = () => {
       </View>
 
       {/* search bar */}
-      <SearchBar searchQuery={searchQuery} onSearchSubmit={onSeacrhSubmit} onChangeSearch={onChangeSearch} />
+      <SearchBar
+        searchQuery={searchQuery}
+        onChangeSearch={onChangeSearch}
+        onSearchResults={() => {}}
+      />
       {/* image carousel */}
-
       <ImageCarousel />
 
       {/* product cards */}
