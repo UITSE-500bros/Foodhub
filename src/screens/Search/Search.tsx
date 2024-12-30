@@ -40,6 +40,10 @@ export default function Search() {
           renderItem={({ item }) => <ProductCardSquare product={item} />}
         />
       )}
+      {searchProduct.length === 0  && (
+        <Text className='text-center text-lg text-gray-500'>Không tìm thấy sản phẩm</Text>
+
+      )}
     </SafeAreaView>
   );
 }

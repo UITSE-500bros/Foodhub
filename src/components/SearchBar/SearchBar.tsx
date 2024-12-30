@@ -6,11 +6,12 @@ import Product from '../../models/Product';
 
 type SearchBarProps = {
   searchQuery: string;
-  onChangeSearch: (query: string) => void;
+  onChangeSearch?: (query: string) => void;
   onSearchResults: (results: Product[]) => void;
+  onSubmit?:(query:string)=>void;
 };
 
-export default function SearchBar({ searchQuery, onChangeSearch, onSearchResults }: SearchBarProps) {
+export default function SearchBar({ searchQuery, onChangeSearch, onSearchResults,onSubmit }: SearchBarProps) {
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
@@ -21,6 +22,7 @@ export default function SearchBar({ searchQuery, onChangeSearch, onSearchResults
       }
 
       setIsLoading(true);
+      onSearchResults([]);
       try {
         const res = await getProductBySearchQueryApi(searchQuery);
         onSearchResults(res);
@@ -45,6 +47,7 @@ export default function SearchBar({ searchQuery, onChangeSearch, onSearchResults
         value={searchQuery}
         onChangeText={onChangeSearch}
         style={styles.searchbar}
+        onSubmitEditing={onSubmit ? () => onSubmit(searchQuery) : undefined}
       />
       {isLoading && <ActivityIndicator style={styles.indicator} />}
     </View>

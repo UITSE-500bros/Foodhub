@@ -12,8 +12,10 @@ import {
   getNewArrivalProductsApi,
 } from './services/Home.service';
 import { useSearchStore } from '../Search/SearchStore';
+import { HomeScreenNavigationProp } from '../../../type';
 
 const Home = () => {
+  const nav = useNavigation<HomeScreenNavigationProp>();
   const { setSearchQuery } = useSearchStore();
   const [products, setProducts] = React.useState({
     exclusiveOffer: [],
@@ -23,11 +25,13 @@ const Home = () => {
   const [searchQuery, setSearchQueryLocal] = React.useState("");
   const navigation = useNavigation();
 
-  const onChangeSearch = (query: string) => {
-    setSearchQueryLocal(query);
+ const handleSubmit=(query:string)=>{
     setSearchQuery(query);
-    navigation.navigate("Search");
-  };
+    nav.navigate('Search');
+ }
+ const onQueryChange=(query:string)=>{
+    setSearchQueryLocal(query);
+  }
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -57,7 +61,8 @@ const Home = () => {
       {/* search bar */}
       <SearchBar
         searchQuery={searchQuery}
-        onChangeSearch={onChangeSearch}
+        onSubmit={handleSubmit}
+        onChangeSearch={onQueryChange}
         onSearchResults={() => {}}
       />
       {/* image carousel */}
