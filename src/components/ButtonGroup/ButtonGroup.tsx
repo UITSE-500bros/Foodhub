@@ -5,6 +5,7 @@ import AdjustButton from "../Button/AdjustButton";
 type Props = {
   quantity: number;
   onQuantityChange: (newQuantity: number) => void;
+
 };
 export default function ButtonGroup({quantity,onQuantityChange}:Props) {
   const handlePlus = () => {

@@ -43,6 +43,7 @@ export default function SearchBar({ searchQuery, onChangeSearch, onSearchResults
   return (
     <View style={styles.container}>
       <Searchbar
+        
         placeholder="Search"
         value={searchQuery}
         onChangeText={onChangeSearch}
@@ -62,6 +63,7 @@ const styles = StyleSheet.create({
   },
   searchbar: {
     borderRadius: 15,
+    backgroundColor: 'white',
   },
   indicator: {
     marginTop: 10,

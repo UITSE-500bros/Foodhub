@@ -6,6 +6,7 @@ type CartState = {
   cart: ProductDetail[]; // Array of Product type
   addToCart: (product: ProductDetail) => void;
   removeFromCart: (id: string) => void;
+  updateQuantity: (id: string, quantity: number) => void;
 };
 
  const useCartStore = create<CartState>((set, get) => ({
@@ -31,6 +32,13 @@ type CartState = {
   removeFromCart: (id) => {
     set({
       cart: get().cart.filter((item) => item.id !== id),
+    });
+  },
+  updateQuantity: (id, quantity) => {
+    set({
+      cart: get().cart.map((item) =>
+        item.id === id ? { ...item, quantity } : item
+      ),
     });
   },
 }));

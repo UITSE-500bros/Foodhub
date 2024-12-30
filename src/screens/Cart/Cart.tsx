@@ -32,7 +32,10 @@ const Cart = () => {
     }
   };
   const cartItems = useCartStore((state) => state.cart);
-  console.log(cartItems)
+  const updateQUantity = useCartStore((state) => state.updateQuantity);
+  const handleQuantityChange = (id: string, quantity: number) => {
+    updateQUantity(id, quantity);
+  }
   return (
     <SafeAreaView className="flex-1 px-4 ">
       <View className="flex justify-center items-center mt-10">
@@ -51,11 +54,11 @@ const Cart = () => {
         data={cartItems}
         className="mr-4"
         style={{ width: width, height: height - 200 }}
-        keyExtractor={(item) => item.toString()}
+        keyExtractor={(item) => item.id.toString()}
         renderItem={({ item }) => (
           <View key={item.id} className="m-1">
             <View className="h-[1px] bg-[#E5E5E5]" />
-            <ProductCard adjust />
+            <ProductCard adjust   product={item} />
           </View>
         )}
       />
