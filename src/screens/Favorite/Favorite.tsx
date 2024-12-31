@@ -1,14 +1,11 @@
 import { View, Text, ScrollView, TouchableOpacity, FlatList} from 'react-native'
 import React, { useEffect } from 'react'
 import ProductCard from '../../components/Cards/ProductCard'
+import { useFavoriteStore } from './FavoriteStore';
 const data = [1, 2, 3, 4, 5, 6,7,8];
 const Favorite = () => {
-  // const [data, setData] = React.useState([])
-  useEffect(() => {
-    // fetch('https://jsonplaceholder.typicode.com/posts')
-    //   .then(response => response.json())
-    //   .then(data => setData(data))
-  })
+    const favoriteItems=useFavoriteStore((state)=>state.favoriteProducts)
+    console.log("favoriteItems",favoriteItems)
   return (
       <View className="relative flex-1">
           {/* Header */}
@@ -33,7 +30,7 @@ const Favorite = () => {
               renderItem={({ item }) => (
                   <View className="m-1">
                       <View className="h-[1px] bg-[#E5E5E5]" />
-                      <ProductCard adjust={false} />
+                      {/* <ProductCard  adjust={false} /> */}
                   </View>
               )}
           />

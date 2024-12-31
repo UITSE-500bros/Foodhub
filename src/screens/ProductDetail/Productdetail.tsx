@@ -1,7 +1,7 @@
 import { View, Text, Image, TouchableOpacity } from "react-native";
 import React, { useEffect, useState } from "react";
 import { AdjustButton } from "../../components";
-import { useRoute } from "@react-navigation/native";
+import { RouteProp, useRoute } from "@react-navigation/native";
 import ProductDetailInterface from "../../models/ProductDetail";
 import { getProductsDetailByIDApi } from "./service/ProductDetial.service";
 import { ActivityIndicator } from "react-native-paper";
@@ -10,19 +10,30 @@ import ButtonGroup from "../../components/ButtonGroup";
 import { ScrollView } from "react-native-gesture-handler";
 import { RootStackParamList } from "../../../type";
 import { formattedPrice } from "../../utils/formattesPrice";
+import { Icon } from "@rneui/themed";
+import { useFavoriteStore } from "../Favorite/FavoriteStore";
 
 const ProductDetail = () => {
   const [product, setProduct] = React.useState<ProductDetailInterface | null>(
     null
   );
-  const route = useRoute();
+  const route = useRoute<RouteProp<RootStackParamList, 'ProductDetail'>>();
   const { id } = route.params;
-  const [isloading, setIsloading] = useState(true);
+  const [name, setName] = useState("favorite-border");
   const [quantity, setQuantity] = useState(1);
   const [isOpen, setIsOpen] = React.useState(false);
   const toggle = () => {
     setIsOpen(!isOpen);
   };
+
+  const isFavorite = useFavoriteStore((state) => state.isFavorite);
+  const addToFavorite = useFavoriteStore((state) => state.addToFavorite);
+  const removeFromFavorite = useFavoriteStore((state) => state.removeFromFavorite);
+
+
+
+
+
 
   useEffect(() => {
     const fetchProduct = async () => {
@@ -31,9 +42,7 @@ const ProductDetail = () => {
         setProduct(res[0]);
       } catch (err) {
         console.error(err);
-      } finally {
-        setIsloading(false);
-      }
+      } 
     };
     fetchProduct();
   }, [id]);
@@ -46,7 +55,17 @@ const ProductDetail = () => {
       </View>
     );
   }
-  console.log(product);
+  const handleFavoritePress = () => {
+    if(product){
+      if(isFavorite(product.id)){
+        removeFromFavorite(product.id)
+        setName("favorite-border")
+      } else{
+        addToFavorite(product)
+        setName("favorite")
+      }
+    }
+  }
   return (
     <ScrollView>
       <SafeAreaView className="pb-5 flex items-center flex-1 px-3 h-full w-full">
@@ -60,14 +79,17 @@ const ProductDetail = () => {
         </View>
         <View className="flex flex-1 gap-4  px-[20px]">
           <View className="flex flex-row justify-between">
-            <View>
-              <Text className="font-black text-2xl tracking-wide">
+            
+              <Text className="font-black text-2xl overflow-hidden pr-2  ">
                 {product.product_name}
               </Text>
-              <Text className="text-[#7C7C7C] text-base">1kg, Price</Text>
-            </View>
+            
 
-            <Image source={require("../../../assets/bookmark.png")} />
+            <Icon  containerStyle={{
+              backgroundColor: "transparent",
+              borderRadius: 50,
+              
+            }}  name={name} size={30} color="#7C7C7C" onPress={handleFavoritePress} />
           </View>
           <View className="flex flex-row justify-between">
             <View className="flex flex-row items-center justify-center">
