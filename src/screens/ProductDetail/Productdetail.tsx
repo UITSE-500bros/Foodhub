@@ -17,9 +17,9 @@ const ProductDetail = () => {
   const [product, setProduct] = React.useState<ProductDetailInterface | null>(
     null
   );
-  const route = useRoute<RouteProp<RootStackParamList, 'ProductDetail'>>();
+  const route = useRoute<RouteProp<RootStackParamList, "ProductDetail">>();
   const { id } = route.params;
-  const [name, setName] = useState("favorite-border");
+
   const [quantity, setQuantity] = useState(1);
   const [isOpen, setIsOpen] = React.useState(false);
   const toggle = () => {
@@ -28,13 +28,10 @@ const ProductDetail = () => {
 
   const isFavorite = useFavoriteStore((state) => state.isFavorite);
   const addToFavorite = useFavoriteStore((state) => state.addToFavorite);
-  const removeFromFavorite = useFavoriteStore((state) => state.removeFromFavorite);
-
-
-
-
-
-
+  const removeFromFavorite = useFavoriteStore(
+    (state) => state.removeFromFavorite
+  );
+  const favoriteItems = useFavoriteStore((state) => state.favoriteProducts);
   useEffect(() => {
     const fetchProduct = async () => {
       try {
@@ -42,11 +39,25 @@ const ProductDetail = () => {
         setProduct(res[0]);
       } catch (err) {
         console.error(err);
-      } 
+      }
     };
     fetchProduct();
   }, [id]);
-  console.log("product", product);
+  const handleFavoritePress = () => {
+    if (product === null) return;
+    console.log("favoriteItems", favoriteItems.length);
+    console.log(id);
+    
+    if (!isFavorite(id)) {
+
+      
+      addToFavorite(product);
+    } else {
+      removeFromFavorite(id);
+    }
+
+    console.log("favoriteItems", favoriteItems.length);
+  };
 
   if (product === null) {
     return (
@@ -55,17 +66,7 @@ const ProductDetail = () => {
       </View>
     );
   }
-  const handleFavoritePress = () => {
-    if(product){
-      if(isFavorite(product.id)){
-        removeFromFavorite(product.id)
-        setName("favorite-border")
-      } else{
-        addToFavorite(product)
-        setName("favorite")
-      }
-    }
-  }
+
   return (
     <ScrollView>
       <SafeAreaView className="pb-5 flex items-center flex-1 px-3 h-full w-full">
@@ -79,23 +80,28 @@ const ProductDetail = () => {
         </View>
         <View className="flex flex-1 gap-4  px-[20px]">
           <View className="flex flex-row justify-between">
-            
-              <Text className="font-black text-2xl overflow-hidden pr-2  ">
-                {product.product_name}
-              </Text>
-            
+            <Text className="font-black text-2xl overflow-hidden pr-2  ">
+              {product.product_name}
+            </Text>
 
-            <Icon  containerStyle={{
-              backgroundColor: "transparent",
-              borderRadius: 50,
-              
-            }}  name={name} size={30} color="#7C7C7C" onPress={handleFavoritePress} />
+            <Icon
+              containerStyle={{
+                backgroundColor: "transparent",
+                borderRadius: 50,
+              }}
+              name={isFavorite(id) ? "favorite" : "favorite-outline"}
+              size={30}
+              color="#7C7C7C"
+              onPress={handleFavoritePress}
+            />
           </View>
           <View className="flex flex-row justify-between">
             <View className="flex flex-row items-center justify-center">
               <ButtonGroup quantity={quantity} onQuantityChange={setQuantity} />
             </View>
-            <Text className="font-black text-2xl tracking-wide	">{formattedPrice(product.product_price)}</Text>
+            <Text className="font-black text-2xl tracking-wide	">
+              {formattedPrice(product.product_price)}
+            </Text>
           </View>
           <View className=" h-0.5 bg-black" />
           <View>

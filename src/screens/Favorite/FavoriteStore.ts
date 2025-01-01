@@ -1,8 +1,8 @@
 import { create } from "zustand";
-import Product from "../../models/Product";
+import ProductDetail from "../../models/ProductDetail";
 
 type FavoriteStore = {
-    favoriteProducts: any[];
+    favoriteProducts: ProductDetail[];
     addToFavorite: (product: any) => void;
     removeFromFavorite: (productId: string) => void;
     clearFavorite: () => void;
@@ -29,7 +29,7 @@ export const useFavoriteStore = create<FavoriteStore>((set,get)=>{
         }),
         isFavorite:(productId) => {
           const { favoriteProducts } = get();
-          return favoriteProducts.some((product:Product)=>product.id===productId)
+          return favoriteProducts.some((product:ProductDetail)=>product.id===productId)
             
         },
     }

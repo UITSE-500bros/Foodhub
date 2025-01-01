@@ -38,6 +38,8 @@ const Home = () => {
       const newArrivals = await getNewArrivalProductsApi();
       const bestSellers = await getBestSellerProductsApi();
       const exclusiveOffer = await getExclusiveOfferProductsApi();
+
+      
       setProducts({ newArrivals, bestSellers, exclusiveOffer });
     };
     fetchProducts();
