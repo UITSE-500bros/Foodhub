@@ -11,3 +11,13 @@ export const getAllProvincesApi = async () => {
         return null;
     }
 }
+
+export const getDistrictsByProvinceIdApi = async (provinceId: string) => {
+         const response = await axios.get(`${VN_LOCATION_API}/districts/${provinceId}`);
+        return response.data;  
+}
+
+export const getWardsByDistrictIdApi = async (districtId: string) => {
+    const response = await axios.get(`${VN_LOCATION_API}/wards/${districtId}`);
+    return response.data;
+}

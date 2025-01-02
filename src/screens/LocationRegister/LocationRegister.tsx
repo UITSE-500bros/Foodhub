@@ -11,11 +11,21 @@ import { TextInput } from "react-native-paper";
 import { Button } from "../../components";
 import { useNavigation } from "@react-navigation/native";
 import { LocationRegisterScreenNavigationProp } from "../../../type";
-import { getAllProvincesApi } from "./service/Location.service";
+import {
+  getAllProvincesApi,
+  getDistrictsByProvinceIdApi,
+  getWardsByDistrictIdApi,
+} from "./service/Location.service";
 import { Picker } from "@react-native-picker/picker";
 const LocationRegister = () => {
   const [provinces, setProvinces] = useState([]);
-  const [selectedProvince, setSelectedProvince] = useState(null);
+  const [districts, setDistricts] = useState([]);
+  const [wards, setWards] = useState([]);
+  const [selected, setSelected] = useState({
+    province: "",
+    district: "",
+    ward: "",
+  });
   useEffect(() => {
     const getAllProvince = async () => {
       getAllProvincesApi()
@@ -24,7 +34,27 @@ const LocationRegister = () => {
     };
     getAllProvince();
   }, []);
-  console.log(provinces.length);
+
+  const handleProvinceChange = (itemValue: string) => {
+    setSelected({ ...selected, province: itemValue });
+    console.log(itemValue);
+
+    getDistrictsByProvinceIdApi(itemValue)
+      .then((res) => setDistricts(res.data))
+      .catch((err) => console.error(err));
+  };
+
+  const handleDistrictChange = (itemValue: string) => {
+    setSelected({
+      ...selected,
+      district: itemValue,
+    });
+    getWardsByDistrictIdApi(itemValue)
+      .then((res) => setWards(res.data))
+      .catch((err) => console.error(err));
+  };
+
+  console.log(selected);
 
   const nav = useNavigation<LocationRegisterScreenNavigationProp>();
   return (
@@ -47,10 +77,11 @@ const LocationRegister = () => {
         <View className="mx-4">
           <Text className="ml-5">Tỉnh/Thành phố</Text>
           <Picker
-            selectedValue={selectedProvince}
-            onValueChange={(itemValue) => setSelectedProvince(itemValue)}
+            selectedValue={selected.province}
+            onValueChange={(itemValue) => handleProvinceChange(itemValue)}
             placeholder="Chọn tỉnh thành"
           >
+            <Picker.Item label="Chọn tỉnh thành" value="" />
             {provinces.map((province) => (
               <Picker.Item
                 key={province.id}
@@ -62,15 +93,33 @@ const LocationRegister = () => {
         </View>
         <View className="mx-4">
           <Text className="ml-5">Quận/Huyện</Text>
-          <TextInput
-            style={{ backgroundColor: "white", marginHorizontal: 10 }}
-          />
+          <Picker
+            selectedValue={selected.district}
+            onValueChange={(itemValue) => handleDistrictChange(itemValue)}
+            placeholder="Chọn quận huyện"
+          >
+            <Picker.Item label="Chọn quận huyện" value="" />
+            {districts.map((district) => (
+              <Picker.Item
+                key={district.id}
+                label={district.name}
+                value={district.id}
+              />
+            ))}
+          </Picker>
         </View>
         <View className="mx-4">
           <Text className="ml-5">Xã/Phường</Text>
-          <TextInput
-            style={{ backgroundColor: "white", marginHorizontal: 10 }}
-          />
+          <Picker
+            selectedValue={selected.ward}
+            onValueChange={(itemValue) => setSelected({ ...selected, ward: itemValue })}
+            placeholder="Chọn xã phường"
+          >
+            <Picker.Item label="Chọn xã phường" value="" />
+            {wards.map((ward) => (
+              <Picker.Item key={ward.id} label={ward.name} value={ward.id} />
+            ))}
+          </Picker>
         </View>
         <View className="mx-4">
           <Text className="ml-5">Số nhà,tên đường</Text>
