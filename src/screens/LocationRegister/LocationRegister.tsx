@@ -18,6 +18,7 @@ import {
 } from "./service/Location.service";
 import { Picker } from "@react-native-picker/picker";
 const LocationRegister = () => {
+  const [road, setRoad] = useState("");
   const [provinces, setProvinces] = useState([]);
   const [districts, setDistricts] = useState([]);
   const [wards, setWards] = useState([]);
@@ -26,6 +27,9 @@ const LocationRegister = () => {
     district: "",
     ward: "",
   });
+  const handleRoadInput = (text: string) => {
+    setRoad(text);
+  }
   useEffect(() => {
     const getAllProvince = async () => {
       getAllProvincesApi()
@@ -55,6 +59,14 @@ const LocationRegister = () => {
   };
 
   console.log(selected);
+  const getLocation = ()=>{
+    const province = provinces.find((province)=>province.id === selected.province);
+    const district = districts.find((district)=>district.id === selected.district);
+    const ward = wards.find((ward)=>ward.id === selected.ward);
+    const result= `${road}, ${ward.name}, ${district.name}, ${province.name}`;
+    console.log(result);
+   
+  }
 
   const nav = useNavigation<LocationRegisterScreenNavigationProp>();
   return (
@@ -124,13 +136,18 @@ const LocationRegister = () => {
         <View className="mx-4">
           <Text className="ml-5">Số nhà,tên đường</Text>
           <TextInput
+            mode="outlined"
+            onChange={(e)=>handleRoadInput(e.nativeEvent.text)}
             style={{ backgroundColor: "white", marginHorizontal: 10 }}
           />
         </View>
         <View className="w-full flex justify-center items-center mt-12 ">
           <Button
             title="Save"
-            onPress={() => nav.navigate("BottomTabNavigator")}
+            onPress={() => {
+              getLocation();
+              nav.navigate("BottomTabNavigator");
+            }}
             width={364}
             height={48}
           />
