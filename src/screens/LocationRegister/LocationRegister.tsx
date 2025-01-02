@@ -5,15 +5,28 @@ import {
   Keyboard,
   TouchableWithoutFeedback,
 } from "react-native";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { TextInput } from "react-native-paper";
 import { Button } from "../../components";
 import { useNavigation } from "@react-navigation/native";
 import { LocationRegisterScreenNavigationProp } from "../../../type";
-
+import { getAllProvincesApi } from "./service/Location.service";
+import { Picker } from "@react-native-picker/picker";
 const LocationRegister = () => {
-  const nav= useNavigation<LocationRegisterScreenNavigationProp>();
+  const [provinces, setProvinces] = useState([]);
+  const [selectedProvince, setSelectedProvince] = useState(null);
+  useEffect(() => {
+    const getAllProvince = async () => {
+      getAllProvincesApi()
+        .then((res) => setProvinces(res.data))
+        .catch((err) => console.error(err));
+    };
+    getAllProvince();
+  }, []);
+  console.log(provinces.length);
+
+  const nav = useNavigation<LocationRegisterScreenNavigationProp>();
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
       <SafeAreaView className="flex flex-col gap-4">
@@ -33,9 +46,19 @@ const LocationRegister = () => {
 
         <View className="mx-4">
           <Text className="ml-5">Tỉnh/Thành phố</Text>
-          <TextInput
-            style={{ backgroundColor: "white", marginHorizontal: 10 }}
-          />
+          <Picker
+            selectedValue={selectedProvince}
+            onValueChange={(itemValue) => setSelectedProvince(itemValue)}
+            placeholder="Chọn tỉnh thành"
+          >
+            {provinces.map((province) => (
+              <Picker.Item
+                key={province.id}
+                label={province.name}
+                value={province.id}
+              />
+            ))}
+          </Picker>
         </View>
         <View className="mx-4">
           <Text className="ml-5">Quận/Huyện</Text>
@@ -55,13 +78,12 @@ const LocationRegister = () => {
             style={{ backgroundColor: "white", marginHorizontal: 10 }}
           />
         </View>
-        <View className="w-full flex justify-center items-center mt-12 " >
+        <View className="w-full flex justify-center items-center mt-12 ">
           <Button
             title="Save"
             onPress={() => nav.navigate("BottomTabNavigator")}
             width={364}
             height={48}
-            
           />
         </View>
       </SafeAreaView>

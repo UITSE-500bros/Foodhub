@@ -4,4 +4,5 @@ declare module '@env' {
     export const PUBLISABLE_KEY: string;
     export const PROJECT_API_KEYS: string;
     export const PROJECT_URL: string;
+    export const VN_LOCATION_API: string;
 }

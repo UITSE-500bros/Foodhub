@@ -23,6 +23,7 @@ const performOAuth = async () => {
       },
     });
     if (response.ok) {
+
       const data = await response.json();
       if (data.url) {
         const res = await WebBrowser.openAuthSessionAsync(
@@ -58,7 +59,9 @@ const performOAuth = async () => {
 
 const Login = () => {
   const nav = useNavigation<LoginScreenNavigationProp>()
-  const url = Linking.createURL("/login");
+  const url = Linking.createURL("login");
+  console.log(url);
+  
 
   return (
     <View className="h-full w-full">

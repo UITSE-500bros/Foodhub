@@ -18,11 +18,9 @@ const Stack = createStackNavigator<RootStackParamList>();
 export default function RootStack() {
   return (
     <Stack.Navigator>
-      {/* <Stack.Screen
-        name="Login"
-        component={Login}
-        
-      /> */}
+      <Stack.Screen name="LocationRegister" component={LocationRegister} />
+
+      <Stack.Screen name="Login" component={Login} />
       <Stack.Screen
         options={{
           headerShown: false,
@@ -34,14 +32,16 @@ export default function RootStack() {
       <Stack.Screen name="ProductDetail" component={ProductDetail} />
       <Stack.Screen name="PhoneNumber" component={PhoneNumber} />
       <Stack.Screen name="OTP" component={OTP} />
-      <Stack.Screen name="LocationRegister" component={LocationRegister} />
+      {/* <Stack.Screen name="LocationRegister" component={LocationRegister} /> */}
       <Stack.Screen name="Survey" component={Survey} />
-      <Stack.Screen name="VNpay" component={VNpay} options={
-        {
-          headerShown: false
-        }
-      }/>
-      <Stack.Screen name ='Search' component={Search} />
+      <Stack.Screen
+        name="VNpay"
+        component={VNpay}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen name="Search" component={Search} />
     </Stack.Navigator>
   );
 }
