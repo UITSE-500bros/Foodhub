@@ -4,6 +4,7 @@ import {
   Image,
   Keyboard,
   TouchableWithoutFeedback,
+  Alert,
 } from "react-native";
 import React, { useEffect, useState } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -60,12 +61,26 @@ const LocationRegister = () => {
 
   console.log(selected);
   const getLocation = ()=>{
+    if(!selected.province || !selected.district || !selected.ward || !road){
+     Alert.alert("Thông báo","Vui lòng điền đầy đủ thông tin");
+      return;}
     const province = provinces.find((province)=>province.id === selected.province);
     const district = districts.find((district)=>district.id === selected.district);
     const ward = wards.find((ward)=>ward.id === selected.ward);
     const result= `${road}, ${ward.name}, ${district.name}, ${province.name}`;
     console.log(result);
+    return result;
    
+  }
+
+  const handleSubmit=()=>{
+    const location = getLocation();
+    if(location){
+      console.log(location);
+      nav.navigate("BottomTabNavigator");
+    }
+
+
   }
 
   const nav = useNavigation<LocationRegisterScreenNavigationProp>();
@@ -145,8 +160,7 @@ const LocationRegister = () => {
           <Button
             title="Save"
             onPress={() => {
-              getLocation();
-              nav.navigate("BottomTabNavigator");
+              handleSubmit();
             }}
             width={364}
             height={48}

@@ -43,6 +43,7 @@ const ProductDetail = () => {
     };
     fetchProduct();
   }, [id]);
+
   const handleFavoritePress = () => {
     if (product === null) return;
     console.log("favoriteItems", favoriteItems.length);
@@ -80,7 +81,7 @@ const ProductDetail = () => {
         </View>
         <View className="flex flex-1 gap-4  px-[20px]">
           <View className="flex flex-row justify-between">
-            <Text className="font-black text-2xl overflow-hidden pr-2  ">
+            <Text className="font-black min-w-[340px] text-2xl overflow-hidden pr-2  ">
               {product.product_name}
             </Text>
 

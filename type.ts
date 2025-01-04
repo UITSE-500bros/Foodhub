@@ -17,6 +17,8 @@ export type RootStackParamList = {
   Survey: undefined;
   VNpay: { uri: string };
   Search: undefined;
+  MyDetails: undefined;
+  
 };
 
 export type ExploreScreenNavigationProp = StackNavigationProp<
@@ -60,3 +62,7 @@ export type VNpayScreenNavigationProp = StackNavigationProp<
 >;
 export type VNpayScreenRouteProp = RouteProp<RootStackParamList, "VNpay">;
 
+export type ProfileScreenNavigationProp = StackNavigationProp<
+  RootStackParamList,
+  "Profile"
+>;

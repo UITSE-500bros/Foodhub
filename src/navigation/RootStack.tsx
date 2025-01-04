@@ -12,15 +12,14 @@ import OTP from "../screens/OTP";
 import Survey from "../screens/Survey";
 import VNpay from "../screens/Cart/VNpay";
 import Search from "../screens/Search";
+import MyDetails from "../screens/MyDetails";
 
 const Stack = createStackNavigator<RootStackParamList>();
 
 export default function RootStack() {
   return (
     <Stack.Navigator>
-      <Stack.Screen name="LocationRegister" component={LocationRegister} />
-
-      <Stack.Screen name="Login" component={Login} />
+      {/* <Stack.Screen name="Login" component={Login} /> */}
       <Stack.Screen
         options={{
           headerShown: false,
@@ -32,7 +31,7 @@ export default function RootStack() {
       <Stack.Screen name="ProductDetail" component={ProductDetail} />
       <Stack.Screen name="PhoneNumber" component={PhoneNumber} />
       <Stack.Screen name="OTP" component={OTP} />
-      {/* <Stack.Screen name="LocationRegister" component={LocationRegister} /> */}
+      <Stack.Screen name="LocationRegister" component={LocationRegister} />
       <Stack.Screen name="Survey" component={Survey} />
       <Stack.Screen
         name="VNpay"
@@ -42,6 +41,7 @@ export default function RootStack() {
         }}
       />
       <Stack.Screen name="Search" component={Search} />
+      <Stack.Screen name='MyDetails' component={MyDetails}/>
     </Stack.Navigator>
   );
 }

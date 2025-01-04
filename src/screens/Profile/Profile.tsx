@@ -1,19 +1,22 @@
-import { View, Text, Image, TouchableOpacity } from "react-native";
 import React from "react";
+import { Text, TouchableOpacity, View } from "react-native";
+
+import { useNavigation } from "@react-navigation/native";
 import { Icon } from "@rneui/themed";
-import { Button } from "@rneui/themed";
+import { ProfileScreenNavigationProp } from "../../../type";
 import { supabase } from "../../utils/supabase";
+import Section from "./Section";
 
 const Logout = async () => {
-
   const { error } = await supabase.auth.signOut();
   if (error) throw error;
-
-}
+};
 
 const Profile = () => {
+  const nav = useNavigation<ProfileScreenNavigationProp>();
+
   return (
-    <View className="pt-[80px] w-full h-[90%] flex justify-between">
+    <View className="pt-[80px] w-full h-[90%] flex items-center justify-between">
       <View className="">
         <View>
           {/* <Image source={} className="w-[30px] h-[30px]" /> */}
@@ -28,113 +31,39 @@ const Profile = () => {
         <View className="h-[1px] w-full bg-[#E2E2E2]" />
         <View className="mx-[25px]">
           {/* Orders */}
-          <TouchableOpacity className="flex flex-row justify-between items-center h-[70px] ">
-            <View className="flex flex-row  items-center">
-              <Icon name="shopping-bag" type="feather" />
-              <Text className="text-[#4C4F4D] text-center text-lg font-semibold   ml-[15px]">
-                Orders
-              </Text>
-            </View>
-            <Icon name="chevron-right" type="entypo" />
-          </TouchableOpacity>
-          <View className="h-[1px] w-full bg-[#E2E2E2]" />
+          <Section name="Orders" icon="shopping-bag" />
           {/* My Details */}
-          <TouchableOpacity className="flex flex-row justify-between items-center h-[70px] ">
-            <View className="flex flex-row  items-center">
-              <Icon name="shopping-bag" type="feather" />
-              <Text className="text-[#4C4F4D] text-center text-lg font-semibold   ml-[15px]">
-                My Details
-              </Text>
-            </View>
-            <Icon name="chevron-right" type="entypo" />
-          </TouchableOpacity>
-          <View className="h-[1px] w-full bg-[#E2E2E2]" />
+          <Section
+            name="My Details"
+            icon="user"
+            onPress={() => {
+              nav.navigate("MyDetails");
+            }}
+          />
           {/* Delivery Address */}
-          <TouchableOpacity className="flex flex-row justify-between items-center h-[70px] ">
-            <View className="flex flex-row gap-x-[20px]">
-              <Icon name="shopping-bag" type="feather" />
-              <Text className="text-[#4C4F4D] text-center text-lg font-semibold  ">
-                Delivery Address
-              </Text>
-            </View>
-            <Icon name="chevron-right" type="entypo" />
-          </TouchableOpacity>
-          <View className="h-[1px] w-full bg-[#E2E2E2]" />
+          <Section name="Delivery Address" icon="map-pin" />
+
           {/* Payment Methods*/}
-          <TouchableOpacity className="flex flex-row justify-between items-center h-[70px] ">
-            <View className="flex flex-row gap-x-[20px]">
-              <Icon name="shopping-bag" type="feather" />
-              <Text className="text-[#4C4F4D] text-center text-lg font-semibold  ">
-                Payment Methods
-              </Text>
-            </View>
-            <Icon name="chevron-right" type="entypo" />
-          </TouchableOpacity>
-          <View className="h-[1px] w-full bg-[#E2E2E2]" />
+          <Section name="Payment Methods" icon="credit-card" />
           {/* Vouchers */}
-          <TouchableOpacity className="flex flex-row justify-between items-center h-[70px] ">
-            <View className="flex flex-row gap-x-[20px]">
-              <Icon name="shopping-bag" type="feather" />
-              <Text className="text-[#4C4F4D] text-center text-lg font-semibold  ">
-                Vouchers
-              </Text>
-            </View>
-            <Icon name="chevron-right" type="entypo" />
-          </TouchableOpacity>
-          <View className="h-[1px] w-full bg-[#E2E2E2]" />
+          <Section name="Vouchers" icon="gift" />
           {/* Notifications */}
-          <TouchableOpacity className="flex flex-row justify-between items-center h-[70px] ">
-            <View className="flex flex-row gap-x-[20px]">
-              <Icon name="shopping-bag" type="feather" />
-              <Text className="text-[#4C4F4D] text-center text-lg font-semibold  ">
-                Notifications
-              </Text>
-            </View>
-            <Icon name="chevron-right" type="entypo" />
-          </TouchableOpacity>
-          <View className="h-[1px] w-full bg-[#E2E2E2]" />
+          <Section name="Notifications" icon="bell" />
           {/* Help  & About*/}
-          <TouchableOpacity className="flex flex-row justify-between items-center h-[70px] ">
-            <View className="flex flex-row gap-x-[20px]">
-              <Icon name="shopping-bag" type="feather" />
-              <Text className="text-[#4C4F4D] text-center text-lg font-semibold  ">
-                Help & About
-              </Text>
-            </View>
-            <Icon name="chevron-right" type="entypo" />
-          </TouchableOpacity>
+          <Section name="Help & About" icon="help-circle" />
         </View>
       </View>
       {/* Logout */}
 
-      <Button
-        title="Log Out"
-        icon={{
-          name: "logout",
-          type: "material",
-          size: 24,
-          color: "#53B175",
-        }}
-        iconContainerStyle={{}}
-        titleStyle={{
-          fontWeight: "700",
-          color: "#53B175",
-          fontSize: 18,
-          width: "80%",
-          textAlign: "left",
-          paddingLeft: 80,
-        }}
-        buttonStyle={{
-          backgroundColor: "#F2F3F2",
-          borderRadius: 15,
-          display: "flex",
-          alignItems: "center",
-          height: 70,
-          marginHorizontal: 25,
-          justifyContent: "space-around",
-        }}
+      <TouchableOpacity
+        className=" flex-row h-[67px]  flex items-center justify-center  bg-[#53B175] w-3/4 rounded-2xl"
         onPress={Logout}
-      />
+      >
+        <Icon color="white" name="log-out" type="feather" />
+        <Text className="text-white text-center text-xl font-bold">
+          Log out
+        </Text>
+      </TouchableOpacity>
     </View>
   );
 };
