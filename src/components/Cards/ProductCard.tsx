@@ -4,6 +4,8 @@ import { Image, Text, TouchableOpacity, View } from "react-native";
 import ButtonGroup from "../ButtonGroup";
 import ProductDetail from "../../models/ProductDetail";
 import useCartStore from "../../screens/Cart/store/CartStore";
+import { useNavigation } from "@react-navigation/native";
+import { HomeScreenNavigationProp } from "../../../type";
 
 interface ProductCardProps {
   adjust: boolean;
@@ -16,8 +18,11 @@ const ProductCard: React.FC<ProductCardProps> = ({ adjust,product }) => {
     updateQuantity(product.id, newQuantity);
   }
   const remove=useCartStore((state)=>state.removeFromCart)
+  const nav = useNavigation<HomeScreenNavigationProp>();
   return (
-    <View className="flex pr-4 h-[120] flex-row justify-center items-center mx-2 mb-[25]">
+    <TouchableOpacity onPress={()=>{
+      nav.navigate("ProductDetail",{id:product.id})
+    }} className="flex pr-4 px-7 h-[120] flex-row justify-center items-center mx-2 mb-[25]">
       <Image
         source={{ uri: product.product_image}}
         className=" w-[80px] h-[80px] rounded-lg resize-stretch mr-[33]"
@@ -48,7 +53,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ adjust,product }) => {
           {product.product_price}
         </Text>
       </View>
-    </View>
+    </TouchableOpacity>
   );
 };
 

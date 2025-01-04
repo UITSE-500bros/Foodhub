@@ -66,7 +66,7 @@ const ProductDetail = () => {
 
     Toast.show({
       type: "success",
-      position: "bottom",
+   
       text1: "Added to cart successfully",
       visibilityTime: 2000,
       autoHide: true,
