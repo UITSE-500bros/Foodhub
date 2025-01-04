@@ -28,7 +28,7 @@ export default function App() {
           <SafeAreaProvider>
             <RootStack />
           </SafeAreaProvider>
-          <Toast ref={(ref) => Toast.setRef(ref)} />
+          <Toast  />
         </NavigationContainer>
       </GestureHandlerRootView>
   );

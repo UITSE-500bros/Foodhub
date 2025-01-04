@@ -49,10 +49,9 @@ const ProductDetail = () => {
 
   const handleFavoritePress = () => {
     if (product === null) return;
-    console.log("favoriteItems", favoriteItems.length);
-    console.log(id);
+    console.log(isFavorite(product.id));
 
-    if (!isFavorite(id)) {
+    if (!isFavorite(product.id)) {
       addToFavorite(product);
     } else {
       removeFromFavorite(id);
@@ -60,9 +59,9 @@ const ProductDetail = () => {
 
     console.log("favoriteItems", favoriteItems.length);
   };
-  const handleAddToCart = (product:ProductDetailInterface) => {
+  const handleAddToCart = (product: ProductDetailInterface) => {
     if (product === null) return;
-    addToCart( product);
+    addToCart(product);
     console.log(product);
 
     Toast.show({
