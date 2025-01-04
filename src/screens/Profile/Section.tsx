@@ -11,7 +11,7 @@ type Props = {
 export default function Section({ name, icon,onPress }: Props) {
   return (
     <>
-      <TouchableOpacity  onPress={onPress} className="flex flex-row justify-between items-center h-[70px] ">
+      <TouchableOpacity  onPress={onPress} className="flex w-full flex-row justify-between items-center h-[70px] ">
         <View className="flex flex-row  items-center">
           <Icon name={icon} type="feather" />
           <Text className="text-[#4C4F4D] text-center text-lg font-semibold   ml-[15px]">
