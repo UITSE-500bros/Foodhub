@@ -11,6 +11,10 @@ export default function MyDetails() {
     email:"",
     dob: new Date()
   })
+  const onDateChange = (event, selectedDate) => {
+    const currentDate = selectedDate 
+    setDetails({...details,dob:currentDate})
+  }
   return (
     <SafeAreaView className="p-5 flex flex-1 gap-2  items-center">
       {titles.map((title) => (
@@ -26,6 +30,7 @@ export default function MyDetails() {
         value={new Date(details.dob)}
         mode="date"
         is24Hour={true}
+        onChange={onDateChange}
 
         />
 

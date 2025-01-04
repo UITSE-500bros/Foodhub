@@ -12,7 +12,8 @@ import { RootStackParamList } from "../../../type";
 import { formattedPrice } from "../../utils/formattesPrice";
 import { Icon } from "@rneui/themed";
 import { useFavoriteStore } from "../Favorite/FavoriteStore";
-
+import Toast from "react-native-toast-message";
+import useCartStore from "../Cart/store/CartStore";
 const ProductDetail = () => {
   const [product, setProduct] = React.useState<ProductDetailInterface | null>(
     null
@@ -20,11 +21,13 @@ const ProductDetail = () => {
   const route = useRoute<RouteProp<RootStackParamList, "ProductDetail">>();
   const { id } = route.params;
 
-  const [quantity, setQuantity] = useState(1);
+  // const [quantity, setQuantity] = useState(1);
   const [isOpen, setIsOpen] = React.useState(false);
   const toggle = () => {
     setIsOpen(!isOpen);
   };
+
+  const addToCart = useCartStore((state) => state.addToCart);
 
   const isFavorite = useFavoriteStore((state) => state.isFavorite);
   const addToFavorite = useFavoriteStore((state) => state.addToFavorite);
@@ -48,16 +51,27 @@ const ProductDetail = () => {
     if (product === null) return;
     console.log("favoriteItems", favoriteItems.length);
     console.log(id);
-    
-    if (!isFavorite(id)) {
 
-      
+    if (!isFavorite(id)) {
       addToFavorite(product);
     } else {
       removeFromFavorite(id);
     }
 
     console.log("favoriteItems", favoriteItems.length);
+  };
+  const handleAddToCart = (product:ProductDetailInterface) => {
+    if (product === null) return;
+    addToCart( product);
+    console.log(product);
+
+    Toast.show({
+      type: "success",
+      position: "bottom",
+      text1: "Added to cart successfully",
+      visibilityTime: 2000,
+      autoHide: true,
+    });
   };
 
   if (product === null) {
@@ -97,9 +111,9 @@ const ProductDetail = () => {
             />
           </View>
           <View className="flex flex-row justify-between">
-            <View className="flex flex-row items-center justify-center">
+            {/* <View className="flex flex-row items-center justify-center">
               <ButtonGroup quantity={quantity} onQuantityChange={setQuantity} />
-            </View>
+            </View> */}
             <Text className="font-black text-2xl tracking-wide	">
               {formattedPrice(product.product_price)}
             </Text>
@@ -131,7 +145,10 @@ const ProductDetail = () => {
           </View>
         </View>
       </SafeAreaView>
-      <TouchableOpacity className="bg-[#53B175] mt-5 h-[70px] self-center  justify-center items-center    max-w-[367px] w-full rounded-3xl">
+      <TouchableOpacity
+        onPress={() => handleAddToCart(product)}
+        className="bg-[#53B175] mt-5 h-[70px] self-center  justify-center items-center    max-w-[367px] w-full rounded-3xl"
+      >
         <Text className="text-white text-lg font-semibold">Add to cart</Text>
       </TouchableOpacity>
     </ScrollView>

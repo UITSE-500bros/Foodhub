@@ -6,6 +6,7 @@ import { SafeAreaProvider } from "react-native-safe-area-context";
 import RootStack from "./src/navigation/RootStack";
 import * as Linking from 'expo-linking';
 import './logger.config'
+import Toast from 'react-native-toast-message';
 
 
 WebBrowser.maybeCompleteAuthSession();
@@ -27,6 +28,7 @@ export default function App() {
           <SafeAreaProvider>
             <RootStack />
           </SafeAreaProvider>
+          <Toast ref={(ref) => Toast.setRef(ref)} />
         </NavigationContainer>
       </GestureHandlerRootView>
   );

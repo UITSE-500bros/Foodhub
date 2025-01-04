@@ -9,10 +9,14 @@ import Profile from "../screens/Profile";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Home from "../screens/Home";
 import Search from "../screens/Search";
+import useCartStore from "../screens/Cart/store/CartStore";
 
 const Tab = createBottomTabNavigator();
 
 export default function BottomTabNavigator() {
+  const cart = useCartStore((state) => state.cart);
+  const cartItems=cart.length;
+
   return (
     <Tab.Navigator>
       <Tab.Screen
@@ -45,6 +49,7 @@ export default function BottomTabNavigator() {
           tabBarIcon: ({ color }) => (
             <MaterialCommunityIcons name="cart" color={color} size={26} />
           ),
+          tabBarBadge: cartItems,
           headerShown: false,
         }}
       />
