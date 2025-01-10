@@ -13,9 +13,9 @@ import { API_URL } from "@env";
 WebBrowser.maybeCompleteAuthSession(); // required for web only
 
 const redirectTo = makeRedirectUri();
-const performOAuth = async () => {
+const performOAuth = async (logintype: string) => {
   try {
-    const response = await fetch(`${API_URL}/user/google`, {
+    const response = await fetch(`${API_URL}/user/${logintype}`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -23,7 +23,6 @@ const performOAuth = async () => {
       },
     });
     if (response.ok) {
-
       const data = await response.json();
       if (data.url) {
         const res = await WebBrowser.openAuthSessionAsync(
@@ -38,7 +37,7 @@ const performOAuth = async () => {
 
           if (errorCode) throw new Error(errorCode);
           const { access_token, refresh_token } = params;
-
+          console.log(access_token, refresh_token);
           if (access_token && refresh_token) {
             await SecureStore.setItemAsync("access_token", access_token);
             await SecureStore.setItemAsync("refresh_token", refresh_token);
@@ -60,8 +59,6 @@ const performOAuth = async () => {
 const Login = () => {
   const nav = useNavigation<LoginScreenNavigationProp>()
   const url = Linking.createURL("login");
-  console.log(url);
-  
 
   return (
     <View className="h-full w-full">
@@ -124,7 +121,7 @@ const Login = () => {
             marginVertical: 10,
           }}
           onPress={() => {
-            performOAuth();
+            performOAuth('google');
             // nav.navigate("PhoneNumber")
           }}
         />
@@ -158,7 +155,8 @@ const Login = () => {
             marginVertical: 10,
           }}
           onPress={() => {
-            nav.navigate("PhoneNumber")
+            console.log("Facebook");
+            performOAuth('facebook');
           }}
         />
       </View>
