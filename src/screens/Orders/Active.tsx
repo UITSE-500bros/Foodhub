@@ -15,21 +15,21 @@ export default function Active() {
         keyExtractor={(item) => item.id.toString()}
         renderItem={({ item }) => (
           
-          <View className=" flex flex-row justify-between items-center mx-2 mb-[25]">
+          <View className=" flex flex-row  items-center mx-2 mb-[25]">
           <Image
             source={{ uri: item.product_image }}
             className=" w-[80px] h-[80px] rounded-lg resize-stretch mr-[33]"
           />
           <View className="flex justify-start items-start py-1 mr-4">
-            <Text className=" overflow-hidden max-w-[165px] text-base mb-1 font-extrabold text-[#181725] ">
+            <Text className=" overflow-hidden text-start max-w-[165px] text-base mb-1 font-extrabold text-[#181725] ">
               {item.product_name}
             </Text>
             <Text >{item.product_price}</Text>
           </View>
-          <TouchableOpacity className=" flex flex-row items-center">
+          {/* <TouchableOpacity className=" flex flex-row items-center">
             <Text>Track</Text>
             <Icon name="chevron-right" size={20} color="#7C7C7C" />
-          </TouchableOpacity>
+          </TouchableOpacity> */}
         </View>
         )}
       />

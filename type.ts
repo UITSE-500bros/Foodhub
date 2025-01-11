@@ -19,6 +19,7 @@ export type RootStackParamList = {
   Search: undefined;
   MyDetails: undefined;
   Orders: undefined;
+  Vouchers: undefined;
   
 };
 

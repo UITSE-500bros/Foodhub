@@ -47,7 +47,7 @@ const Profile = () => {
 
        
          {/* Vouchers */}
-          <Section name="Vouchers" icon="gift" />
+          <Section name="Vouchers" icon="gift" onPress={()=>nav.navigate('Vouchers')} />
           {/* Notifications */}
           <Section name="Notifications" icon="bell" />
           {/* Help  & About*/}

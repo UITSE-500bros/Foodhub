@@ -14,6 +14,7 @@ import VNpay from "../screens/Cart/VNpay";
 import Search from "../screens/Search";
 import MyDetails from "../screens/MyDetails";
 import Orders from '../screens/Orders'
+import Vouchers from "../screens/Vouchers";
 
 const Stack = createStackNavigator<RootStackParamList>();
 
@@ -44,6 +45,7 @@ export default function RootStack() {
       <Stack.Screen name="Search" component={Search} />
       <Stack.Screen name='MyDetails' component={MyDetails}/>
         <Stack.Screen name= 'Orders' component={Orders}/>
+        <Stack.Screen name = 'Vouchers' component={Vouchers}/>
     </Stack.Navigator>
   );
 }
