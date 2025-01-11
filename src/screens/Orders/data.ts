@@ -1,0 +1,80 @@
+export const data =[
+    {
+      "id": "25ad8994-6ce4-4407-80d6-250660689126",
+      "created_at": "2024-12-18T16:13:19.262637+00:00",
+      "updated_at": "2024-12-18T16:13:19.262637+00:00",
+      "product_name": "Thịt Lợn Quế Xiên Mắc Mật (500gr)",
+      "product_price": 75000,
+      "category_id": "e4eb97ef-16fb-44ce-81c3-b5fd252f6980",
+      "is_sale": false,
+      "percentage_sale": 0,
+      "product_image": "https://cdn.abphotos.link/photos/resized/1024x/1659008488-php5odr5p.png",
+      "brand": "FoodHub Kitchen",
+      "quantity": 1000
+    },
+    {
+      "id": "ba64e967-8f65-4254-b226-91db4411ff92",
+      "created_at": "2024-12-18T16:13:18.364173+00:00",
+      "updated_at": "2024-12-18T16:13:18.364173+00:00",
+      "product_name": "Rượu Cúng",
+      "product_price": 10000,
+      "category_id": "70d71770-619f-47fd-b1b4-1faf2cc18668",
+      "is_sale": false,
+      "percentage_sale": 0,
+      "product_image": "https://cdn.abphotos.link/photos/resized/1024x/2023/04/04/1680596507_z40DEJbKdAa28Wtw_1680602647-php3zu5ch.png",
+      "brand": "NO BRAND",
+      "quantity": 1000
+    },
+    {
+      "id": "4d95bc59-9260-4d68-b981-4da325830156",
+      "created_at": "2024-12-18T16:13:18.364173+00:00",
+      "updated_at": "2024-12-18T16:13:18.364173+00:00",
+      "product_name": "Roi Đỏ An Phước (Kg)",
+      "product_price": 115000,
+      "category_id": "a41584fa-e597-4c2f-9b80-df31f1fcdb5c",
+      "is_sale": false,
+      "percentage_sale": 0,
+      "product_image": "https://cdn.abphotos.link/photos/resized/1024x/2023/09/13/1694597674_mtv5fx4Khaolqg13_1694598937-phpphzqyj.png",
+      "brand": "KATAFOOD",
+      "quantity": 1000
+    },
+    {
+      "id": "b429ee9c-8b08-404a-bfc8-907c34f7fbad",
+      "created_at": "2024-12-18T16:13:17.811696+00:00",
+      "updated_at": "2024-12-18T16:13:17.811696+00:00",
+      "product_name": "Bắp Cải Thái ECO (~1 Kg/ Cây)",
+      "product_price": 24000,
+      "category_id": "d8e27378-3aed-4b56-afb8-4a9f96c893be",
+      "is_sale": false,
+      "percentage_sale": 0,
+      "product_image": "https://cdn.abphotos.link/photos/resized/1024x/2023/05/29/1685343414_atT7i4A6BScjoHnF_1685352695-phpndyjvv.png",
+      "brand": "THÁI ECO FARM",
+      "quantity": 1000
+    },
+    {
+      "id": "eb058f9b-e4e9-4c66-b29c-27151df45fa0",
+      "created_at": "2024-12-18T16:13:18.364173+00:00",
+      "updated_at": "2024-12-18T16:13:18.364173+00:00",
+      "product_name": "Đường Thốt Nốt (300g)",
+      "product_price": 30000,
+      "category_id": "243b599f-dff3-4097-8796-cbe484804d65",
+      "is_sale": false,
+      "percentage_sale": 0,
+      "product_image": "https://cdn.abphotos.link/photos/resized/1024x/2022/09/19/1663576248_RfKWsQ2jJCrHO0in_1663579388-phphc8voo.png",
+      "brand": "Vua đặc sản",
+      "quantity": 1000
+    },
+    {
+      "id": "5c066830-1a03-47b6-874a-feabc9650a0a",
+      "created_at": "2024-12-18T16:13:19.262637+00:00",
+      "updated_at": "2024-12-18T16:13:19.262637+00:00",
+      "product_name": "Cá Diêu Hồng Hấp Hành Cuốn Bánh Tráng (4 Người Ăn)",
+      "product_price": 125000,
+      "category_id": "637559af-051c-4958-9fe4-82c7e6f44f52",
+      "is_sale": false,
+      "percentage_sale": 0,
+      "product_image": "https://cdn.abphotos.link/photos/resized/1024x/1658381133-phppnvxcx.png",
+      "brand": "FoodHub Kitchen",
+      "quantity": 1000
+    }
+  ]

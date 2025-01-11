@@ -18,6 +18,7 @@ export type RootStackParamList = {
   VNpay: { uri: string };
   Search: undefined;
   MyDetails: undefined;
+  Orders: undefined;
   
 };
 

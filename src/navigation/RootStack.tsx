@@ -13,6 +13,7 @@ import Survey from "../screens/Survey";
 import VNpay from "../screens/Cart/VNpay";
 import Search from "../screens/Search";
 import MyDetails from "../screens/MyDetails";
+import Orders from '../screens/Orders'
 
 const Stack = createStackNavigator<RootStackParamList>();
 
@@ -42,6 +43,7 @@ export default function RootStack() {
       />
       <Stack.Screen name="Search" component={Search} />
       <Stack.Screen name='MyDetails' component={MyDetails}/>
+        <Stack.Screen name= 'Orders' component={Orders}/>
     </Stack.Navigator>
   );
 }

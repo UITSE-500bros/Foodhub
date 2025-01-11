@@ -31,7 +31,9 @@ const Profile = () => {
         <View className="h-[1px] w-full bg-[#E2E2E2]" />
         <View className="mx-[25px]">
           {/* Orders */}
-          <Section name="Orders" icon="shopping-bag" />
+          <Section name="Orders" icon="shopping-bag" onPress={()=>{
+            nav.navigate('Orders')
+          }} />
           {/* My Details */}
           <Section
             name="My Details"
@@ -43,9 +45,8 @@ const Profile = () => {
           {/* Delivery Address */}
           <Section name="Delivery Address" icon="map-pin" />
 
-          {/* Payment Methods*/}
-          <Section name="Payment Methods" icon="credit-card" />
-          {/* Vouchers */}
+       
+         {/* Vouchers */}
           <Section name="Vouchers" icon="gift" />
           {/* Notifications */}
           <Section name="Notifications" icon="bell" />

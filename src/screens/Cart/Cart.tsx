@@ -40,11 +40,11 @@ const Cart = () => {
     <SafeAreaView className="flex-1 px-4 ">
       <View className="flex justify-center items-center mt-10">
         <Text className="text-center text-[#181725] text-xl font-black">
-          My Cart
+         Giỏ hàng
         </Text>
       </View>
       <Text className="text-center text-[#7C7C7C] text-xl font-[900]">
-        Tổng tiền {total}
+        Tổng tiền 35000
       </Text>
       <View>
         <Text className="text-lg font-semibold">Địa chỉ giao hàng: </Text>

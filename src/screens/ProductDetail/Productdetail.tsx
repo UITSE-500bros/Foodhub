@@ -1,6 +1,6 @@
 import { View, Text, Image, TouchableOpacity } from "react-native";
 import React, { useEffect, useState } from "react";
-import { AdjustButton } from "../../components";
+import { AdjustButton, ProductCarousel } from "../../components";
 import { RouteProp, useRoute } from "@react-navigation/native";
 import ProductDetailInterface from "../../models/ProductDetail";
 import { getProductsDetailByIDApi } from "./service/ProductDetial.service";
@@ -14,7 +14,10 @@ import { Icon } from "@rneui/themed";
 import { useFavoriteStore } from "../Favorite/FavoriteStore";
 import Toast from "react-native-toast-message";
 import useCartStore from "../Cart/store/CartStore";
+import { getNewArrivalProductsApi } from "../Home/services/Home.service";
 const ProductDetail = () => {
+  const [data, setData] = useState([]);
+
   const [product, setProduct] = React.useState<ProductDetailInterface | null>(
     null
   );
@@ -45,6 +48,11 @@ const ProductDetail = () => {
       }
     };
     fetchProduct();
+    const fetchNewArrivalProducts = async () => {
+      const res = await getNewArrivalProductsApi();
+      setData(res);
+    }
+    fetchNewArrivalProducts();
   }, [id]);
 
   const handleFavoritePress = () => {
@@ -150,8 +158,8 @@ const ProductDetail = () => {
       >
         <Text className="text-white text-lg font-semibold">Add to cart</Text>
       </TouchableOpacity>
+      <ProductCarousel products={data} title="Sản phẩm gợi ý" />
     </ScrollView>
-  );
-};
+  );};
 
 export default ProductDetail;

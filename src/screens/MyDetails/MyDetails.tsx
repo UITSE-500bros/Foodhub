@@ -52,7 +52,7 @@ export default function MyDetails() {
         )}
       </View>
       <View className="absolute bottom-5 w-full justify-center items-center">
-        <Button title="Save" width="75%" height={40} onPress={() => {}} />
+        <Button title="Update profile" width="75%" height={40} onPress={() => {}} />
       </View>
     </SafeAreaView>
   );

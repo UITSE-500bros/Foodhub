@@ -1,31 +1,59 @@
 import { create } from "zustand";
 import ProductDetail from "../../models/ProductDetail";
+import axiosInstance from "../../service/axiosInstance";
 
 type FavoriteStore = {
   favoriteProducts: ProductDetail[];
-  addToFavorite: (product: any) => void;
-  removeFromFavorite: (productId: string) => void;
+  addToFavorite: (product: ProductDetail) => Promise<void>;
+  removeFromFavorite: (productId: string) => Promise<void>;
   clearFavorite: () => void;
   isFavorite: (productId: string) => boolean;
+  fetchFavorite: () => Promise<void>;
 };
 
 export const useFavoriteStore = create<FavoriteStore>((set, get) => {
   return {
     favoriteProducts: [],
-    addToFavorite: (product) =>
-      set((state) => {
-        return {
-          favoriteProducts: [...state.favoriteProducts, product],
-        };
-      }),
-    removeFromFavorite: (productId) =>
-      set((state) => {
-        return {
-          favoriteProducts: state.favoriteProducts.filter(
-            (product) => product.id !== productId
-          ),
-        };
-      }),
+    fetchFavorite: async () => {
+      try{
+        const response = await axiosInstance.get('/user/favourite')
+        set({favoriteProducts: response.data})
+
+      }
+      catch(error){
+        console.log(error)
+      }
+    },
+    addToFavorite:async (product) => {
+      try{
+        const response = await axiosInstance.post('/user/favourite', {productId: product.id})
+        set((state) => {
+          return {
+            favoriteProducts: [...state.favoriteProducts, product],
+          };
+        });
+      }
+      catch(error){
+        console.log(error)
+      }
+
+    },
+      
+    removeFromFavorite: async (productId) =>{
+      try{
+        // const response = await axiosInstance.delete(`/user/favourite/${productId}`)
+        await set((state) => {
+          return {
+            favoriteProducts: state.favoriteProducts.filter(
+              (product) => product.id !== productId
+            ),
+          };
+        });
+      }
+      catch(error){
+        console.log(error)
+      }
+    },
     clearFavorite: () =>
       set((state) => {
         return {
