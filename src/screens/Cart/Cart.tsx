@@ -1,10 +1,10 @@
 import React, { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import { Dimensions, FlatList, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { Dimensions, FlatList, StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { CheckBox, Icon } from "@rneui/themed";
 import BottomSheet, { BottomSheetView } from "@gorhom/bottom-sheet";
 import { useNavigation } from "@react-navigation/native";
-import { AcceptedScreenNavigationProp, ErrorScreenNavigationProp, VNpayScreenNavigationProp } from "../../../type";
+import { AcceptedScreenNavigationProp, ErrorScreenNavigationProp, ProfileScreenNavigationProp, VNpayScreenNavigationProp } from "../../../type";
 import { ProductCard } from "../../components";
 import useCartStore from "./store/CartStore";
 import { usersService } from "../../service";
@@ -14,7 +14,7 @@ import Accepted from "../Accepted";
 const InfoSection: React.FC<{ title: string; children: React.ReactNode; onPress?: () => void; stroke?: boolean }> = ({ title, children, onPress, stroke = true }) => (
   <TouchableOpacity onPress={onPress} style={styles.infoSection}>
     <Text style={styles.sectionTitle}>{title}</Text>
-    {children}
+    {children && <View className="flex items-end">{children}</View>}
   </TouchableOpacity>
 );
 
@@ -106,14 +106,12 @@ const Main: React.FC<{ total: number; handleClosePress: () => void; openPayment:
     </InfoSection>
     <InfoSection title="Phương thức thanh toán" onPress={openPayment}>
       <Text style={styles.text}>{useCartStore.getState().paymentMethod}</Text>
-      <Icon name="right" type="antdesign" size={20} />
     </InfoSection>
     <InfoSection title="Mã giảm giá" onPress={openPromotion}>
-      <Text style={styles.text}>{useCartStore.getState().coupon_code}</Text>
-      <Icon name="right" type="antdesign" size={20} />
+      <TextInput placeholder="Nhập mã giảm giá" />
     </InfoSection>
     <InfoSection title="Tổng tiền" stroke={false}>
-      <Text style={styles.text}>Giao hàng tiêu chuẩn</Text>
+      <Text style={styles.text}>{total}</Text>
     </InfoSection>
     <TouchableOpacity style={styles.paymentButton} onPress={handlePayment}>
       <Text style={styles.paymentText}>Thanh toán</Text>
@@ -127,6 +125,7 @@ const Cart: React.FC = () => {
   const nav_Accepted = useNavigation<AcceptedScreenNavigationProp>();
   const nav_VNPAY = useNavigation<VNpayScreenNavigationProp>();
   const nav = useNavigation<ErrorScreenNavigationProp>();
+  const navPromotion = useNavigation<ProfileScreenNavigationProp>();
   const bottomSheetRef = useRef<BottomSheet>(null);
   const [total, setTotal] = useState(0);
 
@@ -162,8 +161,7 @@ const Cart: React.FC = () => {
     bottomSheetRef.current?.expand();
   };
   const openPromotion = () => {
-    setBottomSheetContent(<PromotionCode handleGoBack={handleGoBack} />);
-    bottomSheetRef.current?.expand();
+    navPromotion.navigate('Coupons');
   }
 
   const [bottomSheetContent, setBottomSheetContent] = useState<React.ReactNode>();
@@ -173,7 +171,7 @@ const Cart: React.FC = () => {
     setTotal(totalAmount);
   }, [cart]);
 
-  const snapPoints = useMemo(() => ["50%"], []);
+  const snapPoints = useMemo(() => ["55%"], []);
 
   return (
     <SafeAreaView  style={styles.container}>
