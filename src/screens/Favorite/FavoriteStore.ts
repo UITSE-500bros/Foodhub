@@ -9,6 +9,8 @@ type FavoriteStore = {
   clearFavorite: () => void;
   isFavorite: (productId: string) => boolean;
   fetchFavorite: () => Promise<void>;
+  addToFavoriteOptimistic: (product: ProductDetail) => void;
+  removeFromFavoriteOptimistic: (productId: string) => void;
 };
 
 export const useFavoriteStore = create<FavoriteStore>((set, get) => {
@@ -24,8 +26,7 @@ export const useFavoriteStore = create<FavoriteStore>((set, get) => {
     },
     addToFavorite: async (product) => {
       try {
-       
-         await axiosInstance.post("/user/favorites", {
+        await axiosInstance.post("/user/favorites", {
           productId: product.id,
         });
         set((state) => {
@@ -34,13 +35,13 @@ export const useFavoriteStore = create<FavoriteStore>((set, get) => {
           };
         });
       } catch (error) {
-        console.error('error in addToFavorite', error);
+        console.error("error in addToFavorite", error);
       }
     },
 
     removeFromFavorite: async (productId) => {
       try {
-       await axiosInstance.delete(`/user/favorites`, {
+        await axiosInstance.delete(`/user/favorites`, {
           data: { productId },
         });
         await set((state) => {
@@ -67,6 +68,18 @@ export const useFavoriteStore = create<FavoriteStore>((set, get) => {
       return favoriteProducts.some(
         (product: ProductDetail) => product.id === productId
       );
+    },
+    addToFavoriteOptimistic: (product: ProductDetail) => {
+      set((state) => ({
+        favoriteProducts: [...state.favoriteProducts, product],
+      }));
+    },
+    removeFromFavoriteOptimistic: (productId: string) => {
+      set((state) => ({
+        favoriteProducts: state.favoriteProducts.filter(
+          (product) => product.id !== productId
+        ),
+      }));
     },
   };
 });

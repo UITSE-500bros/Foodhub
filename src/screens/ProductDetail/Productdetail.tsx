@@ -29,6 +29,7 @@ const ProductDetail = () => {
   const toggle = () => {
     setIsOpen(!isOpen);
   };
+  const {addToFavoriteOptimistic, removeFromFavoriteOptimistic} = useFavoriteStore();
 
   const addToCart = useCartStore((state) => state.addToCart);
 
@@ -51,22 +52,41 @@ const ProductDetail = () => {
     const fetchNewArrivalProducts = async () => {
       const res = await getNewArrivalProductsApi();
       setData(res);
-    }
+    };
     fetchNewArrivalProducts();
   }, [id]);
 
-  const handleFavoritePress = () => {
+  const handleFavoritePress = async () => {
     if (product === null) return;
-    console.log(isFavorite(product.id));
 
-    if (!isFavorite(product.id)) {
-      addToFavorite(product);
+    const isFav = isFavorite(product.id);
+
+    // Optimistically update the UI
+    if (!isFav) {
+      addToFavoriteOptimistic(product); // Optimistically add
     } else {
-      removeFromFavorite(id);
+      removeFromFavoriteOptimistic(product.id); // Optimistically remove
     }
 
-    console.log("favoriteItems", favoriteItems.length);
+    try {
+      if (!isFav) {
+        // Perform the actual API call
+        await addToFavorite(product);
+      } else {
+        await removeFromFavorite(product.id);
+      }
+    } catch (error) {
+      console.error("Failed to update favorite status", error);
+
+      // Rollback the optimistic update
+      if (!isFav) {
+        removeFromFavoriteOptimistic(product.id); // Revert optimistic add
+      } else {
+        addToFavoriteOptimistic(product); // Revert optimistic remove
+      }
+    }
   };
+
   const handleAddToCart = (product: ProductDetailInterface) => {
     if (product === null) return;
     addToCart(product);
@@ -74,7 +94,7 @@ const ProductDetail = () => {
 
     Toast.show({
       type: "success",
-   
+
       text1: "Added to cart successfully",
       visibilityTime: 2000,
       autoHide: true,
@@ -115,7 +135,6 @@ const ProductDetail = () => {
               size={30}
               color="#7C7C7C"
               onPress={handleFavoritePress}
-           
             />
           </View>
           <View className="flex flex-row justify-between">
@@ -161,6 +180,7 @@ const ProductDetail = () => {
       </TouchableOpacity>
       <ProductCarousel products={data} title="Sản phẩm gợi ý" />
     </ScrollView>
-  );};
+  );
+};
 
 export default ProductDetail;
