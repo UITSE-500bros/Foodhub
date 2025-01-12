@@ -1,2 +1,2 @@
-import Vouchers from "./Coupons";
-export default Vouchers;
+import Coupons from "./Coupons";
+export default Coupons;

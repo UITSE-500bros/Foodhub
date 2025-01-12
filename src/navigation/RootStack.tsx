@@ -16,7 +16,7 @@ import Orders from '../screens/Orders';
 import OTP from "../screens/OTP";
 import Search from "../screens/Search";
 import Survey from "../screens/Survey";
-import Coupons from "../screens/Coupons/Vouchers";
+import Coupons from "../screens/Coupons/Coupons";
 
 const Stack = createStackNavigator<RootStackParamList>();
 

@@ -30,7 +30,7 @@ const LocationRegister = () => {
   });
   const handleRoadInput = (text: string) => {
     setRoad(text);
-  }
+  };
   useEffect(() => {
     const getAllProvince = async () => {
       getAllProvincesApi()
@@ -60,33 +60,35 @@ const LocationRegister = () => {
   };
 
   console.log(selected);
-  const getLocation = ()=>{
-    if(!selected.province || !selected.district || !selected.ward || !road){
-     Alert.alert("Thông báo","Vui lòng điền đầy đủ thông tin");
-      return;}
-    const province = provinces.find((province)=>province.id === selected.province);
-    const district = districts.find((district)=>district.id === selected.district);
-    const ward = wards.find((ward)=>ward.id === selected.ward);
-    const result= `${road}, ${ward.name}, ${district.name}, ${province.name}`;
+  const getLocation = () => {
+    if (!selected.province || !selected.district || !selected.ward || !road) {
+      Alert.alert("Thông báo", "Vui lòng điền đầy đủ thông tin");
+      return;
+    }
+    const province = provinces.find(
+      (province) => province.id === selected.province
+    );
+    const district = districts.find(
+      (district) => district.id === selected.district
+    );
+    const ward = wards.find((ward) => ward.id === selected.ward);
+    const result = `${road}, ${ward.name}, ${district.name}, ${province.name}`;
     console.log(result);
     return result;
-   
-  }
+  };
 
-  const handleSubmit=()=>{
+  const handleSubmit = () => {
     const location = getLocation();
-    if(location){
+    if (location) {
       console.log(location);
-      nav.navigate("BottomTabNavigator");
+      nav.navigate("AddressSelect");
     }
-
-
-  }
+  };
 
   const nav = useNavigation<LocationRegisterScreenNavigationProp>();
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-      <SafeAreaView className="flex flex-col gap-4">
+      <SafeAreaView className="flex flex-col gap-4 ">
         <View className="w-full h-[170px] justify-center items-center">
           <Image
             source={require("../../../public/images/location.png")}
@@ -94,12 +96,19 @@ const LocationRegister = () => {
           />
         </View>
         <Text className="text-center text-black text-2xl font-semibold">
-          Select Your Location
+          Chọn địa chỉ của bạn
         </Text>
         <Text className="text-center text-[#7c7c7c] text-base font-black font-['Inter']">
-          Switch on your location to stay in tune with what’s happening in your
-          area
+          Chọn vị trí của bạn để cập nhật những gì đang diễn ra trong khu vực
+          của bạn
         </Text>
+        <View className="mx-4 flex">
+          <Text className="mx-4"> Đặt tên cho vị trí này</Text>
+          <TextInput
+            mode="flat"
+            style={{  marginHorizontal: 10 ,backgroundColor:'transparent'}}
+          />
+        </View>
 
         <View className="mx-4">
           <Text className="ml-5">Tỉnh/Thành phố</Text>
@@ -139,7 +148,9 @@ const LocationRegister = () => {
           <Text className="ml-5">Xã/Phường</Text>
           <Picker
             selectedValue={selected.ward}
-            onValueChange={(itemValue) => setSelected({ ...selected, ward: itemValue })}
+            onValueChange={(itemValue) =>
+              setSelected({ ...selected, ward: itemValue })
+            }
             placeholder="Chọn xã phường"
           >
             <Picker.Item label="Chọn xã phường" value="" />
@@ -151,14 +162,14 @@ const LocationRegister = () => {
         <View className="mx-4">
           <Text className="ml-5">Số nhà,tên đường</Text>
           <TextInput
-            mode="outlined"
-            onChange={(e)=>handleRoadInput(e.nativeEvent.text)}
-            style={{ backgroundColor: "white", marginHorizontal: 10 }}
+            mode="flat"
+            onChange={(e) => handleRoadInput(e.nativeEvent.text)}
+            style={{ backgroundColor: "transparent", marginHorizontal: 10 }}
           />
         </View>
         <View className="w-full flex justify-center items-center mt-12 ">
           <Button
-            title="Save"
+            title="Lưu"
             onPress={() => {
               handleSubmit();
             }}

@@ -15,35 +15,34 @@ export const useFavoriteStore = create<FavoriteStore>((set, get) => {
   return {
     favoriteProducts: [],
     fetchFavorite: async () => {
-      try{
-        const response = await axiosInstance.get('/user/favourite')
-        set({favoriteProducts: response.data})
-
-      }
-      catch(error){
-        console.log(error)
+      try {
+        const response = await axiosInstance.get("/user/favourite");
+        set({ favoriteProducts: response.data });
+      } catch (error) {
+        console.log(error);
       }
     },
-    addToFavorite:async (product) => {
-      try{
-        const response = await axiosInstance.post('/user/favourite', {productId: product.id})
+    addToFavorite: async (product) => {
+      try {
+       
+         await axiosInstance.post("/user/favorites", {
+          productId: product.id,
+        });
         set((state) => {
           return {
             favoriteProducts: [...state.favoriteProducts, product],
           };
         });
+      } catch (error) {
+        console.error('error in addToFavorite', error);
       }
-      catch(error){
-        console.log(error)
-      }
-
     },
-      
-    removeFromFavorite: async (productId) =>{
-      try{
-        const response = await axiosInstance.delete(`/user/favourite`,{
-          data: {productId}
-        })
+
+    removeFromFavorite: async (productId) => {
+      try {
+       await axiosInstance.delete(`/user/favorites`, {
+          data: { productId },
+        });
         await set((state) => {
           return {
             favoriteProducts: state.favoriteProducts.filter(
@@ -51,18 +50,16 @@ export const useFavoriteStore = create<FavoriteStore>((set, get) => {
             ),
           };
         });
-      }
-      catch(error){
-        console.log(error)
+      } catch (error) {
+        console.log(error);
       }
     },
-    clearFavorite: async () =>{
-      try{
-        const response = await axiosInstance.delete(`/user/favourite/all`)
-        await set({favoriteProducts: []})
-      }
-      catch(error){
-        console.log(error)
+    clearFavorite: async () => {
+      try {
+        const response = await axiosInstance.delete(`/user/favourite/all`);
+        await set({ favoriteProducts: [] });
+      } catch (error) {
+        console.log(error);
       }
     },
     isFavorite: (productId) => {
