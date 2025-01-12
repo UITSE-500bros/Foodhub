@@ -34,6 +34,21 @@ export const updateQuantity = async (productId: string, quantity: number) => {
         throw error;
     }
 }
+//VNpay
+export const vnpay = async (amount: number , products: ProductDetail[] , delivery_address: string) => {
+    try {
+        
+        const res = await axiosInstance.post("order/createPaymentIntent", { 
+            total: amount , 
+            products: products ,
+            delivery_address: delivery_address
+        });
+
+        return res.data;
+    } catch (error) {
+        throw error;
+    }
+}
 //COD
 export const checkout = async (amount: number , products: ProductDetail[] , delivery_address: string) => {
     try {

@@ -21,8 +21,9 @@ export type RootStackParamList = {
   MyDetails: undefined;
   Orders: undefined;
   Vouchers: undefined;
-  
+  Error: undefined;
 };
+export type ErrorScreenNavigationProp = StackNavigationProp<RootStackParamList,"Error">;
 export type AcceptedScreenNavigationProp = StackNavigationProp<
   RootStackParamList,"Accepted">;
 export type ExploreScreenNavigationProp = StackNavigationProp<

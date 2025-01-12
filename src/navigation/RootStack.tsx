@@ -16,6 +16,7 @@ import MyDetails from "../screens/MyDetails";
 import Orders from '../screens/Orders'
 import Vouchers from "../screens/Vouchers";
 import Accepted from "../screens/Accepted";
+import Error from "../screens/Error";
 
 const Stack = createStackNavigator<RootStackParamList>();
 
@@ -50,6 +51,7 @@ export default function RootStack() {
           headerShown: false,
         }}
       />
+      <Stack.Screen name="Error" component={Error} />
       <Stack.Screen name="Search" component={Search} />
       <Stack.Screen name='MyDetails' component={MyDetails}/>
         <Stack.Screen name= 'Orders' component={Orders}/>

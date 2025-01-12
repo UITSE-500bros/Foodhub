@@ -4,11 +4,11 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { CheckBox, Icon } from "@rneui/themed";
 import BottomSheet, { BottomSheetView } from "@gorhom/bottom-sheet";
 import { useNavigation } from "@react-navigation/native";
-import { AcceptedScreenNavigationProp, VNpayScreenNavigationProp } from "../../../type";
+import { AcceptedScreenNavigationProp, ErrorScreenNavigationProp, VNpayScreenNavigationProp } from "../../../type";
 import { ProductCard } from "../../components";
 import useCartStore from "./store/CartStore";
 import { usersService } from "../../service";
-import { checkout } from "../../service/cart.service";
+import { checkout, vnpay } from "../../service/cart.service";
 import Accepted from "../Accepted";
 
 const InfoSection: React.FC<{ title: string; children: React.ReactNode; onPress?: () => void; stroke?: boolean }> = ({ title, children, onPress, stroke = true }) => (
@@ -123,8 +123,10 @@ const Main: React.FC<{ total: number; handleClosePress: () => void; openPayment:
 
 const Cart: React.FC = () => {
   const { cart, updateQuantity } = useCartStore(state => state);
-  const nav_VNPAY = useNavigation<VNpayScreenNavigationProp>();
+
   const nav_Accepted = useNavigation<AcceptedScreenNavigationProp>();
+  const nav_VNPAY = useNavigation<VNpayScreenNavigationProp>();
+  const nav = useNavigation<ErrorScreenNavigationProp>();
   const bottomSheetRef = useRef<BottomSheet>(null);
   const [total, setTotal] = useState(0);
 
@@ -134,13 +136,19 @@ const Cart: React.FC = () => {
   //Payment 
   const handlePayment = async () => {
     const paymenttype = useCartStore.getState().paymentMethod;
+    if (total === 0) {
+    }
     if (paymenttype === "cod") {
-      
-
       const url = await checkout(total, useCartStore.getState().cart, 'Phường Linh Trung, Quận Thủ Đức, TP.HCM')
       if (url == 200) { 
         nav_Accepted.navigate("Accepted");
+      }else {
+        nav.navigate("Error");
       }
+    } else if (paymenttype === "vnpay") {
+      const url = await vnpay(total, useCartStore.getState().cart, 'Phường Linh Trung, Quận Thủ Đức, TP.HCM')
+      nav_VNPAY.navigate("VNpay", { uri: url });
+      
     }
   }
 
