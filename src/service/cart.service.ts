@@ -1,23 +1,76 @@
+import ProductDetail from "../models/ProductDetail";
 import axiosInstance from "./axiosInstance";
 
 
-class CartService {
-    baseURI: string;
-    constructor() {
-        this.baseURI = "products";
-    }
-    async getCart() {
-        const response = await axiosInstance.get("cart");
-    }
-    async addToCart (productId: string) {
-
-    }
-    async checkout () {
-
-    }
-    async removeItem (productId: string) {
-
+export const getCart = async () => {
+    try {
+        const res = await axiosInstance.get("/cart");
+        return res.data;
+    } catch (error) {
+        throw error;
     }
 }
-const cartService = new CartService();
-export default cartService;
+export const addToCart = async (productId: string , quantity: number) => {
+    try {
+        const res = await axiosInstance.post("/cart", { productId, quantity });
+        return res.data;
+    } catch (error) {
+        throw error;
+    }
+}
+export const removeFromCart = async (productId: string) => {
+    try {
+        const res = await axiosInstance.delete(`/cart/${productId}`);
+        return res.data;
+    } catch (error) {
+        throw error;
+    }
+}
+export const updateQuantity = async (productId: string, quantity: number) => {
+    try {
+        const res = await axiosInstance.put(`/cart/${productId}`, { quantity });
+        return res.data;
+    } catch (error) {
+        throw error;
+    }
+}
+//COD
+export const checkout = async (amount: number , products: ProductDetail[] , delivery_address: string) => {
+    try {
+        
+        const res = await axiosInstance.post("order/cod", { 
+            total: amount , 
+            products: products ,
+            delivery_address: delivery_address
+        });
+
+        return res.status;
+    } catch (error) {
+        throw error;
+    }
+}
+export const clearCart = async () => {  
+    try {
+        const res = await axiosInstance.delete("/cart");
+        return res.data;
+    } catch (error) {
+        throw error;
+    }
+}
+export const applyCoupon = async (couponCode: string) => {
+    try {
+        const res = await axiosInstance.post("/coupon", { couponCode });
+        return res.data;
+    } catch (error) {
+        throw error;
+    }
+}
+export const getCoupons = async () => {
+    try {
+        const res = await axiosInstance.get("/coupon");
+        console.log(res.data);
+        return res.data;
+    } catch (error) {
+        throw error;
+    }
+}

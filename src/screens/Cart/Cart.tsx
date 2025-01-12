@@ -1,13 +1,15 @@
 import React, { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { Dimensions, FlatList, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { Icon } from "@rneui/themed";
+import { CheckBox, Icon } from "@rneui/themed";
 import BottomSheet, { BottomSheetView } from "@gorhom/bottom-sheet";
 import { useNavigation } from "@react-navigation/native";
-import { VNpayScreenNavigationProp } from "../../../type";
+import { AcceptedScreenNavigationProp, VNpayScreenNavigationProp } from "../../../type";
 import { ProductCard } from "../../components";
 import useCartStore from "./store/CartStore";
 import { usersService } from "../../service";
+import { checkout } from "../../service/cart.service";
+import Accepted from "../Accepted";
 
 const InfoSection: React.FC<{ title: string; children: React.ReactNode; onPress?: () => void; stroke?: boolean }> = ({ title, children, onPress, stroke = true }) => (
   <TouchableOpacity onPress={onPress} style={styles.infoSection}>
@@ -16,22 +18,81 @@ const InfoSection: React.FC<{ title: string; children: React.ReactNode; onPress?
   </TouchableOpacity>
 );
 
-const PaymentMethod: React.FC<{handleGoBack: () => void}> = ({ handleGoBack }) => (
-  <BottomSheetView style={styles.methodItem}>
-    <Text style={styles.methodText}>VNPAY</Text>
-    <Icon name="right" type="antdesign" size={20} onPress={handleGoBack}/>
-  </BottomSheetView>
-);
+const PaymentMethod: React.FC<{
+  handleGoBack: () => void;
 
-const PromotionCode: React.FC<{handleGoBack: () => void}> = ({ handleGoBack }) => (
-  <BottomSheetView style={styles.methodItem}>
+}> = ({ handleGoBack }) => {
+  const [selectedIndex, setIndex] = useState(0); // 0: vnpay, 1: cod
+  const handleSelection = (index: number) => {
+    setIndex(index);
+    useCartStore.getState().setPaymentMethod(index === 0 ? "vnpay" : "cod");
+    console.log("Payment method: ", useCartStore.getState().paymentMethod);
+  };
+  return (
+    <BottomSheetView>
+      <View className="flex justify-between items-center flex-row">
+        {/* Payment Options */}
+        <View className="mt-6 flex-1">
+          <CheckBox
+            checked={selectedIndex === 0}
+            onPress={() => handleSelection(0)}// Call the setIndex function
+            iconType="material-community"
+            checkedIcon="radiobox-marked"
+            uncheckedIcon="radiobox-blank"
+            title="VNPay"
+            containerStyle={{
+              height: 62,
+              justifyContent: "center",
+              borderWidth: 0,
+              backgroundColor: "transparent",
+            }}
+            textStyle={{ fontWeight: "bold" }}
+          />
+          <CheckBox
+            checked={selectedIndex === 1}
+            onPress={() => handleSelection(1)} // Call the setIndex function
+            iconType="material-community"
+            checkedIcon="radiobox-marked"
+            uncheckedIcon="radiobox-blank"
+            title="Thanh toán khi nhận hàng"
+            containerStyle={{
+              height: 62,
+              justifyContent: "center",
+              borderWidth: 0,
+              backgroundColor: "transparent",
+            }}
+            textStyle={{ fontWeight: "bold" }}
+          />
+        </View>
 
-    <Text style={styles.methodText}>PROMO codes</Text>
-    <Icon name="right" type="antdesign" size={20} onPress={handleGoBack}/>
-  </BottomSheetView>
-);
+        {/* Close Icon */}
+        <Icon
+          name="close"
+          type="fontisto"
+          size={30}
+          onPress={handleGoBack}
+          containerStyle={{ padding: 10 }}
+        />
+      </View>
+    </BottomSheetView>
+  );
+};
 
-const Main: React.FC<{ handleClosePress: () => void; openPayment: () => void }> = ({ handleClosePress, openPayment }) => (
+const PromotionCode: React.FC<{ handleGoBack: () => void }> = ({ handleGoBack }) => {
+  const coupons = useCartStore.getState().getCoupon();
+  console.log(coupons);
+
+
+  return (
+    <BottomSheetView style={styles.methodItem}>
+
+      <Text style={styles.methodText}>PROMO codes</Text>
+      <Icon name="close" type="fontisto" size={30} onPress={handleGoBack} />
+    </BottomSheetView>
+  )
+}
+
+const Main: React.FC<{ total: number; handleClosePress: () => void; openPayment: () => void; handlePayment: () => void; openPromotion: () => void }> = ({ total, handleClosePress, openPayment, handlePayment, openPromotion }) => (
   <BottomSheetView style={styles.mainContainer}>
     <View style={styles.header}>
       <Text style={styles.headerTitle}>Thanh toán 🎉</Text>
@@ -44,17 +105,17 @@ const Main: React.FC<{ handleClosePress: () => void; openPayment: () => void }> 
       </View>
     </InfoSection>
     <InfoSection title="Phương thức thanh toán" onPress={openPayment}>
-      <Text style={styles.text}>Giao hàng tiêu chuẩn</Text>
+      <Text style={styles.text}>{useCartStore.getState().paymentMethod}</Text>
       <Icon name="right" type="antdesign" size={20} />
     </InfoSection>
-    <InfoSection title="Mã giảm giá" onPress={openPayment}>
-      <Text style={styles.text}>Giao hàng tiêu chuẩn</Text>
+    <InfoSection title="Mã giảm giá" onPress={openPromotion}>
+      <Text style={styles.text}>{useCartStore.getState().coupon_code}</Text>
       <Icon name="right" type="antdesign" size={20} />
     </InfoSection>
     <InfoSection title="Tổng tiền" stroke={false}>
       <Text style={styles.text}>Giao hàng tiêu chuẩn</Text>
     </InfoSection>
-    <TouchableOpacity style={styles.paymentButton}>
+    <TouchableOpacity style={styles.paymentButton} onPress={handlePayment}>
       <Text style={styles.paymentText}>Thanh toán</Text>
     </TouchableOpacity>
   </BottomSheetView>
@@ -62,20 +123,43 @@ const Main: React.FC<{ handleClosePress: () => void; openPayment: () => void }> 
 
 const Cart: React.FC = () => {
   const { cart, updateQuantity } = useCartStore(state => state);
-  const nav = useNavigation<VNpayScreenNavigationProp>();
+  const nav_VNPAY = useNavigation<VNpayScreenNavigationProp>();
+  const nav_Accepted = useNavigation<AcceptedScreenNavigationProp>();
   const bottomSheetRef = useRef<BottomSheet>(null);
   const [total, setTotal] = useState(0);
+
+
   const handleClosePress = useCallback(() => bottomSheetRef.current?.close(), []);
 
+  //Payment 
+  const handlePayment = async () => {
+    const paymenttype = useCartStore.getState().paymentMethod;
+    if (paymenttype === "cod") {
+      console.log("Payment type: ", paymenttype);
+
+      const url = await checkout(total, useCartStore.getState().cart, 'Phường Linh Trung, Quận Thủ Đức, TP.HCM')
+      console.log(url);
+      if (url == 200) { 
+        nav_Accepted.navigate("Accepted");
+      }
+    }
+  }
+
+
   const handleGoBack = () => {
-    console.log("handleGoBack");
-    setBottomSheetContent(<Main handleClosePress={handleClosePress} openPayment={openPayment} />);
+    console.log(useCartStore.getState().paymentMethod);
+    setBottomSheetContent(<Main total={total} handleClosePress={handleClosePress} openPayment={openPayment} handlePayment={handlePayment} openPromotion={openPromotion} />);
     bottomSheetRef.current?.expand();
   };
   const openPayment = () => {
-    setBottomSheetContent(<PaymentMethod handleGoBack={handleGoBack}/>);
+    setBottomSheetContent(<PaymentMethod handleGoBack={handleGoBack} />);
     bottomSheetRef.current?.expand();
   };
+  const openPromotion = () => {
+    setBottomSheetContent(<PromotionCode handleGoBack={handleGoBack} />);
+    bottomSheetRef.current?.expand();
+  }
+
   const [bottomSheetContent, setBottomSheetContent] = useState<React.ReactNode>();
 
   useEffect(() => {
@@ -83,20 +167,11 @@ const Cart: React.FC = () => {
     setTotal(totalAmount);
   }, [cart]);
 
-  const snapPoints = useMemo(() => ["50%", "75%"], []);
-  
-  
-  const handlePayment = async () => {
-    try {
-      const url = await usersService.checkout(50000);
-      if (url) nav.navigate("VNpay", { uri: url });
-    } catch (error) {
-      console.error("Error presenting payment sheet:", error);
-    }
-  };
+  const snapPoints = useMemo(() => ["50%"], []);
 
   return (
     <SafeAreaView style={styles.container}>
+      
       <View style={styles.headerSection}>
         <Text style={styles.cartTitle}>Giỏ hàng</Text>
         <Text style={styles.totalText}>Tổng tiền {total}</Text>

@@ -1,16 +1,29 @@
 import { create } from "zustand";
 
 import ProductDetail from "../../../models/ProductDetail";
+import { getCart, getCoupons } from "../../../service/cart.service";
 
 type CartState = {
   cart: ProductDetail[]; // Array of Product type
+  getCart: () => void;
   addToCart: (product: ProductDetail) => void;
   removeFromCart: (id: string) => void;
   updateQuantity: (id: string, quantity: number) => void;
+  paymentMethod: string,
+  setPaymentMethod: (method: string) => void;
+  coupon_code : string,
+  coupons: [],
+  getCoupon: () => void;
+  setCouponCode : (code: string) => void;
 };
 
  const useCartStore = create<CartState>((set, get) => ({
   cart: [],
+  getCart: () => {
+    getCart().then((cart) => {
+      set({ cart });
+    });
+  },
   addToCart: (product) => {
     const cart = get().cart;
     const existingProduct = cart.find((item) => item.id === product.id);
@@ -41,6 +54,16 @@ type CartState = {
       ),
     });
   },
+  paymentMethod: "vnpay",
+  setPaymentMethod: (method) => set(() => ({ paymentMethod: method })),
+  coupon_code: "",
+  coupons: [],
+  setCouponCode: (code) => set(() => ({ coupon_code: code })),
+  getCoupon: () => {
+    getCoupons().then((coupons) => {
+      set({ coupons });
+    });
+  }
 }));
 
 export default useCartStore;

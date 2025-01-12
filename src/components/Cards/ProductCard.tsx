@@ -57,7 +57,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ adjust, product }) => {
             className=" text-[#181725] text-center items-center 
         text-base flex font-bold mr-4 "
           >
-            {product.product_price}
+            {product.product_price * product.quantity}đ
           </Text>
         </View>
       </View>

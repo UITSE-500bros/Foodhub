@@ -11,6 +11,7 @@ export type RootStackParamList = {
   Profile: undefined;
   BottomTabNavigator: undefined;
   Login: LoginProps;
+  Accepted: undefined;
   PhoneNumber: undefined;
   OTP: undefined;
   LocationRegister: undefined;
@@ -22,7 +23,8 @@ export type RootStackParamList = {
   Vouchers: undefined;
   
 };
-
+export type AcceptedScreenNavigationProp = StackNavigationProp<
+  RootStackParamList,"Accepted">;
 export type ExploreScreenNavigationProp = StackNavigationProp<
   RootStackParamList,
   "Explore"

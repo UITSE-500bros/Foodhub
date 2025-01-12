@@ -15,6 +15,7 @@ import Search from "../screens/Search";
 import MyDetails from "../screens/MyDetails";
 import Orders from '../screens/Orders'
 import Vouchers from "../screens/Vouchers";
+import Accepted from "../screens/Accepted";
 
 const Stack = createStackNavigator<RootStackParamList>();
 
@@ -38,6 +39,13 @@ export default function RootStack() {
       <Stack.Screen
         name="VNpay"
         component={VNpay}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen
+        name="Accepted"
+        component={Accepted}
         options={{
           headerShown: false,
         }}
