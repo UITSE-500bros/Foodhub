@@ -43,7 +43,7 @@ export const vnpay = async (amount: number , products: ProductDetail[] , deliver
             products: products ,
             delivery_address: delivery_address
         });
-
+        console.log(res.data);
         return res.data;
     } catch (error) {
         throw error;
@@ -87,4 +87,14 @@ export const getCoupons = async () => {
     } catch (error) {
         throw error;
     }
+}
+export const validateVNPay = async (params: string) => {
+    try {
+        const res = await axiosInstance.post(`/order/paymentCallback?${params}`);
+        console.log(res.data);
+        return res.data;
+    } catch (error) {
+        throw error;
+    }
+
 }

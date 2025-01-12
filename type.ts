@@ -23,6 +23,7 @@ export type RootStackParamList = {
   Coupons: undefined;
   AddressSelect: undefined;
   Error: undefined;
+  Return: { queryParams: any };
 };
 export type ErrorScreenNavigationProp = StackNavigationProp<RootStackParamList,"Error">;
 export type AcceptedScreenNavigationProp = StackNavigationProp<
@@ -72,3 +73,4 @@ export type ProfileScreenNavigationProp = StackNavigationProp<
   RootStackParamList,
   "Profile"
 >;
+export type ReturnScreenRouteProp = RouteProp<RootStackParamList, "Return">;

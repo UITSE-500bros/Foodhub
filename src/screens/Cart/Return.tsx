@@ -1,39 +1,34 @@
-import { useNavigation } from "@react-navigation/native";
+import { useNavigation, useRoute } from "@react-navigation/native";
 import * as Linking from "expo-linking";
 import React, { useEffect, useState } from 'react';
-import { View, Text } from "react-native-reanimated/lib/typescript/Animated";
-import { WebView } from 'react-native-webview';
-import { AcceptedScreenNavigationProp } from "../../../type";
+import { View, Text } from "react-native";
+import { AcceptedScreenNavigationProp, ReturnScreenRouteProp } from "../../../type";
+import { validateVNPay } from "../../service/cart.service";
 
 const Return = () => {
-    const uri = Linking.createURL('return');
-    const [queryParams, setQueryParams] = useState({});
-    const nav = useNavigation<AcceptedScreenNavigationProp>();
-    useEffect(() => {
-        // Listen for deep links when the app is opened
-        const handleDeepLink = ({ url }: { url: string }) => {
-            // Extract the query string from the URL
-            const queryString = url.split('?')[1]; // Get the string after '?'
-            if (queryString) {
-                const params = new URLSearchParams(queryString);
-                // Log the query parameters as an object
-                setQueryParams(Object.fromEntries(params.entries()));
 
-                if (params.get('vnp_ResponseCode') === '00') {
-                    nav.navigate("Accepted")
-                }
-            }
-        };
-            
-        handleDeepLink({ url: uri });
+    const nav = useNavigation<AcceptedScreenNavigationProp>();
+
+    const route = useRoute<ReturnScreenRouteProp>();
+    useEffect(() => {
+        // Extract the query parameters from the route.params object
+        const Params = route.params;
+
+        const queryString = new URLSearchParams(Params).toString();
+        console.log(queryString);
+        validateVNPay(queryString).then((res) => {
+            console.log(res);
+        });
     }, []);
+
+
 
     return (
         <View>
             <Text>Return Page</Text>
-            <Text>{JSON.stringify(queryParams)}</Text>
+
         </View>
     );
 }
 
-export default Return
+export default Return;

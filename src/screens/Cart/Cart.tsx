@@ -10,6 +10,7 @@ import useCartStore from "./store/CartStore";
 import { usersService } from "../../service";
 import { checkout, vnpay } from "../../service/cart.service";
 import Accepted from "../Accepted";
+import * as Linking from "expo-linking";
 
 const InfoSection: React.FC<{ title: string; children: React.ReactNode; onPress?: () => void; stroke?: boolean }> = ({ title, children, onPress, stroke = true }) => (
   <TouchableOpacity onPress={onPress} style={styles.infoSection}>
@@ -26,7 +27,7 @@ const PaymentMethod: React.FC<{
   const handleSelection = (index: number) => {
     setIndex(index);
     useCartStore.getState().setPaymentMethod(index === 0 ? "vnpay" : "cod");
-    
+
   };
   return (
     <BottomSheetView>
@@ -80,7 +81,7 @@ const PaymentMethod: React.FC<{
 
 const PromotionCode: React.FC<{ handleGoBack: () => void }> = ({ handleGoBack }) => {
   const coupons = useCartStore.getState().getCoupon();
-  
+
 
 
   return (
@@ -127,8 +128,7 @@ const Cart: React.FC = () => {
   const nav = useNavigation<ErrorScreenNavigationProp>();
   const navPromotion = useNavigation<ProfileScreenNavigationProp>();
   const bottomSheetRef = useRef<BottomSheet>(null);
-  const [total, setTotal] = useState(0);
-
+  const [total, setTotal] = useState(50000);
 
   const handleClosePress = useCallback(() => bottomSheetRef.current?.close(), []);
 
@@ -139,15 +139,14 @@ const Cart: React.FC = () => {
     }
     if (paymenttype === "cod") {
       const url = await checkout(total, useCartStore.getState().cart, 'Phường Linh Trung, Quận Thủ Đức, TP.HCM')
-      if (url == 200) { 
+      if (url == 200) {
         nav_Accepted.navigate("Accepted");
-      }else {
+      } else {
         nav.navigate("Error");
       }
     } else if (paymenttype === "vnpay") {
       const url = await vnpay(total, useCartStore.getState().cart, 'Phường Linh Trung, Quận Thủ Đức, TP.HCM')
       nav_VNPAY.navigate("VNpay", { uri: url });
-      
     }
   }
 
@@ -169,13 +168,15 @@ const Cart: React.FC = () => {
   useEffect(() => {
     const totalAmount = cart.reduce((acc, item) => acc + item.product_price * item.quantity, 0);
     setTotal(totalAmount);
+
+    
   }, [cart]);
 
   const snapPoints = useMemo(() => ["55%"], []);
 
   return (
-    <SafeAreaView  style={styles.container}>
-      
+    <SafeAreaView style={styles.container}>
+
       <View style={styles.headerSection}>
         <Text style={styles.cartTitle}>Giỏ hàng</Text>
         <Text style={styles.totalText}>Tổng tiền {total}</Text>
@@ -183,7 +184,7 @@ const Cart: React.FC = () => {
         <Text style={styles.address}>Phường Linh Trung, Quận Thủ Đức, TP.HCM</Text>
       </View>
       <FlatList
-      className="flex-1 mt-6"
+        className="flex-1 mt-6"
         data={cart}
         keyExtractor={(item) => item.id.toString()}
         renderItem={({ item }) => <ProductCard key={item.id} adjust product={item} />}

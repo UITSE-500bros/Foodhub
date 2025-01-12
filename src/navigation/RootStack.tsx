@@ -17,6 +17,7 @@ import OTP from "../screens/OTP";
 import Search from "../screens/Search";
 import Survey from "../screens/Survey";
 import Coupons from "../screens/Coupons/Coupons";
+import Return from "../screens/Cart/Return";
 
 const Stack = createStackNavigator<RootStackParamList>();
 
@@ -51,6 +52,7 @@ export default function RootStack() {
         headerShown: false,
       }}
       />
+      <Stack.Screen name="Return" component={Return} />
       <Stack.Screen name="Error" component={Error} />
       <Stack.Screen name="Search" component={Search} />
       <Stack.Screen name='MyDetails' component={MyDetails}/>

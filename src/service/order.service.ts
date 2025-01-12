@@ -20,6 +20,7 @@ class OrderService {
         });
         return response;
     }
+    
 }
 const orderService = new OrderService();
 export default orderService;
