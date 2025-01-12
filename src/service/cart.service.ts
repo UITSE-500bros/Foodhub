@@ -39,7 +39,7 @@ export const vnpay = async (amount: number , products: ProductDetail[] , deliver
     try {
         
         const res = await axiosInstance.post("order/createPaymentIntent", { 
-            total: amount , 
+            amount: amount , 
             products: products ,
             delivery_address: delivery_address
         });
