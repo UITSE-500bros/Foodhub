@@ -68,7 +68,6 @@ export const applyCoupon = async (couponCode: string) => {
 export const getCoupons = async () => {
     try {
         const res = await axiosInstance.get("/coupon");
-        console.log(res.data);
         return res.data;
     } catch (error) {
         throw error;

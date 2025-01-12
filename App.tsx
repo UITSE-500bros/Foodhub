@@ -12,7 +12,7 @@ import Toast from 'react-native-toast-message';
 WebBrowser.maybeCompleteAuthSession();
 
 const prefix = Linking.createURL('');
-console.log(prefix);
+
 export default function App() {
   const linking={
     prefixes:[prefix],

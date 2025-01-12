@@ -26,7 +26,7 @@ const PaymentMethod: React.FC<{
   const handleSelection = (index: number) => {
     setIndex(index);
     useCartStore.getState().setPaymentMethod(index === 0 ? "vnpay" : "cod");
-    console.log("Payment method: ", useCartStore.getState().paymentMethod);
+    
   };
   return (
     <BottomSheetView>
@@ -80,7 +80,7 @@ const PaymentMethod: React.FC<{
 
 const PromotionCode: React.FC<{ handleGoBack: () => void }> = ({ handleGoBack }) => {
   const coupons = useCartStore.getState().getCoupon();
-  console.log(coupons);
+  
 
 
   return (
@@ -135,10 +135,9 @@ const Cart: React.FC = () => {
   const handlePayment = async () => {
     const paymenttype = useCartStore.getState().paymentMethod;
     if (paymenttype === "cod") {
-      console.log("Payment type: ", paymenttype);
+      
 
       const url = await checkout(total, useCartStore.getState().cart, 'Phường Linh Trung, Quận Thủ Đức, TP.HCM')
-      console.log(url);
       if (url == 200) { 
         nav_Accepted.navigate("Accepted");
       }
@@ -147,7 +146,6 @@ const Cart: React.FC = () => {
 
 
   const handleGoBack = () => {
-    console.log(useCartStore.getState().paymentMethod);
     setBottomSheetContent(<Main total={total} handleClosePress={handleClosePress} openPayment={openPayment} handlePayment={handlePayment} openPromotion={openPromotion} />);
     bottomSheetRef.current?.expand();
   };

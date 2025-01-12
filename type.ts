@@ -1,5 +1,5 @@
 import { StackNavigationProp } from "@react-navigation/stack";
-import  LoginProps  from "./src/screens/Login/Login";
+
 import { RouteProp } from "@react-navigation/native";
 
 export type RootStackParamList = {
@@ -10,7 +10,7 @@ export type RootStackParamList = {
   Cart: undefined;
   Profile: undefined;
   BottomTabNavigator: undefined;
-  Login: LoginProps;
+  Login: undefined;
   Accepted: undefined;
   PhoneNumber: undefined;
   OTP: undefined;

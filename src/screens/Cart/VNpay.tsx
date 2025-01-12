@@ -5,7 +5,6 @@ import { VNpayScreenRouteProp } from '../../../type'
 
 const VNpay = () => {
     const url = useRoute<VNpayScreenRouteProp>().params.uri
-    console.log(url)
     return (
         <WebView
             source={{ uri: url }}

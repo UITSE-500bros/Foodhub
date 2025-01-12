@@ -26,7 +26,7 @@ const PhoneNumber = () => {
     const respone = await axiosInstance.post("/user/phone", {
       phoneNumber: PhoneNumber,
     })
-    console.log(respone.data)
+
     if (respone.status === 200) {
       nav.navigate("OTP")
     }
