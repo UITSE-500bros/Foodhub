@@ -29,7 +29,7 @@ const Errors = () => {
                         onPress={hideModal}
                         />
                         <View className='flex items-center relative flex-1'>
-                            <Image source={require('../../assets/error.png')} />
+                            <Image source={require('../../../assets/error.png')} />
                             <Text className='text-[28px] font-semibold mt-5'>Oops! Order Failed</Text>
                             <Text className='text-base font-black text-[#7C7C7C]'>Something went tembly wrong.</Text>
                             <View className='flex items-center absolute bottom-10 right-0 left-0 '>

@@ -2,13 +2,38 @@ import { View, Text, TouchableOpacity } from "react-native";
 import React from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Icon } from "@rneui/base";
+import axiosInstance from "../../service/axiosInstance";
+type Voucher={
+  created_at: string;
+  updated_at: string;
+  coupon_code: string;
+  coupon_name: string;
+  discount_value: number;
+  expire_at: string;
+  coupon_count: number;
+}
 
-export default function Vouchers() {
+export default function Coupons() {
+  const [coupons, setCoupons] = React.useState<Voucher[]>([]);
+  const fetchCoupons = async () => {
+    try{
+      const response = await axiosInstance.get('/coupon')
+      setCoupons(response.data)
+    }
+    catch(error){
+      console.log(error)
+    }
+  }
+  React.useEffect(() => {
+    fetchCoupons()
+  }, [])
+  console.log(Coupons);
+  
   return (
     <SafeAreaView className="flex flex-col items-center p-5 bg-[#f9f9f9] h-full">
       {/* Header Section */}
       <Text className="text-[#3a3a3a] text-xl font-bold font-['Inter'] mb-5">
-        Danh sách voucher
+        Danh sách Coupon
       </Text>
 
       {/* Voucher Card */}
