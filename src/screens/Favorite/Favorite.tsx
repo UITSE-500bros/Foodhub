@@ -41,12 +41,13 @@ const Favorite = () => {
           style={{
             position: "relative",
             flexGrow: 1,
+            marginHorizontal: 20
           }}
           contentContainerStyle={{ paddingBottom: 80, paddingVertical: 20 }} // Add padding to avoid button overlap
           data={favoriteItems}
           keyExtractor={(item) => item.id}
           renderItem={({ item }) => (
-            <View className="m-1 ">
+            <View className="w-full flex flex-row items-center justify-center">
               <View className="h-[1px] bg-[#E5E5E5]" />
               <ProductCard isFavorite={true} product={item} adjust={false} />
             </View>
