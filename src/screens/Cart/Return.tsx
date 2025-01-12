@@ -9,6 +9,7 @@ const Return = () => {
 
     const nav = useNavigation<AcceptedScreenNavigationProp>();
 
+
     const route = useRoute<ReturnScreenRouteProp>();
     useEffect(() => {
         // Extract the query parameters from the route.params object
@@ -17,11 +18,13 @@ const Return = () => {
         const queryString = new URLSearchParams(Params).toString();
         console.log(queryString);
         validateVNPay(queryString).then((res) => {
-            console.log(res);
+            if (res === "Transaction successful") {
+                nav.navigate("Accepted");
+            }else{
+                nav.navigate("Error");
+            }
         });
     }, []);
-
-
 
     return (
         <View>
