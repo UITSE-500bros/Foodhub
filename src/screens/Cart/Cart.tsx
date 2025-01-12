@@ -176,7 +176,7 @@ const Cart: React.FC = () => {
   const snapPoints = useMemo(() => ["50%"], []);
 
   return (
-    <SafeAreaView style={styles.container}>
+    <SafeAreaView  style={styles.container}>
       
       <View style={styles.headerSection}>
         <Text style={styles.cartTitle}>Giỏ hàng</Text>
@@ -185,6 +185,7 @@ const Cart: React.FC = () => {
         <Text style={styles.address}>Phường Linh Trung, Quận Thủ Đức, TP.HCM</Text>
       </View>
       <FlatList
+      className="flex-1 mt-6"
         data={cart}
         keyExtractor={(item) => item.id.toString()}
         renderItem={({ item }) => <ProductCard key={item.id} adjust product={item} />}

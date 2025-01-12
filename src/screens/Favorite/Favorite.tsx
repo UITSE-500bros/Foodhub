@@ -48,7 +48,7 @@ const Favorite = () => {
           renderItem={({ item }) => (
             <View className="m-1 ">
               <View className="h-[1px] bg-[#E5E5E5]" />
-              <ProductCard product={item} adjust={false} />
+              <ProductCard isFavorite={true} product={item} adjust={false} />
             </View>
           )}
         />

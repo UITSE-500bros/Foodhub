@@ -102,7 +102,7 @@ const ProductDetail = () => {
         </View>
         <View className="flex flex-1 gap-4  px-[20px]">
           <View className="flex flex-row justify-between">
-            <Text className="font-black min-w-[340px] text-2xl overflow-hidden pr-2  ">
+            <Text className="font-black min-w-[320px] text-2xl overflow-hidden pr-2  ">
               {product.product_name}
             </Text>
 
@@ -115,6 +115,7 @@ const ProductDetail = () => {
               size={30}
               color="#7C7C7C"
               onPress={handleFavoritePress}
+           
             />
           </View>
           <View className="flex flex-row justify-between">

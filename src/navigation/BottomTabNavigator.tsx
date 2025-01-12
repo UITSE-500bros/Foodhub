@@ -10,12 +10,15 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Home from "../screens/Home";
 import Search from "../screens/Search";
 import useCartStore from "../screens/Cart/store/CartStore";
+import { useFavoriteStore } from "../screens/Favorite/FavoriteStore";
 
 const Tab = createBottomTabNavigator();
 
 export default function BottomTabNavigator() {
   const cart = useCartStore((state) => state.cart);
   const cartItems=cart.length;
+  const {favoriteProducts} = useFavoriteStore();
+  const favoriteQuantity = favoriteProducts.length;
 
   return (
     <Tab.Navigator>
@@ -62,6 +65,7 @@ export default function BottomTabNavigator() {
             <MaterialCommunityIcons name="heart" color={color} size={26} />
           ),
           headerShown: false,
+          tabBarBadge: favoriteQuantity,
         }}
       />
       <Tab.Screen

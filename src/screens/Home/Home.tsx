@@ -1,21 +1,23 @@
-import React, { useEffect } from 'react';
-import { View, Text, Image, StyleSheet, ScrollView } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
-import SearchBar from '../../components/SearchBar';
-import ProductCarousel from '../../components/Carousels/ProductCarousel';
-import Icon from 'react-native-vector-icons/MaterialIcons';
-import ImageCarousel from '../../components/Carousels/ImageCarousel';
+import React, { useEffect } from "react";
+import { View, Text, Image, StyleSheet, ScrollView } from "react-native";
+import { useNavigation } from "@react-navigation/native";
+import SearchBar from "../../components/SearchBar";
+import ProductCarousel from "../../components/Carousels/ProductCarousel";
+import Icon from "react-native-vector-icons/MaterialIcons";
+import ImageCarousel from "../../components/Carousels/ImageCarousel";
 import {
   getBannerImagesApi,
   getBestSellerProductsApi,
   getExclusiveOfferProductsApi,
   getNewArrivalProductsApi,
-} from './services/Home.service';
-import { useSearchStore } from '../Search/SearchStore';
-import { HomeScreenNavigationProp } from '../../../type';
+} from "./services/Home.service";
+import { useSearchStore } from "../Search/SearchStore";
+import { HomeScreenNavigationProp } from "../../../type";
+import { useFavoriteStore } from "../Favorite/FavoriteStore";
 
 const Home = () => {
   const nav = useNavigation<HomeScreenNavigationProp>();
+
   const { setSearchQuery } = useSearchStore();
   const [products, setProducts] = React.useState({
     exclusiveOffer: [],
@@ -25,13 +27,14 @@ const Home = () => {
   const [searchQuery, setSearchQueryLocal] = React.useState("");
   const navigation = useNavigation();
 
- const handleSubmit=(query:string)=>{
+  const handleSubmit = (query: string) => {
     setSearchQuery(query);
-    nav.navigate('Search');
- }
- const onQueryChange=(query:string)=>{
+    nav.navigate("Search");
+  };
+  const onQueryChange = (query: string) => {
     setSearchQueryLocal(query);
-  }
+  };
+  const fetchFavorite = useFavoriteStore((state) => state.fetchFavorite);
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -39,10 +42,10 @@ const Home = () => {
       const bestSellers = await getBestSellerProductsApi();
       const exclusiveOffer = await getExclusiveOfferProductsApi();
 
-      
       setProducts({ newArrivals, bestSellers, exclusiveOffer });
     };
     fetchProducts();
+    fetchFavorite();
   }, []);
 
   return (
