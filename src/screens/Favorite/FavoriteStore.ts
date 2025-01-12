@@ -18,8 +18,10 @@ export const useFavoriteStore = create<FavoriteStore>((set, get) => {
     favoriteProducts: [],
     fetchFavorite: async () => {
       try {
-        const response = await axiosInstance.get("/user/favourite");
+        const response = await axiosInstance.get("/user/favorites");
         set({ favoriteProducts: response.data });
+        console.log(response.data);
+        
       } catch (error) {
         console.log(error);
       }
