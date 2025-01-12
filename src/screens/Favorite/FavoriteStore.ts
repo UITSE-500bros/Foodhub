@@ -41,7 +41,9 @@ export const useFavoriteStore = create<FavoriteStore>((set, get) => {
       
     removeFromFavorite: async (productId) =>{
       try{
-        // const response = await axiosInstance.delete(`/user/favourite/${productId}`)
+        const response = await axiosInstance.delete(`/user/favourite`,{
+          data: {productId}
+        })
         await set((state) => {
           return {
             favoriteProducts: state.favoriteProducts.filter(
@@ -54,12 +56,15 @@ export const useFavoriteStore = create<FavoriteStore>((set, get) => {
         console.log(error)
       }
     },
-    clearFavorite: () =>
-      set((state) => {
-        return {
-          favoriteProducts: [],
-        };
-      }),
+    clearFavorite: async () =>{
+      try{
+        const response = await axiosInstance.delete(`/user/favourite/all`)
+        await set({favoriteProducts: []})
+      }
+      catch(error){
+        console.log(error)
+      }
+    },
     isFavorite: (productId) => {
       const { favoriteProducts } = get();
       return favoriteProducts.some(

@@ -20,6 +20,7 @@ export type RootStackParamList = {
   MyDetails: undefined;
   Orders: undefined;
   Vouchers: undefined;
+  AddressSelect: undefined;
   
 };
 

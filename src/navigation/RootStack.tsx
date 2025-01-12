@@ -15,6 +15,7 @@ import Search from "../screens/Search";
 import MyDetails from "../screens/MyDetails";
 import Orders from '../screens/Orders'
 import Vouchers from "../screens/Vouchers";
+import AddressSelect from "../screens/AddressSelect/AddressSelect";
 
 const Stack = createStackNavigator<RootStackParamList>();
 
@@ -44,8 +45,9 @@ export default function RootStack() {
       />
       <Stack.Screen name="Search" component={Search} />
       <Stack.Screen name='MyDetails' component={MyDetails}/>
-        <Stack.Screen name= 'Orders' component={Orders}/>
-        <Stack.Screen name = 'Vouchers' component={Vouchers}/>
+      <Stack.Screen name= 'Orders' component={Orders}/>
+      <Stack.Screen name = 'Vouchers' component={Vouchers}/>
+      <Stack.Screen name = 'AddressSelect' component={AddressSelect}/>
     </Stack.Navigator>
   );
 }

@@ -43,7 +43,7 @@ const Profile = () => {
             }}
           />
           {/* Delivery Address */}
-          <Section name="Delivery Address" icon="map-pin" />
+          <Section name="Delivery Address" icon="map-pin" onPress={()=>nav.navigate('AddressSelect')} />
 
        
          {/* Vouchers */}
