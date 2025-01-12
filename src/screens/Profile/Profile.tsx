@@ -31,27 +31,27 @@ const Profile = () => {
         <View className="h-[1px] w-full bg-[#E2E2E2]" />
         <View className="mx-[25px]">
           {/* Orders */}
-          <Section name="Orders" icon="shopping-bag" onPress={()=>{
+          <Section name="Đơn đặt hàng" icon="shopping-bag" onPress={()=>{
             nav.navigate('Orders')
           }} />
           {/* My Details */}
           <Section
-            name="My Details"
+            name="Thông tin của tôi"
             icon="user"
             onPress={() => {
-              nav.navigate("MyDetails");
-            }}
-          />
+                nav.navigate("MyDetails");
+              }}
+              />
           {/* Delivery Address */}
-          <Section name="Delivery Address" icon="map-pin" onPress={()=>nav.navigate('AddressSelect')} />
+          <Section name="Địa chỉ giao hàng" icon="map-pin" onPress={()=>nav.navigate('AddressSelect')} />
 
        
          {/* Vouchers */}
-          <Section name="Coupons" icon="gift" onPress={()=>nav.navigate('Coupons')} />
+          <Section name="Mã giảm giá" icon="gift" onPress={()=>nav.navigate('Coupons')} />
           {/* Notifications */}
-          <Section name="Notifications" icon="bell" />
+          <Section name="Thông báo" icon="bell" />
           {/* Help  & About*/}
-          <Section name="Help & About" icon="help-circle" />
+          <Section name="Thông tin liên hệ" icon="help-circle" />
         </View>
       </View>
       {/* Logout */}

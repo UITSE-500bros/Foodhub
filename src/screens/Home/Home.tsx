@@ -77,10 +77,10 @@ const Home = () => {
       <View className="w-full  mt-4">
         <ProductCarousel
           products={products.exclusiveOffer}
-          title="Exclusive Offer"
+          title="Ưu Đãi Độc Quyền"
         />
-        <ProductCarousel products={products.bestSellers} title="Best Sellers" />
-        <ProductCarousel products={products.newArrivals} title="New Arrivals" />
+        <ProductCarousel products={products.bestSellers} title="Bán Chạy Nhất" />
+        <ProductCarousel products={products.newArrivals} title="Hàng Mới Về" />
       </View>
     </ScrollView>
   );

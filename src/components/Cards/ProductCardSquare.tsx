@@ -35,7 +35,6 @@ const ProductCardSquare = ({ product }: ProductCardSquareProps) => {
       <Text className="text-black text-base font-black h-[50] mx-4 ">
         {product.product_name}
       </Text>
-      <Text className="text-[#7C7C7C] text-sm font-[900]">7 pieces</Text>
       <View className="flex flex-row justify-between items-center mt-5 mb-2 w-full px-4">
         <Text className="text-black text-lg font-semibold tracking-tighter">
           {formattedPrice(product.product_price)}
