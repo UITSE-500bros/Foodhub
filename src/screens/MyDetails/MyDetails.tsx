@@ -1,33 +1,73 @@
 import { View, Text, TextInput, TouchableOpacity } from "react-native";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Icon } from "@rneui/themed";
 import { SafeAreaView } from "react-native-safe-area-context";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import { Button } from "../../components";
+import axiosInstance from "../../service/axiosInstance";
 
 export default function MyDetails() {
-  const titles = ["Họ và tên", "Số điện thoại", "Email"];
-  const [show, setShow] = useState(false);
-  const [details, setDetails] = useState({
+  const [user, setUser] = useState({
+    id: "",
     name: "",
-    phone: "",
     email: "",
-    dob: new Date(),
+    phoneNumber: "",
+    address: "",
+    birthday: "", // start with empty string or null
   });
-  const formattedDob = new Intl.DateTimeFormat("en-US", {
-    year: "numeric",
-    month: "numeric",
-    day: "numeric",
-  }).format(details.dob);
+
+  const titles = ["Họ và tên", "Số điện thoại", "Email"];
+  const fields = {
+    "Họ và tên": "name",
+    "Số điện thoại": "phoneNumber",
+    "Email": "email",
+  };
+
+  const [show, setShow] = useState(false);
+
+  // Check if the birthday is a valid date before formatting it
+  const formattedDob =
+    user.birthday && !isNaN(new Date(user.birthday).getTime()) // check if it's a valid date
+      ? new Intl.DateTimeFormat("en-US", {
+          year: "numeric",
+          month: "numeric",
+          day: "numeric",
+        }).format(new Date(user.birthday))
+      : "Chưa chọn"; // return placeholder text if not a valid date
 
   const onDateChange = (event, selectedDate) => {
-    const currentDate = selectedDate || details.dob;
+    const currentDate = selectedDate || user.birthday;
     setShow(false);
-    setDetails({ ...details, dob: currentDate });
+    setUser({ ...user, birthday: currentDate });
   };
 
   const handleShowDatePicker = () => {
     setShow(true);
+  };
+
+  const fetchUser = async () => {
+    try {
+      const response = await axiosInstance.get("/user/profile");
+      console.log(response.data.user);
+
+      setUser(response.data.user);
+    } catch (error) {
+      console.error("error in fetch user", error);
+    }
+  };
+
+  useEffect(() => {
+    fetchUser();
+  }, []);
+
+  // Update function to handle form submission
+  const updateUserProfile = async () => {
+    try {
+      const response = await axiosInstance.put("/user/profile", user); // assuming PUT request
+      console.log("Profile updated successfully", response.data);
+    } catch (error) {
+      console.error("Error updating user profile", error);
+    }
   };
 
   return (
@@ -40,9 +80,9 @@ export default function MyDetails() {
             <TextInput
               className="w-full h-12 bg-gray-200 rounded-lg px-3 text-gray-800 shadow-sm"
               placeholder={`Nhập ${title.toLowerCase()}`}
-              value={details[title.toLowerCase()]}
+              value={user[fields[title]]} // Access the correct user field based on the title
               onChangeText={(text) =>
-                setDetails({ ...details, [title.toLowerCase()]: text })
+                setUser({ ...user, [fields[title]]: text }) // Update the correct user field
               }
             />
           </View>
@@ -58,7 +98,7 @@ export default function MyDetails() {
         </TouchableOpacity>
         {show && (
           <DateTimePicker
-            value={details.dob}
+            value={user.birthday ? new Date(user.birthday) : new Date()} // ensure valid date here
             mode="date"
             display="default"
             onChange={onDateChange}
@@ -68,7 +108,12 @@ export default function MyDetails() {
 
       {/* Update Button */}
       <View className="absolute bottom-6 w-full flex items-center">
-        <Button title="Cập nhật hồ sơ" width="75%" height={40} onPress={() => {}} />
+        <Button
+          title="Cập nhật hồ sơ"
+          width="75%"
+          height={40}
+          onPress={updateUserProfile} // Now it calls the update function
+        />
       </View>
     </SafeAreaView>
   );
