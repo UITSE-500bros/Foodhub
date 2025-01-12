@@ -7,6 +7,7 @@ import useCartStore from "../../screens/Cart/store/CartStore";
 import { useNavigation } from "@react-navigation/native";
 import { HomeScreenNavigationProp } from "../../../type";
 import { formattedPrice } from "../../utils/formattesPrice";
+import { useFavoriteStore } from "../../screens/Favorite/FavoriteStore";
 
 interface ProductCardProps {
   adjust: boolean;
@@ -24,6 +25,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
     updateQuantity(product.id, newQuantity);
   };
   const remove = useCartStore((state) => state.removeFromCart);
+  const {removeFromFavorite}= useFavoriteStore()
   const nav = useNavigation<HomeScreenNavigationProp>();
   return (
     <TouchableOpacity onPress={() => {
@@ -44,7 +46,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
           </Text>
 
           <TouchableOpacity
-            onPress={() => remove(product.id)}
+            onPress={() => isFavorite ? removeFromFavorite(product.id) : remove(product.id)}
             className=""
           >
             <Icon name="close" size={30} color="#7C7C7C" />
