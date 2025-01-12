@@ -33,6 +33,5 @@ export const getProductBySearchQueryApi = async (query: string) => {
     return response.data;
   } catch (error) {
     console.error(error);
-    console.log(url);
   }
 };

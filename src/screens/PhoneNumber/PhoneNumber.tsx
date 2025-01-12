@@ -1,5 +1,5 @@
 import { useNavigation } from "@react-navigation/native";
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import {
   View,
   Text,
@@ -11,24 +11,39 @@ import {
 } from "react-native";
 import { IconButton, TextInput as PaperTextInput } from "react-native-paper";
 import { PhoneNumberScreenNavigationProp } from "../../../type";
+import axiosInstance from "../../service/axiosInstance";
 
 const PhoneNumber = () => {
-  const [number, setNumber] = useState("");
-  const nav= useNavigation<PhoneNumberScreenNavigationProp>();
+  const numberRef = useRef("");
+
+  const handleChangeText = (text:string) => {
+    numberRef.current = text; // Update the ref value
+  };
+  const nav = useNavigation<PhoneNumberScreenNavigationProp>();
+
+  const handleVerrify = async (PhoneNumber: string) => {
+    
+    const respone = await axiosInstance.post("/user/phone", {
+      phoneNumber: PhoneNumber,
+    })
+
+    if (respone.status === 200) {
+      nav.navigate("OTP")
+    }
+  };
 
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-      <KeyboardAvoidingView 
+      <KeyboardAvoidingView
         style={styles.container}
         behavior={Platform.OS === "ios" ? "padding" : "height"}
-
       >
         <View style={styles.innerContainer}>
           <Text style={styles.title}>Enter your mobile number</Text>
           <PaperTextInput
             label="Phone number"
-            value={number}
-            onChangeText={(number) => setNumber(number)}
+            defaultValue={numberRef.current}
+            onChangeText={handleChangeText}
             mode="outlined"
             keyboardType="phone-pad"
             style={styles.textInput}
@@ -39,7 +54,7 @@ const PhoneNumber = () => {
               icon="arrow-right"
               iconColor="#fff"
               size={20}
-              onPress={() => nav.navigate("OTP")}
+              onPress={() => {handleVerrify(numberRef.current)}}
               style={{ backgroundColor: "#53b175" }}
             />
           </View>

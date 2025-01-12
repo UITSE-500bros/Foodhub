@@ -1,5 +1,5 @@
 import { StackNavigationProp } from "@react-navigation/stack";
-import  LoginProps  from "./src/screens/Login/Login";
+
 import { RouteProp } from "@react-navigation/native";
 
 export type RootStackParamList = {
@@ -10,7 +10,8 @@ export type RootStackParamList = {
   Cart: undefined;
   Profile: undefined;
   BottomTabNavigator: undefined;
-  Login: LoginProps;
+  Login: undefined;
+  Accepted: undefined;
   PhoneNumber: undefined;
   OTP: undefined;
   LocationRegister: undefined;
@@ -21,9 +22,11 @@ export type RootStackParamList = {
   Orders: undefined;
   Vouchers: undefined;
   AddressSelect: undefined;
-  
+  Error: undefined;
 };
-
+export type ErrorScreenNavigationProp = StackNavigationProp<RootStackParamList,"Error">;
+export type AcceptedScreenNavigationProp = StackNavigationProp<
+  RootStackParamList,"Accepted">;
 export type ExploreScreenNavigationProp = StackNavigationProp<
   RootStackParamList,
   "Explore"

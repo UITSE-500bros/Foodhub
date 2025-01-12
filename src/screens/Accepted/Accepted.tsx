@@ -3,8 +3,8 @@ import React from 'react'
 
 const Accepted = () => {
   return (
-    <ImageBackground source={require('../../assets/bg-checkout.png')} className='w-full h-full flex flex-1 items-center justify-evenly'>
-        <Image source={require('../../assets/success.png')} style={{width: 250, height: 250, marginTop: 50}} />
+    <ImageBackground source={require('../../../assets/bg-checkout.png')} className='w-full h-full flex flex-1 items-center justify-evenly'>
+        <Image source={require('../../../assets/success.png')} style={{width: 250, height: 250, marginTop: 50}} />
         <View className='flex items-center justify-center '>
             <Text className='text-2xl font-semibold'>Your Order has been accepted</Text>
             <Text className='text-base font-black text-[#7C7C7C] text-center'>Your items has been placed and is on{"\n"} it’s way to being processed</Text>

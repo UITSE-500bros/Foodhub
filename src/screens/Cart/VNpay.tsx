@@ -2,13 +2,15 @@ import { useRoute } from '@react-navigation/native'
 import React from 'react'
 import { WebView } from 'react-native-webview'
 import { VNpayScreenRouteProp } from '../../../type'
+import * as Linking from "expo-linking";
 
 const VNpay = () => {
-    const url = useRoute<VNpayScreenRouteProp>().params.uri
-    console.log(url)
+    const uri = useRoute<VNpayScreenRouteProp>().params.uri;
+    
+
     return (
         <WebView
-            source={{ uri: url }}
+            source={{ uri: uri }}
         />
     )
 }
