@@ -18,9 +18,7 @@ const ProductCarousel = ({ title, products }: ProductCarouselProps) => {
     <View className="w-full px-4">
       <View className="flex flex-row items-center justify-between w-full">
         <Text className=" text-[#181725] text-2xl font-semibold ">{title}</Text>
-        <Button mode="text" labelStyle={styles.buttonText}>
-          See All
-        </Button>
+       
       </View>
       {products.length > 0  ? (
         

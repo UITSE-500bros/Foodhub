@@ -25,11 +25,11 @@ export default function RootStack() {
     <Stack.Navigator>
       {/* <Stack.Screen name="Login" component={Login} /> */}
       <Stack.Screen
-        options={{
-          headerShown: false,
-        }}
-        name="BottomTabNavigator"
-        component={BottomTabNavigator}
+      options={{
+        headerShown: false,
+      }}
+      name="BottomTabNavigator"
+      component={BottomTabNavigator}
       />
       <Stack.Screen name="CategoryDetail" component={CategoryDetail} />
       <Stack.Screen name="ProductDetail" component={ProductDetail} />
@@ -38,18 +38,18 @@ export default function RootStack() {
       <Stack.Screen name="LocationRegister" component={LocationRegister} />
       <Stack.Screen name="Survey" component={Survey} />
       <Stack.Screen
-        name="VNpay"
-        component={VNpay}
-        options={{
-          headerShown: false,
-        }}
+      name="VNpay"
+      component={VNpay}
+      options={{
+        headerShown: false,
+      }}
       />
       <Stack.Screen
-        name="Accepted"
-        component={Accepted}
-        options={{
-          headerShown: false,
-        }}
+      name="Accepted"
+      component={Accepted}
+      options={{
+        headerShown: false,
+      }}
       />
       <Stack.Screen name="Error" component={Error} />
       <Stack.Screen name="Search" component={Search} />
