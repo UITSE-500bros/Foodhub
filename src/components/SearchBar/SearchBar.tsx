@@ -44,7 +44,7 @@ export default function SearchBar({ searchQuery, onChangeSearch, onSearchResults
     <View style={styles.container}>
       <Searchbar
         
-        placeholder="Search"
+        placeholder="Tìm kiếm sản phẩm"
         value={searchQuery}
         onChangeText={onChangeSearch}
         style={styles.searchbar}
