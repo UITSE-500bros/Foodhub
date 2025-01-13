@@ -39,7 +39,7 @@ const ImageCarousel = () => {
         autoPlay
         renderItem={({ item }) => (
           <View style={styles.imageContainer}>
-            <Image source={{ uri: item.publicUrl }} style={styles.image} />
+            <Image source={{ uri: item.image_link }} style={styles.image} />
           </View>
         )}
       />
