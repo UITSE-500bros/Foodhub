@@ -16,8 +16,10 @@ const ProductCarousel = ({ title, products }: ProductCarouselProps) => {
     <View className="w-full px-4">
       <View className="flex flex-row items-center justify-between w-full">
         <Text className=" text-[#181725] text-2xl font-semibold ">{title}</Text>
+
       </View>
       {products.length > 0 ? (
+
         <FlatList
           data={products}
           renderItem={({ item }) => (
@@ -32,8 +34,12 @@ const ProductCarousel = ({ title, products }: ProductCarouselProps) => {
         <View className="flex flex-row justify-center items-center gap-2 ">
           <Skeleton width={173} height={250} />
           <Skeleton width={173} height={250} />
+
         </View>
       )}
+
+
+
     </View>
   );
 };

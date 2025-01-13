@@ -1,20 +1,19 @@
-import { View, Text, Image, TouchableOpacity } from "react-native";
-import React, { useEffect, useState } from "react";
-import { AdjustButton, ProductCarousel } from "../../components";
 import { RouteProp, useRoute } from "@react-navigation/native";
-import ProductDetailInterface from "../../models/ProductDetail";
-import { getProductsDetailByIDApi } from "./service/ProductDetial.service";
+import { Icon } from "@rneui/themed";
+import React, { useEffect, useState } from "react";
+import { Image, Text, TouchableOpacity, View } from "react-native";
+import { ScrollView } from "react-native-gesture-handler";
 import { ActivityIndicator } from "react-native-paper";
 import { SafeAreaView } from "react-native-safe-area-context";
-import ButtonGroup from "../../components/ButtonGroup";
-import { ScrollView } from "react-native-gesture-handler";
-import { RootStackParamList } from "../../../type";
-import { formattedPrice } from "../../utils/formattesPrice";
-import { Icon } from "@rneui/themed";
-import { useFavoriteStore } from "../Favorite/FavoriteStore";
 import Toast from "react-native-toast-message";
+import { RootStackParamList } from "../../../type";
+import { ProductCarousel } from "../../components";
+import ProductDetailInterface from "../../models/ProductDetail";
+import { formattedPrice } from "../../utils/formattesPrice";
 import useCartStore from "../Cart/store/CartStore";
-import { getNewArrivalProductsApi } from "../Home/services/Home.service";
+import { useFavoriteStore } from "../Favorite/FavoriteStore";
+import { getNewArrivalProductsApi, getRecommendedProductsApi } from "../Home/services/Home.service";
+import { getProductsDetailByIDApi } from "./service/ProductDetial.service";
 const ProductDetail = () => {
   const [data, setData] = useState([]);
 
@@ -49,8 +48,9 @@ const ProductDetail = () => {
       }
     };
     fetchProduct();
+
     const fetchNewArrivalProducts = async () => {
-      const res = await getNewArrivalProductsApi();
+      const res = await getRecommendedProductsApi(id);
       setData(res);
     };
     fetchNewArrivalProducts();

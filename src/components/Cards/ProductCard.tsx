@@ -30,7 +30,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
   return (
     <TouchableOpacity onPress={() => {
       nav.navigate("ProductDetail", { id: product.id })
-    }} className="flex flex-1 flex-row mb-[25] justify-between"
+    }} className="flex flex-1 flex-row mb-[25] justify-between "
     >
       <View className="mr-[30px] flex items-center justify-center">
         <Image

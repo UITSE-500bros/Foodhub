@@ -4,7 +4,8 @@ import axiosInstance from "./axiosInstance";
 
 export const getCart = async () => {
     try {
-        const res = await axiosInstance.get("/cart");
+        const res = await axiosInstance.get("/cart/get");
+        console.log(res.data);
         return res.data;
     } catch (error) {
         throw error;
@@ -12,7 +13,7 @@ export const getCart = async () => {
 }
 export const addToCart = async (productId: string , quantity: number) => {
     try {
-        const res = await axiosInstance.post("/cart", { productId, quantity });
+        const res = await axiosInstance.post("/cart/add", { productId, quantity });
         return res.data;
     } catch (error) {
         throw error;

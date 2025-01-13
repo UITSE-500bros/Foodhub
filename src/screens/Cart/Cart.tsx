@@ -93,32 +93,45 @@ const PromotionCode: React.FC<{ handleGoBack: () => void }> = ({ handleGoBack })
   )
 }
 
-const Main: React.FC<{ total: number; handleClosePress: () => void; openPayment: () => void; handlePayment: () => void; openPromotion: () => void }> = ({ total, handleClosePress, openPayment, handlePayment, openPromotion }) => (
-  <BottomSheetView style={styles.mainContainer}>
-    <View style={styles.header}>
-      <Text style={styles.headerTitle}>Thanh toán 🎉</Text>
-      <Icon name="close" type="fontisto" size={30} onPress={handleClosePress} />
-    </View>
-    <InfoSection title="Phương thức giao hàng" onPress={openPayment}>
-      <View style={styles.details}>
-        <Text style={styles.text}>Giao hàng tiêu chuẩn</Text>
-        <Text style={styles.subText}>Miễn phí</Text>
+const Main: React.FC<{ total: number; handleClosePress: () => void; openPayment: () => void; handlePayment: () => void; openPromotion: () => void }> = ({ total, handleClosePress, openPayment, handlePayment, openPromotion }) => {
+  const [discount, setDiscount] = useState("");
+  const [bill, setBill] = useState(total);
+
+
+
+  return (
+    <BottomSheetView style={styles.mainContainer} >
+      <View style={styles.header}>
+        <Text style={styles.headerTitle}>Thanh toán 🎉</Text>
+        <Icon name="close" type="fontisto" size={30} onPress={handleClosePress} />
       </View>
-    </InfoSection>
-    <InfoSection title="Phương thức thanh toán" onPress={openPayment}>
-      <Text style={styles.text}>{useCartStore.getState().paymentMethod}</Text>
-    </InfoSection>
-    <InfoSection title="Mã giảm giá" onPress={openPromotion}>
-      <TextInput placeholder="Nhập mã giảm giá" />
-    </InfoSection>
-    <InfoSection title="Tổng tiền" stroke={false}>
-      <Text style={styles.text}>{total}</Text>
-    </InfoSection>
-    <TouchableOpacity style={styles.paymentButton} onPress={handlePayment}>
-      <Text style={styles.paymentText}>Thanh toán</Text>
-    </TouchableOpacity>
-  </BottomSheetView>
-);
+      <InfoSection title="Phương thức giao hàng" onPress={openPayment}>
+        <View style={styles.details}>
+          <Text style={styles.text}>Giao hàng tiêu chuẩn</Text>
+          <Text style={styles.subText}>Miễn phí</Text>
+        </View>
+      </InfoSection>
+      <InfoSection title="Phương thức thanh toán" onPress={openPayment}>
+        <Text style={styles.text}>{useCartStore.getState().paymentMethod}</Text>
+      </InfoSection>
+      <InfoSection title="Mã giảm giá" onPress={openPromotion}>
+        <TextInput
+          placeholder="Nhập mã giảm giá"
+          onChange={(event) => {
+            setDiscount(event.nativeEvent.text);
+            setBill(total - (total * parseInt((event.nativeEvent.text).toString().slice(-2)) )/ 100);
+          }}
+        />
+      </InfoSection>
+      <InfoSection title="Tổng tiền" stroke={false}>
+        <Text style={styles.text}>{bill}</Text>
+      </InfoSection>
+      <TouchableOpacity style={styles.paymentButton} onPress={handlePayment}>
+        <Text style={styles.paymentText}>Thanh toán</Text>
+      </TouchableOpacity>
+    </BottomSheetView >
+  )
+};
 
 const Cart: React.FC = () => {
   const { cart, updateQuantity } = useCartStore(state => state);
@@ -128,7 +141,7 @@ const Cart: React.FC = () => {
   const nav = useNavigation<ErrorScreenNavigationProp>();
   const navPromotion = useNavigation<ProfileScreenNavigationProp>();
   const bottomSheetRef = useRef<BottomSheet>(null);
-  const [total, setTotal] = useState(50000);
+  const [total, setTotal] = useState(0);
 
   const handleClosePress = useCallback(() => bottomSheetRef.current?.close(), []);
 
@@ -166,11 +179,10 @@ const Cart: React.FC = () => {
   const [bottomSheetContent, setBottomSheetContent] = useState<React.ReactNode>();
 
   useEffect(() => {
-    const totalAmount = cart.reduce((acc, item) => acc + item.product_price * item.quantity, 0);
-    setTotal(totalAmount);
+    useCartStore.getState().getCart();
+    setTotal(useCartStore.getState().total);
 
-    
-  }, [cart]);
+  }, []);
 
   const snapPoints = useMemo(() => ["55%"], []);
 
@@ -184,9 +196,8 @@ const Cart: React.FC = () => {
         <Text style={styles.address}>Phường Linh Trung, Quận Thủ Đức, TP.HCM</Text>
       </View>
       <FlatList
-        className="flex-1 mt-6"
         data={cart}
-        keyExtractor={(item) => item.id.toString()}
+        keyExtractor={(item) => item.id}
         renderItem={({ item }) => <ProductCard key={item.id} adjust product={item} />}
         style={styles.cartList}
       />

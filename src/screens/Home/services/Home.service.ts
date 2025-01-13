@@ -39,3 +39,17 @@ export const getProductBySearchQueryApi = async (query: string) => {
     console.error(error);
   }
 };
+//Same brand
+export const getRecommendedProductsApi = async (product_id: string) => {
+  let url = `${API_URL}/recombee/item-to-item`;
+
+  try {
+    const response = await axiosInstance.post(url , {
+      product_id: product_id
+    });
+    console.log(response);
+    return response.data;
+  } catch (error) {
+    console.error(error);
+  }
+}; 
