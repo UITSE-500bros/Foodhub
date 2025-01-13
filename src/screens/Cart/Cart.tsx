@@ -11,6 +11,7 @@ import { usersService } from "../../service";
 import { checkout, vnpay } from "../../service/cart.service";
 import Accepted from "../Accepted";
 import * as Linking from "expo-linking";
+import useLocationStore from "../LocationRegister/Store/LocationStore";
 
 const InfoSection: React.FC<{ title: string; children: React.ReactNode; onPress?: () => void; stroke?: boolean }> = ({ title, children, onPress, stroke = true }) => (
   <TouchableOpacity onPress={onPress} style={styles.infoSection}>
@@ -151,14 +152,14 @@ const Cart: React.FC = () => {
     if (total === 0) {
     }
     if (paymenttype === "cod") {
-      const url = await checkout(total, useCartStore.getState().cart, 'Phường Linh Trung, Quận Thủ Đức, TP.HCM')
+      const url = await checkout(total, useCartStore.getState().cart, location)
       if (url == 200) {
         nav_Accepted.navigate("Accepted");
       } else {
         nav.navigate("Error");
       }
     } else if (paymenttype === "vnpay") {
-      const url = await vnpay(total, useCartStore.getState().cart, 'Phường Linh Trung, Quận Thủ Đức, TP.HCM')
+      const url = await vnpay(total, useCartStore.getState().cart, location)
       nav_VNPAY.navigate("VNpay", { uri: url });
     }
   }
@@ -177,11 +178,13 @@ const Cart: React.FC = () => {
   }
 
   const [bottomSheetContent, setBottomSheetContent] = useState<React.ReactNode>();
+  const locations = useLocationStore.getState().locations;
+  const location = locations[0]?.address;
 
   useEffect(() => {
     useCartStore.getState().getCart();
     setTotal(useCartStore.getState().total);
-
+    
   }, []);
 
   const snapPoints = useMemo(() => ["55%"], []);
@@ -193,7 +196,9 @@ const Cart: React.FC = () => {
         <Text style={styles.cartTitle}>Giỏ hàng</Text>
         <Text style={styles.totalText}>Tổng tiền {total}</Text>
         <Text style={styles.addressLabel}>Địa chỉ giao hàng:</Text>
-        <Text style={styles.address}>Phường Linh Trung, Quận Thủ Đức, TP.HCM</Text>
+        <Text style={styles.address}>
+          {location === undefined ? "Phường Linh Trung , TP. Dĩ An" : location}
+        </Text>
       </View>
       <FlatList
         data={cart}

@@ -65,7 +65,6 @@ const Login = () => {
   useEffect(() => {
     const handleExitToken = async () => {
       const tokens = await getTokens();
-      console.log(tokens);
       if (tokens) {
         nav.navigate("BottomTabNavigator")
       }
@@ -104,8 +103,8 @@ const Login = () => {
                     </View>
                 )}
             </Formik> */}
-      <View className="mt-[160px]">
-        <Text className="text-center">Tiếp tục với</Text>
+      <View className="mt-[100px]">
+        <Text className="text-center text-2xl">Tiếp tục với</Text>
         <Button
           title="Sign in with google"
           icon={

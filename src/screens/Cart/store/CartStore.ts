@@ -25,7 +25,6 @@ type CartState = {
   setTotal: (total) => set({ total }),
   getCart: () => {
     getCart().then((cart) => {
-      console.log(cart);
       set({ cart });
       set({ total: cart.reduce((acc: number, item: ProductDetail) => acc + item.product_price * item.quantity, 0) });
     });

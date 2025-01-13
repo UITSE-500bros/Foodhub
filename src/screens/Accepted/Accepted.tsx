@@ -1,7 +1,13 @@
 import { View, Text, ImageBackground,Image, TouchableOpacity } from 'react-native'
 import React from 'react'
+import { useNavigation } from '@react-navigation/native'
+import { HomeScreenNavigationProp } from '../../../type';
 
 const Accepted = () => {
+
+	const nav = useNavigation<HomeScreenNavigationProp>();
+
+
 return (
     <ImageBackground source={require('../../../assets/bg-checkout.png')} className='w-full h-full flex flex-1 items-center justify-evenly'>
             <Image source={require('../../../assets/success.png')} style={{width: 250, height: 250, marginTop: 50}} />
@@ -12,14 +18,18 @@ return (
             <View className='flex items-center '>
                     <TouchableOpacity
                             className="h-[67px] w-[360px] flex items-center justify-center bg-[#53B175] rounded-2xl"
-                            onPress={() => console.log("Theo dõi đơn hàng")}
+                            onPress={() => {
+									nav.navigate("Orders")
+							}}
                     >
                             <Text className="text-white">Theo dõi đơn hàng</Text>
                     </TouchableOpacity>
 
                     <TouchableOpacity
                             className="h-[67px] w-[360px] flex items-center justify-center"
-                            onPress={() => console.log("Quay lại trang chủ")}
+                            onPress={() => {
+									nav.navigate("BottomTabNavigator")
+							}}
                     >
                             <Text className="">Quay lại trang chủ</Text>
                     </TouchableOpacity>

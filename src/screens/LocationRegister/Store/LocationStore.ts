@@ -18,15 +18,12 @@ const useLocationStore = create<LocationStore>((set, get) => ({
   fetchLocation: async () => {
     try {
       const response = await axiosInstance.get("/user/address");
-      console.log("response", response.data);
-
       set({ locations: response.data });
     } catch (e) {}
   },
   addLocation: async (location) => {
     try {
       const response = await axiosInstance.post("/user/address", location);
-      console.log("response", response.data);
       set((state) => ({ locations: [...state.locations, response.data] }));
       await get().fetchLocation();
     } catch (e) {
@@ -38,7 +35,6 @@ const useLocationStore = create<LocationStore>((set, get) => ({
       const response = await axiosInstance.delete(`/user/address`, {
         data: location,
       });
-      console.log("response", response.data);
       set((state) => ({
         locations: state.locations.filter(
           (item) => item.address !== location.address

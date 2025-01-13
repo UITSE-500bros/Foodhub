@@ -90,8 +90,6 @@ const ProductDetail = () => {
   const handleAddToCart = (product: ProductDetailInterface) => {
     if (product === null) return;
     addToCart(product);
-    console.log(product);
-
     Toast.show({
       type: "success",
 

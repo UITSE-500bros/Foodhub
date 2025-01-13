@@ -5,7 +5,6 @@ import axiosInstance from "./axiosInstance";
 export const getCart = async () => {
     try {
         const res = await axiosInstance.get("/cart/get");
-        console.log(res.data);
         return res.data;
     } catch (error) {
         throw error;
@@ -44,7 +43,6 @@ export const vnpay = async (amount: number , products: ProductDetail[] , deliver
             products: products ,
             delivery_address: delivery_address
         });
-        console.log(res.data);
         return res.data;
     } catch (error) {
         throw error;
@@ -92,7 +90,6 @@ export const getCoupons = async () => {
 export const validateVNPay = async (params: string) => {
     try {
         const res = await axiosInstance.post(`/order/paymentCallback?${params}`);
-        console.log(res.data);
         return res.data;
     } catch (error) {
         throw error;

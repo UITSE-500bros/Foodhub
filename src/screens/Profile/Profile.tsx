@@ -3,18 +3,19 @@ import { Text, TouchableOpacity, View } from "react-native";
 
 import { useNavigation } from "@react-navigation/native";
 import { Icon } from "@rneui/themed";
-import { ProfileScreenNavigationProp } from "../../../type";
+import { LoginScreenNavigationProp, ProfileScreenNavigationProp } from "../../../type";
 import { supabase } from "../../utils/supabase";
 import Section from "./Section";
+import { clearTokens } from "../../service/tokenEncrypted";
 
-const Logout = async () => {
-  const { error } = await supabase.auth.signOut();
-  if (error) throw error;
-};
 
 const Profile = () => {
   const nav = useNavigation<ProfileScreenNavigationProp>();
-
+  const nav_logout = useNavigation<LoginScreenNavigationProp>();
+  const Logout = async () => {
+    await clearTokens();
+    nav_logout.navigate("Login");
+  };
   return (
     <View className="pt-[80px] w-full h-[90%] flex items-center justify-between">
       <View className="">
@@ -48,10 +49,6 @@ const Profile = () => {
        
          {/* Vouchers */}
           <Section name="Mã giảm giá" icon="gift" onPress={()=>nav.navigate('Coupons')} />
-          {/* Notifications */}
-          <Section name="Thông báo" icon="bell" />
-          {/* Help  & About*/}
-          <Section name="Thông tin liên hệ" icon="help-circle" />
         </View>
       </View>
       {/* Logout */}
@@ -62,7 +59,7 @@ const Profile = () => {
       >
         <Icon color="white" name="log-out" type="feather" />
         <Text className="text-white text-center text-xl font-bold">
-          Log out
+          Đăng xuất
         </Text>
       </TouchableOpacity>
     </View>

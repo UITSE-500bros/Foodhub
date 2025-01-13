@@ -39,7 +39,7 @@ const Home = () => {
   };
   const fetchFavorite = useFavoriteStore((state) => state.fetchFavorite);
   const { locations, fetchLocation } = useLocationStore()
-
+  const location = locations[0]?.address;
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -54,12 +54,7 @@ const Home = () => {
     fetchProducts();
     fetchFavorite();
     fetchLocation();
-
-    console.log(locations)
-
-
   }, []);
-
 
   return (
     <ScrollView className="flex flex-col w-full mt-8">
@@ -71,7 +66,7 @@ const Home = () => {
         <View className="flex flex-row items-start justify-center my-3 mx-7 ">
           <Icon name="location-on" size={30} color="#181725" />
           <Text className="  text-[#4C4F4D] text-center text-lg font-semibold ">
-            {locations[0]?.address}
+            {location === undefined ? "Phường Linh Trung , TP. Dĩ An" : location}
           </Text>
         </View>
       </View>

@@ -2,6 +2,8 @@ import React from 'react';
 import { Modal, Portal, Text, Button, PaperProvider } from 'react-native-paper';
 import { Image, TouchableOpacity, View, ViewStyle } from 'react-native';
 import { Icon } from '@rneui/themed';
+import { useNavigation } from '@react-navigation/native';
+import { HomeScreenNavigationProp } from '../../../type';
 const Errors = () => {
     const [visible, setVisible] = React.useState(true);
 
@@ -13,6 +15,7 @@ const Errors = () => {
         margin: 20,
         height: 600,
     };
+    const nav = useNavigation<HomeScreenNavigationProp>();
 
     return (
         <PaperProvider>
@@ -35,14 +38,18 @@ const Errors = () => {
                             <View className='flex items-center absolute bottom-10 right-0 left-0 '>
                                 <TouchableOpacity
                                     className="h-[67px] w-[300px] flex items-center justify-center bg-[#53B175] rounded-2xl"
-                                    onPress={() => console.log("Add to Cart")}
+                                    onPress={() => {
+                                        nav.navigate("Cart")
+                                    }}
                                 >
                                     <Text className="text-white">Hãy thử lại</Text>
                                 </TouchableOpacity>
 
                                 <TouchableOpacity
                                     className="h-[67px] w-[300px] flex items-center justify-center"
-                                    onPress={() => console.log("Add to Cart")}
+                                    onPress={() => {
+                                        nav.navigate("BottomTabNavigator")
+                                    }}
                                 >
                                     <Text className="">Về trang chủ</Text>
                                 </TouchableOpacity>

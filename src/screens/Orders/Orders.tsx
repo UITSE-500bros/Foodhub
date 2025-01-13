@@ -11,6 +11,7 @@ import Canceled from "./Canceled";
 import { TabView, SceneMap } from "react-native-tab-view";
 import Product from "../../models/Product";
 import axiosInstance from "../../service/axiosInstance";
+import Indicator from "../../components/Indicator";
 type Order = {
   id: string;
   created_at: string;
@@ -44,7 +45,6 @@ export default function Orders() {
   const activeOrders = orders.filter(order => order.order_state === "Active");
   const completedOrders = orders.filter(order => order.order_state === "Completed");
   const canceledOrders = orders.filter(order => order.order_state === "Canceled");
-  console.log(completedOrders);
   
 
   const renderScene = SceneMap({
@@ -57,6 +57,13 @@ export default function Orders() {
     { key: "completed", title: "Đã hoàn thành" },
     { key: "canceled", title: "Đã hủy" },
   ];
+
+  if(orders.length === 0) {
+    return (
+      <Indicator />
+    )
+  }
+
   return (
     <TabView
       navigationState={{ index, routes }}

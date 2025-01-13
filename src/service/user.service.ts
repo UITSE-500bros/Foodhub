@@ -6,7 +6,6 @@ class UserService {
         this.baseURI = "user/userId";
     }
     private getURI(uri: string) {
-        console.log(`${this.baseURI}${uri}`);
         return `${this.baseURI}${uri}`;
     }
     async updateInfo(userId: string, image: string) {

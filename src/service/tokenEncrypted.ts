@@ -5,7 +5,6 @@ export const storeTokens = async (
   refresh_token: string
 ) => {
   try {
-    console.log("Storing tokens:", { access_token, refresh_token });
     await SecureStore.setItemAsync(
       "tokens",
       JSON.stringify({ access_token, refresh_token })

@@ -48,7 +48,6 @@ export default function MyDetails() {
   const fetchUser = async () => {
     try {
       const response = await axiosInstance.get("/user/profile");
-      console.log(response.data.user);
 
       setUser(response.data.user);
     } catch (error) {
@@ -64,7 +63,6 @@ export default function MyDetails() {
   const updateUserProfile = async () => {
     try {
       const response = await axiosInstance.put("/user/profile", user); // assuming PUT request
-      console.log("Profile updated successfully", response.data);
     } catch (error) {
       console.error("Error updating user profile", error);
     }
