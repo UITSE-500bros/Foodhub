@@ -6,7 +6,7 @@ import Product from "./src/models/Product";
 export type RootStackParamList = {
   Home: undefined;
   Explore: undefined;
-  CategoryDetail: { id: string };
+  CategoryDetail: { id: string,name:string };
   ProductDetail: { id: string };
   Cart: undefined;
   Profile: undefined;

@@ -33,7 +33,11 @@ export default function RootStack() {
       name="BottomTabNavigator"
       component={BottomTabNavigator}
       />
-      <Stack.Screen name="CategoryDetail" component={CategoryDetail} />
+      <Stack.Screen name="CategoryDetail" component={CategoryDetail} options={({route})=>({
+        title: route.params.name,
+      })
+
+      } />
       <Stack.Screen name="ProductDetail" component={ProductDetail} />
       <Stack.Screen name="PhoneNumber" component={PhoneNumber} />
       <Stack.Screen name="OTP" component={OTP} />

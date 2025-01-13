@@ -39,11 +39,12 @@ export default function Orders() {
   useEffect(() => {
     fetchOrders();
   }, []);
-  console.log(orders);
+
   
   const activeOrders = orders.filter(order => order.order_state === "Active");
   const completedOrders = orders.filter(order => order.order_state === "Completed");
   const canceledOrders = orders.filter(order => order.order_state === "Canceled");
+  console.log(completedOrders);
   
 
   const renderScene = SceneMap({

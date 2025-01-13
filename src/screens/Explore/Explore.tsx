@@ -63,7 +63,7 @@ const Explore = () => {
             <ExploreCard
               image={item.image}
               title={item.name}
-              onPress={() => nav.navigate("CategoryDetail", { id: item.id })}
+              onPress={() => nav.navigate("CategoryDetail", { id: item.id,name:item.name })}
             />
           )}
         />
