@@ -41,7 +41,9 @@ export default function RootStack() {
       <Stack.Screen name="ProductDetail" component={ProductDetail} />
       <Stack.Screen name="PhoneNumber" component={PhoneNumber} />
       <Stack.Screen name="OTP" component={OTP} />
-      <Stack.Screen name="LocationRegister" component={LocationRegister} />
+      <Stack.Screen name="LocationRegister" component={LocationRegister} options={{
+        title: 'Đăng ký địa chỉ',
+      }} />
       <Stack.Screen name="Survey" component={Survey} />
       <Stack.Screen
       name="VNpay"
@@ -63,11 +65,21 @@ export default function RootStack() {
       <Stack.Screen name="Error" component={Error} options={{
         headerShown: false,
       }}/>
-      <Stack.Screen name="Search" component={Search} />
-      <Stack.Screen name='MyDetails' component={MyDetails}/>
-      <Stack.Screen name= 'Orders' component={Orders}/>
-      <Stack.Screen name = 'Coupons' component={Coupons}/>
-      <Stack.Screen name = 'AddressSelect' component={AddressSelect}/>
+      <Stack.Screen name="Search" component={Search} options={{
+
+      }} />
+      <Stack.Screen name='MyDetails' component={MyDetails} options={{
+        title: 'Thông tin của bạn'
+      }}/>
+      <Stack.Screen name= 'Orders' component={Orders} options={{
+        title:'Đơn hàng của bạn'
+      }}/>
+      <Stack.Screen name = 'Coupons' component={Coupons} options={{
+        title: 'Mã giảm giá'
+      }}/>
+      <Stack.Screen name = 'AddressSelect' component={AddressSelect} options={{
+        title: 'Địa chỉ giao hàng'
+      }}/>
     </Stack.Navigator>
   );
 }
