@@ -37,7 +37,7 @@ const OTP = () => {
         behavior={Platform.OS === "ios" ? "padding" : "height"}
       >
         <View style={styles.innerContainer}>
-          <Text style={styles.title}>Enter your 4-digit code</Text>
+          <Text style={styles.title}>Nhập mã 4 chữ số</Text>
           <PaperTextInput
             label="****"
             value={code}
@@ -55,14 +55,14 @@ const OTP = () => {
               labelStyle={{ fontSize: 18, fontWeight: "900", lineHeight: 29 }}
               textColor="#53B175"
             >
-              Resend code
+              Gửi lại
             </Button>
             <Button
               mode="contained"
               onPress={() => nav.navigate("LocationRegister")}
               style={styles.submitButton}
             >
-              Submit
+              Xác nhận
             </Button>
           </View>
         </View>

@@ -149,7 +149,7 @@ const ProductDetail = () => {
           <View>
             <View className="flex flex-row justify-between items-center">
               <Text className="font-black text-base tracking-wide">
-                Description
+                Mô tả
               </Text>
               <TouchableOpacity onPress={toggle}>
                 <Image
@@ -162,7 +162,7 @@ const ProductDetail = () => {
           </View>
           <View className=" h-0.5 bg-black" />
           <View className="flex flex-row justify-between items-center">
-            <Text className="font-black text-base tracking-wide">Review</Text>
+            <Text className="font-black text-base tracking-wide">Đánh giá</Text>
             <TouchableOpacity>
               <Image
                 source={require("../../../assets/arrow.png")}

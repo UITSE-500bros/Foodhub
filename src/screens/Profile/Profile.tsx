@@ -18,15 +18,15 @@ const Profile = () => {
   return (
     <View className="pt-[80px] w-full h-[90%] flex items-center justify-between">
       <View className="">
-        <View>
-          {/* <Image source={} className="w-[30px] h-[30px]" /> */}
+        {/* <View>
+          <Image source={} className="w-[30px] h-[30px]" />
           <Text className="text-[#4C4F4D] text-center text-lg font-semibold  ">
             I can cook
           </Text>
           <Text className="text-[#4C4F4D] text-center text-lg font-semibold  ">
             icancook@gmail.com
           </Text>
-        </View>
+        </View> */}
         {/* Devider */}
         <View className="h-[1px] w-full bg-[#E2E2E2]" />
         <View className="mx-[25px]">

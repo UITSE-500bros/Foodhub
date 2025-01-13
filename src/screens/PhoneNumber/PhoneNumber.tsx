@@ -39,7 +39,7 @@ const PhoneNumber = () => {
         behavior={Platform.OS === "ios" ? "padding" : "height"}
       >
         <View style={styles.innerContainer}>
-          <Text style={styles.title}>Enter your mobile number</Text>
+            <Text style={styles.title}>Nhập số điện thoại di động của bạn</Text>
           <PaperTextInput
             label="Phone number"
             defaultValue={numberRef.current}
@@ -47,7 +47,7 @@ const PhoneNumber = () => {
             mode="outlined"
             keyboardType="phone-pad"
             style={styles.textInput}
-            placeholder="Enter your mobile number"
+            placeholder="Nhập số điện thoại di động của bạn"
           />
           <View className=" flex  ">
             <IconButton

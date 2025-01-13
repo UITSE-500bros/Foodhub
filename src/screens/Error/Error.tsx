@@ -30,21 +30,21 @@ const Errors = () => {
                         />
                         <View className='flex items-center relative flex-1'>
                             <Image source={require('../../../assets/error.png')} />
-                            <Text className='text-[28px] font-semibold mt-5'>Oops! Order Failed</Text>
-                            <Text className='text-base font-black text-[#7C7C7C]'>Something went tembly wrong.</Text>
+                            <Text className='text-[28px] font-semibold mt-5'>Rất tiếc! Đặt hàng thất bại</Text>
+                            <Text className='text-base font-black text-[#7C7C7C]'>Đã xảy ra lỗi nghiêm trọng.</Text>
                             <View className='flex items-center absolute bottom-10 right-0 left-0 '>
                                 <TouchableOpacity
                                     className="h-[67px] w-[300px] flex items-center justify-center bg-[#53B175] rounded-2xl"
                                     onPress={() => console.log("Add to Cart")}
                                 >
-                                    <Text className="text-white">Please try again</Text>
+                                    <Text className="text-white">Hãy thử lại</Text>
                                 </TouchableOpacity>
 
                                 <TouchableOpacity
                                     className="h-[67px] w-[300px] flex items-center justify-center"
                                     onPress={() => console.log("Add to Cart")}
                                 >
-                                    <Text className="">Back to home</Text>
+                                    <Text className="">Về trang chủ</Text>
                                 </TouchableOpacity>
                             </View>
                         </View>

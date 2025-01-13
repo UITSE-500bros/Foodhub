@@ -21,7 +21,7 @@ export default function OrderDetail({ products }: OrderDetailProps) {
             <Text className="text-base font-bold text-gray-800 mb-1">
               {item.product_name}
             </Text>
-            <Text className="text-sm text-gray-500">Price: {item.product_price}</Text>
+            <Text className="text-sm text-gray-500">Giá: {item.product_price}</Text>
           </View>
         </View>
       ))}

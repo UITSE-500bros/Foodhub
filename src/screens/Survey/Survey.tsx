@@ -27,16 +27,16 @@ const Survey = () => {
   return (
     <SafeAreaView className="flex gap-5 items-start justify-center flex-col p-6 ">
       <Text className="text-center text-black text-2xl font-bold leading-loose">
-        Grocery Preferences
+        Khảo sát
       </Text>
       <View className="flex flex-row items-center justify-center">
-        <Text className="text-lg mr-6">Are you a vegetarian?</Text>
+        <Text className="text-lg mr-6">Bạn có phải người ăn chay không ?</Text>
         <Radio />
       </View>
 
       <View className="flex flex-row items-center ">
         <Text className=" mr-5 text-black text-lg  ">
-          How many people are in your family?
+          Có bao nhiêu người trong gia đình của bạn ?
         </Text>
         <TextInput
           mode="outlined"
@@ -48,7 +48,7 @@ const Survey = () => {
       </View>
       <View className="h-[300px] w-full">
         <Text className="text-lg text-black">
-          What type of food do you prefer?
+          Loại thực phẩm bạn thích ?
         </Text>
 
         <FlatList
@@ -65,7 +65,7 @@ const Survey = () => {
       </View>
 
       <View className="h-auto ">
-        <Text className="text-lg text-black">What kind of meal ?</Text>
+        <Text className="text-lg text-black">Bạn định nấu bữa gì?</Text>
         <View className="flex-row flex ">
           {meals.map((meal, index) => {
             return <Item title={meal} key={index} />;
@@ -74,7 +74,7 @@ const Survey = () => {
       </View>
 
       <TouchableOpacity className=" self-center bg-primary p-3 w-full justify-center items-center rounded-full mt-auto ">
-        <Text className="text-white text-2xl"> Submit</Text>
+        <Text className="text-white text-2xl">Xác nhận</Text>
       </TouchableOpacity>
     </SafeAreaView>
   );

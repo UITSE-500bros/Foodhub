@@ -31,7 +31,7 @@ const Favorite = () => {
       {/* Header */}
       <View className="flex justify-center items-center mt-10">
         <Text className="text-center text-[#181725] text-xl font-black font-['Inter']">
-          Favorite
+          Yêu thích
         </Text>
       </View>
 
@@ -61,7 +61,7 @@ const Favorite = () => {
         onPress={() => handleAddAllToCart()}
       >
         <Text className="text-white text-center text-xl font-bold">
-          Add all to Cart
+          Thêm tất cả vào giỏ hàng
         </Text>
       </TouchableOpacity>
     </View>

@@ -17,8 +17,8 @@ export default function Completed({ orders }: OrdersProps) {
           contentContainerStyle={{ padding: 10 }}
           renderItem={({ item }) => (
             <View className="bg-white p-4 rounded-lg mb-4 shadow-md">
-              <Text className="text-sm text-gray-500 mb-2">Order Date: {item.created_at}</Text>
-              <Text className="text-lg font-bold text-gray-800 mb-4">Status: {item.transaction_status}</Text>
+              <Text className="text-sm text-gray-500 mb-2">Ngày đặt: {item.created_at}</Text>
+              <Text className="text-lg font-bold text-gray-800 mb-4">Trạng thái: {item.transaction_status}</Text>
               <OrderDetail products={item.product_list} />
               <TouchableOpacity  className="mt-4 bg-blue-500 p-2 rounded" onPress={() => {
               }}>

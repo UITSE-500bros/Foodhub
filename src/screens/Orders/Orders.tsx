@@ -53,9 +53,9 @@ export default function Orders() {
     canceled: () => <Canceled orders={canceledOrders} />,
   });
   const routes = [
-    { key: "active", title: "Active" },
-    { key: "completed", title: "Completed" },
-    { key: "canceled", title: "Canceled" },
+    { key: "active", title: "Đang vận chuyển" },
+    { key: "completed", title: "Đã hoàn thành" },
+    { key: "canceled", title: "Đã hủy" },
   ];
   return (
     <TabView

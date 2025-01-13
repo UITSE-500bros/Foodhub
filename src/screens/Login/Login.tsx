@@ -80,7 +80,7 @@ const Login = () => {
         className="w-full h-[35%]"
       />
       <Text className="text-2xl text-center font-bold">
-        Get your groceries with Foodhub
+       Thoải mái mua hàng tạp hóa của bạn với Foodhub
       </Text>
 
       {/* <Text className='text-center mt-3'>Enter your email to get started</Text>
@@ -105,7 +105,7 @@ const Login = () => {
                 )}
             </Formik> */}
       <View className="mt-[160px]">
-        <Text className="text-center">Continue with</Text>
+        <Text className="text-center">Tiếp tục với</Text>
         <Button
           title="Sign in with google"
           icon={
