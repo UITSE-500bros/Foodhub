@@ -17,9 +17,15 @@ export const getBestSellerProductsApi = () => fetchProducts("best_seller");
 export const getExclusiveOfferProductsApi = () => fetchProducts("exclusive");
 
 export const getBannerImagesApi = async () => {
-  let url = `${API_URL}/bucket?bucketName=banners`;
+  let url = `${API_URL}/bucket`;
   try {
-    const response = await axiosInstance.get(url);
+    const response = await axiosInstance.get(url, {
+      params: {
+      bucketName: 'banners'
+      }
+    });
+
+    
     return response.data;
   } catch (error) {
     console.error(error);

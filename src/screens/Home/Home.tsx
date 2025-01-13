@@ -14,6 +14,7 @@ import {
 import { useSearchStore } from "../Search/SearchStore";
 import { HomeScreenNavigationProp } from "../../../type";
 import { useFavoriteStore } from "../Favorite/FavoriteStore";
+import useLocationStore from "../LocationRegister/Store/LocationStore";
 
 const Home = () => {
   const nav = useNavigation<HomeScreenNavigationProp>();
@@ -35,18 +36,21 @@ const Home = () => {
     setSearchQueryLocal(query);
   };
   const fetchFavorite = useFavoriteStore((state) => state.fetchFavorite);
+  const { locations,fetchLocation} = useLocationStore()
+
 
   useEffect(() => {
     const fetchProducts = async () => {
       const newArrivals = await getNewArrivalProductsApi();
       const bestSellers = await getBestSellerProductsApi();
       const exclusiveOffer = await getExclusiveOfferProductsApi();
-
       setProducts({ newArrivals, bestSellers, exclusiveOffer });
     };
     fetchProducts();
     fetchFavorite();
+    fetchLocation();
   }, []);
+
 
   return (
     <ScrollView className="flex flex-col w-full mt-8">

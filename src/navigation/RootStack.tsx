@@ -25,7 +25,7 @@ const Stack = createStackNavigator<RootStackParamList>();
 export default function RootStack() {
   return (
     <Stack.Navigator>
-      <Stack.Screen name="Login" component={Login} />
+      {/* <Stack.Screen name="Login" component={Login} /> */}
       <Stack.Screen
       options={{
         headerShown: false,

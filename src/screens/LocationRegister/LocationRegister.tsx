@@ -18,7 +18,9 @@ import {
   getWardsByDistrictIdApi,
 } from "./service/Location.service";
 import { Picker } from "@react-native-picker/picker";
+import useLocationStore from "./Store/LocationStore";
 const LocationRegister = () => {
+  const [address_name, setAddress_name] = useState("");
   const [road, setRoad] = useState("");
   const [provinces, setProvinces] = useState([]);
   const [districts, setDistricts] = useState([]);
@@ -31,6 +33,7 @@ const LocationRegister = () => {
   const handleRoadInput = (text: string) => {
     setRoad(text);
   };
+
   useEffect(() => {
     const getAllProvince = async () => {
       getAllProvincesApi()
@@ -39,6 +42,7 @@ const LocationRegister = () => {
     };
     getAllProvince();
   }, []);
+  const {addLocation}= useLocationStore();
 
   const handleProvinceChange = (itemValue: string) => {
     setSelected({ ...selected, province: itemValue });
@@ -58,8 +62,6 @@ const LocationRegister = () => {
       .then((res) => setWards(res.data))
       .catch((err) => console.error(err));
   };
-
-  console.log(selected);
   const getLocation = () => {
     if (!selected.province || !selected.district || !selected.ward || !road) {
       Alert.alert("Thông báo", "Vui lòng điền đầy đủ thông tin");
@@ -73,15 +75,19 @@ const LocationRegister = () => {
     );
     const ward = wards.find((ward) => ward.id === selected.ward);
     const result = `${road}, ${ward.name}, ${district.name}, ${province.name}`;
-    console.log(result);
-    return result;
+    let location = {
+      address_name: address_name,
+      address: result,
+    }
+    return location;
   };
 
   const handleSubmit = () => {
     const location = getLocation();
     if (location) {
       console.log(location);
-      nav.navigate("AddressSelect");
+      addLocation(location);
+      nav.goBack();
     }
   };
 
@@ -105,6 +111,7 @@ const LocationRegister = () => {
         <View className="mx-4 flex">
           <Text className="mx-4"> Đặt tên cho vị trí này</Text>
           <TextInput
+          onChange={(e) => setAddress_name(e.nativeEvent.text)}
             mode="flat"
             style={{  marginHorizontal: 10 ,backgroundColor:'transparent'}}
           />
