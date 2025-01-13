@@ -44,8 +44,8 @@ const Login = () => {
             if (access_token && refresh_token) {
               await storeTokens(access_token, refresh_token);
               const result = await userService.setSession(access_token, refresh_token);
-              if (result){
-                nav.navigate("PhoneNumber");
+              if (result) {
+                nav.navigate("BottomTabNavigator");
               }
             } else {
               console.error("No access token found in the response");
@@ -65,11 +65,8 @@ const Login = () => {
   useEffect(() => {
     const handleExitToken = async () => {
       const tokens = await getTokens();
+      console.log(tokens);
       if (tokens) {
-        const newTokens = await userService.refreshToken(tokens.refresh_token);
-        if (newTokens) {
-          await storeTokens(newTokens.access_token, newTokens.refresh_token);
-        }
         nav.navigate("BottomTabNavigator")
       }
     }
