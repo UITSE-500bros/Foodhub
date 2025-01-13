@@ -53,8 +53,12 @@ export default function RootStack() {
         headerShown: false,
       }}
       />
-      <Stack.Screen name="Return" component={Return} />
-      <Stack.Screen name="Error" component={Error} />
+      <Stack.Screen name="Return" component={Return} options={{
+        headerShown: false,
+      }}/>
+      <Stack.Screen name="Error" component={Error} options={{
+        headerShown: false,
+      }}/>
       <Stack.Screen name="Search" component={Search} />
       <Stack.Screen name='MyDetails' component={MyDetails}/>
       <Stack.Screen name= 'Orders' component={Orders}/>
