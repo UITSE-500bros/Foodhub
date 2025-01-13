@@ -18,13 +18,14 @@ import Search from "../screens/Search";
 import Survey from "../screens/Survey";
 import Coupons from "../screens/Coupons/Coupons";
 import Return from "../screens/Cart/Return";
+import Login from "../screens/Login";
 
 const Stack = createStackNavigator<RootStackParamList>();
 
 export default function RootStack() {
   return (
     <Stack.Navigator>
-      {/* <Stack.Screen name="Login" component={Login} /> */}
+      <Stack.Screen name="Login" component={Login} />
       <Stack.Screen
       options={{
         headerShown: false,

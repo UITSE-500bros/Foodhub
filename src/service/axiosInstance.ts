@@ -14,8 +14,8 @@ const axiosInstance = axios.create({
 axiosInstance.interceptors.request.use(
     async (config) => {
       const tokens = await getTokens();
-      if (tokens && tokens.accessToken) {
-        config.headers.Authorization = `Bearer ${tokens.accessToken}`;
+      if (tokens && tokens.access_token) {
+        config.headers.Authorization = `Bearer ${tokens.access_token}`;
       }
       return config;
     },
@@ -31,18 +31,19 @@ axiosInstance.interceptors.response.use(
         originalRequest._retry = true;
   
         const tokens = await getTokens();
-        if (tokens && tokens.refreshToken) {
+        if (tokens && tokens.refresh_token) {
           try {
             // Attempt to refresh the token
-            const response = await axios.post('https://your-api-base-url.com/auth/refresh', {
-              refreshToken: tokens.refreshToken,
+            const response = await axiosInstance.post('user/refreshToken', {
+              refresh_token: tokens.refresh_token,
             });
+            console.log("Refreshed token:", response.data);
   
-            const { accessToken, refreshToken } = response.data;
-            await storeTokens(accessToken, refreshToken);
+            const { access_token, refresh_token } = response.data;
+            await storeTokens(access_token, refresh_token);
   
             // Update the Authorization header and retry the request
-            originalRequest.headers.Authorization = `Bearer ${accessToken}`;
+            originalRequest.headers.Authorization = `Bearer ${access_token}`;
             return axiosInstance(originalRequest);
           } catch (refreshError) {
             // Handle refresh failure (e.g., log out the user)

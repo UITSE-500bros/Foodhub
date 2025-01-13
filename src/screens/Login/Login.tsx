@@ -1,15 +1,16 @@
 import { useNavigation } from "@react-navigation/native";
 import { Button } from "@rneui/themed";
-import React from "react";
+import React, { useEffect } from "react";
 import { Image, Text, View } from "react-native";
-import { LoginScreenNavigationProp } from "../../../type";
+import { HomeScreenNavigationProp, LoginScreenNavigationProp } from "../../../type";
 import { makeRedirectUri } from "expo-auth-session";
 import * as QueryParams from "expo-auth-session/build/QueryParams";
 import * as WebBrowser from "expo-web-browser";
 import * as Linking from "expo-linking";
 import * as SecureStore from 'expo-secure-store';
 import { API_URL } from "@env";
-import { storeTokens } from "../../service/tokenEncrypted";
+import { getTokens, storeTokens } from "../../service/tokenEncrypted";
+import userService from "../../service/user.service";
 
 WebBrowser.maybeCompleteAuthSession();
 const Login = () => {
@@ -39,10 +40,13 @@ const Login = () => {
 
             if (errorCode) throw new Error(errorCode);
             const { access_token, refresh_token } = params;
-
+            console.log(access_token, refresh_token);
             if (access_token && refresh_token) {
               await storeTokens(access_token, refresh_token);
-              nav.navigate("PhoneNumber");
+              const result = await userService.setSession(access_token, refresh_token);
+              if (result){
+                nav.navigate("PhoneNumber");
+              }
             } else {
               console.error("No access token found in the response");
             }
@@ -58,7 +62,19 @@ const Login = () => {
     }
   };
 
-  const url = Linking.createURL("login");
+  useEffect(() => {
+    const handleExitToken = async () => {
+      const tokens = await getTokens();
+      if (tokens) {
+        const newTokens = await userService.refreshToken(tokens.refresh_token);
+        if (newTokens) {
+          await storeTokens(newTokens.access_token, newTokens.refresh_token);
+        }
+        nav.navigate("BottomTabNavigator")
+      }
+    }
+    handleExitToken();
+  }, []);
 
   return (
     <View className="h-full w-full">

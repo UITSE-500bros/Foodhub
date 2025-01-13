@@ -35,6 +35,19 @@ class UserService {
         // const responseData = await response.json();
         return response.data;
     }
+    async setSession(accessToken: string, refreshToken: string) {
+        const response = await axiosInstance.post("/user/getToken", {
+            access_token: accessToken,
+            refresh_token: refreshToken,
+        });
+        return response.data;
+    }
+    async refreshToken(refreshToken: string) {
+        const response = await axiosInstance.post("/user/refreshToken", {
+            refresh_token: refreshToken,
+        });
+        return response.data;
+    }
 }
 const userService = new UserService();
 export default userService;

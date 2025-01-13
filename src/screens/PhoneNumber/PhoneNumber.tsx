@@ -10,6 +10,7 @@ import {
   Keyboard,
 } from "react-native";
 import { IconButton, TextInput as PaperTextInput } from "react-native-paper";
+import * as SecureStore from 'expo-secure-store';
 import { PhoneNumberScreenNavigationProp } from "../../../type";
 import axiosInstance from "../../service/axiosInstance";
 
@@ -31,7 +32,6 @@ const PhoneNumber = () => {
       nav.navigate("OTP")
     }
   };
-
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
       <KeyboardAvoidingView
