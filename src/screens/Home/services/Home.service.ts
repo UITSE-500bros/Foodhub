@@ -24,8 +24,6 @@ export const getBannerImagesApi = async () => {
       bucketName: 'banners'
       }
     });
-
-    
     return response.data;
   } catch (error) {
     console.error(error);

@@ -1,16 +1,55 @@
-import { View, Text, useWindowDimensions, TouchableOpacity } from "react-native";
-import React from "react";
+import {
+  View,
+  Text,
+  useWindowDimensions,
+  TouchableOpacity,
+} from "react-native";
+import React, { useEffect, useState } from "react";
 import Active from "./Active";
 import Completed from "./Completed";
 import Canceled from "./Canceled";
 import { TabView, SceneMap } from "react-native-tab-view";
+import Product from "../../models/Product";
+import axiosInstance from "../../service/axiosInstance";
+type Order = {
+  id: string;
+  created_at: string;
+  updated_at: string;
+  total: number;
+  product_list: Product[];
+  delivery_address: string;
+  transaction_status: string;
+  order_state: string;
+};
+export type OrdersProps = {
+  orders: Order[];
+};
 export default function Orders() {
   const [index, setIndex] = React.useState(0);
   const layout = useWindowDimensions();
+  const [orders, setOrders] = useState<Order[]>([]);
+  const fetchOrders = async () => {
+    try {
+      const response = await axiosInstance.get("/order");
+      setOrders(response.data);
+    } catch {
+      console.error("error fetch order", orders);
+    }
+  };
+  useEffect(() => {
+    fetchOrders();
+  }, []);
+  console.log(orders);
+  
+  const activeOrders = orders.filter(order => order.order_state === "Active");
+  const completedOrders = orders.filter(order => order.order_state === "Completed");
+  const canceledOrders = orders.filter(order => order.order_state === "Canceled");
+  
+
   const renderScene = SceneMap({
-    active: Active,
-    completed: Completed,
-    canceled: Canceled,
+    active: () => <Active orders={activeOrders} />,
+    completed: () => <Completed orders={completedOrders} />,
+    canceled: () => <Canceled orders={canceledOrders} />,
   });
   const routes = [
     { key: "active", title: "Active" },

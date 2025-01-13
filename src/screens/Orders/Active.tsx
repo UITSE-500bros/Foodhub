@@ -1,39 +1,21 @@
-import { View, Text, Image, TouchableOpacity } from "react-native";
+import { View, Text, Image, FlatList } from "react-native";
 import React from "react";
-import { data } from "./data";
-import ProductDetail from "../../models/ProductDetail";
-import { ProductCard } from "../../components";
-import { Icon } from "@rneui/base";
-import { FlatList } from "react-native-gesture-handler";
+import { OrdersProps } from "./Orders";
+import OrderDetail from "./OrderDetail";
 
-
-export default function Active() {
+export default function Active({ orders }: OrdersProps) {
   return (
-    <View>
-      <FlatList
-        data={data}
-        keyExtractor={(item) => item.id.toString()}
-        renderItem={({ item }) => (
-          
-          <View className=" flex flex-row  items-center mx-2 mb-[25]">
-          <Image
-            source={{ uri: item.product_image }}
-            className=" w-[80px] h-[80px] rounded-lg resize-stretch mr-[33]"
-          />
-          <View className="flex justify-start items-start py-1 mr-4">
-            <Text className=" overflow-hidden text-start max-w-[165px] text-base mb-1 font-extrabold text-[#181725] ">
-              {item.product_name}
-            </Text>
-            <Text >{item.product_price}</Text>
-          </View>
-          {/* <TouchableOpacity className=" flex flex-row items-center">
-            <Text>Track</Text>
-            <Icon name="chevron-right" size={20} color="#7C7C7C" />
-          </TouchableOpacity> */}
+    <FlatList
+      data={orders}
+      keyExtractor={(item) => item.id.toString()}
+      contentContainerStyle={{ padding: 10 }}
+      renderItem={({ item }) => (
+        <View className="bg-white p-4 rounded-lg mb-4 shadow-md">
+          <Text className="text-sm text-gray-500 mb-2">Order Date: {item.created_at}</Text>
+          <Text className="text-lg font-bold text-gray-800 mb-4">Status: {item.transaction_status}</Text>
+          <OrderDetail products={item.product_list} />
         </View>
-        )}
-      />
-        
-    </View>
+      )}
+    />
   );
 }

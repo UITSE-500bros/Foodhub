@@ -1,6 +1,7 @@
 import { StackNavigationProp } from "@react-navigation/stack";
 
 import { RouteProp } from "@react-navigation/native";
+import Product from "./src/models/Product";
 
 export type RootStackParamList = {
   Home: undefined;
@@ -24,6 +25,7 @@ export type RootStackParamList = {
   AddressSelect: undefined;
   Error: undefined;
   Return: { queryParams: any };
+  Review: {product: Product}
 };
 export type ErrorScreenNavigationProp = StackNavigationProp<RootStackParamList,"Error">;
 export type AcceptedScreenNavigationProp = StackNavigationProp<

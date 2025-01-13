@@ -18,10 +18,10 @@ const ImageCarousel = () => {
     };
     fetchImages();
   }, []);
-  console.log(data);
+
   
 
-  if (data.length === 0) {
+  if (data === undefined) {
     return (
       <View className="w-full m-5  ">
         <Skeleton height={115} width={width} />
