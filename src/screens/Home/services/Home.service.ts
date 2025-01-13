@@ -52,4 +52,15 @@ export const getRecommendedProductsApi = async (product_id: string) => {
   } catch (error) {
     console.error(error);
   }
-}; 
+};
+export const getRecommen = async () => {
+  let url = `${API_URL}/recombee`;
+
+  try {
+    const response = await axiosInstance.get(url );
+    console.log(response);
+    return response.data;
+  } catch (error) {
+    console.error(error);
+  }
+}

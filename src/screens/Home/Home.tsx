@@ -10,6 +10,7 @@ import {
   getBestSellerProductsApi,
   getExclusiveOfferProductsApi,
   getNewArrivalProductsApi,
+  getRecommen,
 } from "./services/Home.service";
 import { useSearchStore } from "../Search/SearchStore";
 import { HomeScreenNavigationProp } from "../../../type";
@@ -24,6 +25,7 @@ const Home = () => {
     exclusiveOffer: [],
     newArrivals: [],
     bestSellers: [],
+    recommen: []
   });
   const [searchQuery, setSearchQueryLocal] = React.useState("");
   const navigation = useNavigation();
@@ -36,7 +38,7 @@ const Home = () => {
     setSearchQueryLocal(query);
   };
   const fetchFavorite = useFavoriteStore((state) => state.fetchFavorite);
-  const { locations,fetchLocation} = useLocationStore()
+  const { locations, fetchLocation } = useLocationStore()
 
 
   useEffect(() => {
@@ -44,11 +46,18 @@ const Home = () => {
       const newArrivals = await getNewArrivalProductsApi();
       const bestSellers = await getBestSellerProductsApi();
       const exclusiveOffer = await getExclusiveOfferProductsApi();
-      setProducts({ newArrivals, bestSellers, exclusiveOffer });
+      const recommen = await getRecommen();
+      setProducts({ newArrivals, bestSellers, exclusiveOffer, recommen });
+
+
     };
     fetchProducts();
     fetchFavorite();
     fetchLocation();
+
+    console.log(locations)
+
+
   }, []);
 
 
@@ -59,10 +68,10 @@ const Home = () => {
           source={require("../../../assets/logo.png")}
           className="w-[30px] h-[30px] "
         />
-        <View className="flex flex-row items-center justify-center m-3 ">
-          <Icon name="location-on" size={15} color="#181725" />
+        <View className="flex flex-row items-start justify-center my-3 mx-7 ">
+          <Icon name="location-on" size={30} color="#181725" />
           <Text className="  text-[#4C4F4D] text-center text-lg font-semibold ">
-            Linh Trung, Thủ Đức
+            {locations[0]?.address}
           </Text>
         </View>
       </View>
@@ -72,13 +81,14 @@ const Home = () => {
         searchQuery={searchQuery}
         onSubmit={handleSubmit}
         onChangeSearch={onQueryChange}
-        onSearchResults={() => {}}
+        onSearchResults={() => { }}
       />
       {/* image carousel */}
       <ImageCarousel />
 
       {/* product cards */}
       <View className="w-full  mt-4">
+        <ProductCarousel products={products.newArrivals} title="Gợi ý hôm nay" />
         <ProductCarousel
           products={products.exclusiveOffer}
           title="Ưu Đãi Độc Quyền"
