@@ -182,7 +182,6 @@ const Cart: React.FC = () => {
   const location = locations[0]?.address;
 
   useEffect(() => {
-    useCartStore.getState().getCart();
     setTotal(useCartStore.getState().total);
     
   }, []);

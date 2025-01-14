@@ -16,6 +16,7 @@ import { useSearchStore } from "../Search/SearchStore";
 import { HomeScreenNavigationProp } from "../../../type";
 import { useFavoriteStore } from "../Favorite/FavoriteStore";
 import useLocationStore from "../LocationRegister/Store/LocationStore";
+import useCartStore from "../Cart/store/CartStore";
 
 const Home = () => {
   const nav = useNavigation<HomeScreenNavigationProp>();
@@ -54,6 +55,7 @@ const Home = () => {
     fetchProducts();
     fetchFavorite();
     fetchLocation();
+    useCartStore.getState().getCart();
   }, []);
 
   return (
