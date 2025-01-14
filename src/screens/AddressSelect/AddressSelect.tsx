@@ -17,36 +17,34 @@ export default function AddressSelect() {
   const nav = useNavigation<ProfileScreenNavigationProp>();
   const { locations, addLocation } = useLocationStore();
 
-  
-
-
   return (
     <SafeAreaView className="flex flex-col items-center p-5 bg-[#f9f9f9] h-full">
-      {locations.map((item, index) => (
-        <View
-          key={index}
-          className="flex flex-row items-center justify-between p-5"
-        >
-          <Icon name="map-pin" size={24} type="feather" color="#D2691E" />
-          <View className="flex flex-col ml-3 flex-1">
-            <Text className="text-base font-semibold ">
-              {item.address_name}
-            </Text>
-            <Text className="text-">{item.address}</Text>
+      {Array.isArray(locations) &&
+        locations.map((item, index) => (
+          <View
+            key={index}
+            className="flex flex-row items-center justify-between p-5"
+          >
+            <Icon name="map-pin" size={24} type="feather" color="#D2691E" />
+            <View className="flex flex-col ml-3 flex-1">
+              <Text className="text-base font-semibold ">
+                {item.address_name}
+              </Text>
+              <Text className="text-">{item.address}</Text>
+            </View>
+            <RadioButton
+              value={index + ""}
+              status={checked === index ? "checked" : "unchecked"}
+              onPress={() => {
+                setChecked(index);
+                setSelectedLocation({
+                  address: item.address,
+                  address_name: item.address_name,
+                });
+              }}
+            />
           </View>
-          <RadioButton
-            value={index + ""}
-            status={checked === index ? "checked" : "unchecked"}
-            onPress={() => {
-              setChecked(index);
-              setSelectedLocation({
-                address: item.address,
-                address_name: item.address_name,
-              });
-            }}
-          />
-        </View>
-      ))}
+        ))}
       <TouchableOpacity
         onPress={() => nav.navigate("LocationRegister")}
         className="flex rounded-md border w-full border-gray-400 flex-row items-center justify-center p-5"
