@@ -37,7 +37,10 @@ const LocationRegister = () => {
   useEffect(() => {
     const getAllProvince = async () => {
       getAllProvincesApi()
-        .then((res) => setProvinces(res.data))
+        .then((res) => {  
+          console.log(res);
+          setProvinces(res);
+        })
         .catch((err) => console.error(err));
     };
     getAllProvince();
